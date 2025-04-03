@@ -10,6 +10,14 @@ const defaultCollectionLabels = {
     plural: 'Posts',
     singular: 'Post',
   },
+  dogs: {
+    plural: 'Ejemplares',
+    singular: 'Ejemplar',
+  },
+  puppies: {
+    plural: 'Cachorros',
+    singular: 'Cachorro',
+  },
 }
 
 export const PageRange: React.FC<{

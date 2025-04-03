@@ -3,6 +3,7 @@ import type { CollectionConfig } from 'payload'
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
 import { slugField } from '@/fields/slug'
+import { collectionAccess } from '../access/hideFromEditor'
 
 export const Categories: CollectionConfig = {
   slug: 'categories',
@@ -14,6 +15,7 @@ export const Categories: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
+    hidden: ({ user }) => !collectionAccess('categories')({ user }),
   },
   fields: [
     {

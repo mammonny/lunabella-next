@@ -8,9 +8,9 @@ import {
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
-
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
+import { collectionAccess } from '../../access/hideFromEditor'
 import { Banner } from '../../blocks/Banner/config'
 import { Code } from '../../blocks/Code/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
@@ -49,6 +49,7 @@ export const Posts: CollectionConfig<'posts'> = {
   },
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
+    hidden: ({ user }) => !collectionAccess('posts')({ user }),
     livePreview: {
       url: ({ data, req }) => {
         const path = generatePreviewPath({

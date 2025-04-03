@@ -69,6 +69,9 @@ export interface Config {
   collections: {
     pages: Page;
     posts: Post;
+    breeds: Breed;
+    dogs: Dog;
+    puppies: Puppy;
     media: Media;
     categories: Category;
     users: User;
@@ -85,6 +88,9 @@ export interface Config {
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    breeds: BreedsSelect<false> | BreedsSelect<true>;
+    dogs: DogsSelect<false> | DogsSelect<true>;
+    puppies: PuppiesSelect<false> | PuppiesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -374,6 +380,10 @@ export interface Category {
 export interface User {
   id: number;
   name?: string | null;
+  /**
+   * Selecciona el rol del usuario. Los editores solo pueden acceder a Dogs y Breeds.
+   */
+  roles?: ('admin' | 'editor') | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -729,6 +739,215 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "breeds".
+ */
+export interface Breed {
+  id: number;
+  name: string;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  mainImage: number | Media;
+  gallery?:
+    | {
+        image: number | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  characteristics?:
+    | {
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  temperament?:
+    | {
+        trait: string;
+        id?: string | null;
+      }[]
+    | null;
+  size?: ('very_small' | 'small' | 'medium' | 'large' | 'very_large') | null;
+  lifeExpectancy?: string | null;
+  weight?: {
+    min?: number | null;
+    max?: number | null;
+  };
+  height?: {
+    min?: number | null;
+    max?: number | null;
+  };
+  careInstructions?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  groomingNeeds?: ('low' | 'moderate' | 'high' | 'very_high') | null;
+  exerciseNeeds?: ('low' | 'moderate' | 'high' | 'very_high') | null;
+  healthConsiderations?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    image?: (number | null) | Media;
+  };
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "dogs".
+ */
+export interface Dog {
+  id: number;
+  name: string;
+  breed: number | Breed;
+  gender: 'male' | 'female';
+  birthDate: string;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  mainImage: number | Media;
+  gallery?:
+    | {
+        image: number | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  color: string;
+  weight: number;
+  height: number;
+  specialFeatures?:
+    | {
+        feature: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  pedigreeNumber?: string | null;
+  pedigreeDocument?: (number | null) | Media;
+  parents?: {
+    father?: string | null;
+    mother?: string | null;
+  };
+  breeder?: string | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "puppies".
+ */
+export interface Puppy {
+  id: number;
+  name: string;
+  breed: number | Breed;
+  gender: 'male' | 'female';
+  price: number;
+  disponibilidad: 'available' | 'reserved' | 'sold';
+  parents?: {
+    father?: (number | null) | Dog;
+    mother?: (number | null) | Dog;
+  };
+  birthDate: string;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  mainImage: number | Media;
+  gallery?:
+    | {
+        image: number | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  color: string;
+  weight: number;
+  specialFeatures?:
+    | {
+        feature: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -906,6 +1125,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: number | Post;
+      } | null)
+    | ({
+        relationTo: 'breeds';
+        value: number | Breed;
+      } | null)
+    | ({
+        relationTo: 'dogs';
+        value: number | Dog;
+      } | null)
+    | ({
+        relationTo: 'puppies';
+        value: number | Puppy;
       } | null)
     | ({
         relationTo: 'media';
@@ -1149,6 +1380,152 @@ export interface PostsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "breeds_select".
+ */
+export interface BreedsSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  mainImage?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  characteristics?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  temperament?:
+    | T
+    | {
+        trait?: T;
+        id?: T;
+      };
+  size?: T;
+  lifeExpectancy?: T;
+  weight?:
+    | T
+    | {
+        min?: T;
+        max?: T;
+      };
+  height?:
+    | T
+    | {
+        min?: T;
+        max?: T;
+      };
+  careInstructions?: T;
+  groomingNeeds?: T;
+  exerciseNeeds?: T;
+  healthConsiderations?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "dogs_select".
+ */
+export interface DogsSelect<T extends boolean = true> {
+  name?: T;
+  breed?: T;
+  gender?: T;
+  birthDate?: T;
+  description?: T;
+  mainImage?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  color?: T;
+  weight?: T;
+  height?: T;
+  specialFeatures?:
+    | T
+    | {
+        feature?: T;
+        description?: T;
+        id?: T;
+      };
+  pedigreeNumber?: T;
+  pedigreeDocument?: T;
+  parents?:
+    | T
+    | {
+        father?: T;
+        mother?: T;
+      };
+  breeder?: T;
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "puppies_select".
+ */
+export interface PuppiesSelect<T extends boolean = true> {
+  name?: T;
+  breed?: T;
+  gender?: T;
+  price?: T;
+  disponibilidad?: T;
+  parents?:
+    | T
+    | {
+        father?: T;
+        mother?: T;
+      };
+  birthDate?: T;
+  description?: T;
+  mainImage?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  color?: T;
+  weight?: T;
+  specialFeatures?:
+    | T
+    | {
+        feature?: T;
+        description?: T;
+        id?: T;
+      };
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
@@ -1266,6 +1643,7 @@ export interface CategoriesSelect<T extends boolean = true> {
  */
 export interface UsersSelect<T extends boolean = true> {
   name?: T;
+  roles?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
