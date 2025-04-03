@@ -18,9 +18,9 @@ export const dynamic = 'force-static'
 export const revalidate = 600
 
 // Definir el tipo para los parámetros de la página
-// Usar un tipo más genérico para evitar problemas de compatibilidad
+// Reflejar la naturaleza dual (síncrona/asíncrona) de params en Next.js 15
 type Args = {
-  params: any
+  params: { slug: string } | Promise<{ slug: string }>
 }
 
 // Función para obtener datos del cachorro por slug
