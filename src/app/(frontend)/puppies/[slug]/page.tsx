@@ -17,10 +17,10 @@ import React, { cache } from 'react'
 export const dynamic = 'force-static'
 export const revalidate = 600
 
+// Definir el tipo para los parámetros de la página
+// Usar un tipo más genérico para evitar problemas de compatibilidad
 type Args = {
-  params: {
-    slug: string
-  }
+  params: any
 }
 
 // Función para obtener datos del cachorro por slug
@@ -44,7 +44,13 @@ const queryPuppyBySlug = cache(async ({ slug }: { slug: string }) => {
 })
 
 export default async function Page({ params }: Args) {
-  const slug = params.slug
+  // Asegurarse de que params.slug existe
+  const slug =
+    params && typeof params === 'object' && 'slug' in params ? (params.slug as string) : ''
+
+  if (!slug) {
+    return notFound()
+  }
 
   try {
     const payload = await getPayload({ config: configPromise })
@@ -510,8 +516,16 @@ export default async function Page({ params }: Args) {
 }
 
 export async function generateMetadata({ params }: Args): Promise<Metadata> {
-  // Asegurarse de que params esté disponible antes de desestructurar
-  const slug = params.slug
+  // Asegurarse de que params.slug existe
+  const slug =
+    params && typeof params === 'object' && 'slug' in params ? (params.slug as string) : ''
+
+  if (!slug) {
+    return {
+      title: 'Cachorro no encontrado',
+    }
+  }
+
   const payload = await getPayload({ config: configPromise })
 
   try {
