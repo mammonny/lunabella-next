@@ -43,8 +43,8 @@ export default async function Page() {
         <div className="prose dark:prose-invert max-w-none">
           <h1>Cachorros en Venta</h1>
           <p>
-            Explora nuestra selección de cachorros disponibles para adopción. Cada cachorro viene
-            con pedigrí completo y todas las vacunas necesarias.
+            Explora nuestra selección de cachorros disponibles para compra. Cada cachorro viene con
+            pedigrí completo y todas las vacunas necesarias.
           </p>
         </div>
       </div>
