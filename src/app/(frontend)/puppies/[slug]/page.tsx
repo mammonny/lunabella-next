@@ -18,9 +18,9 @@ export const dynamic = 'force-static'
 export const revalidate = 600
 
 // Definir el tipo para los parámetros de la página
-// Reflejar la naturaleza dual (síncrona/asíncrona) de params en Next.js 15
+// En Next.js 15, params debe ser una promesa o undefined
 type Args = {
-  params: { slug: string } | Promise<{ slug: string }>
+  params: Promise<{ slug: string }> | undefined
 }
 
 // Función para obtener datos del cachorro por slug
@@ -44,9 +44,13 @@ const queryPuppyBySlug = cache(async ({ slug }: { slug: string }) => {
 })
 
 export default async function Page({ params }: Args) {
-  // Asegurarse de que params.slug existe
-  const slug =
-    params && typeof params === 'object' && 'slug' in params ? (params.slug as string) : ''
+  // Si params es undefined, redirigir a 404
+  if (!params) {
+    return notFound()
+  }
+
+  // Obtener el slug de forma asíncrona
+  const { slug } = await params
 
   if (!slug) {
     return notFound()
@@ -516,9 +520,15 @@ export default async function Page({ params }: Args) {
 }
 
 export async function generateMetadata({ params }: Args): Promise<Metadata> {
-  // Asegurarse de que params.slug existe
-  const slug =
-    params && typeof params === 'object' && 'slug' in params ? (params.slug as string) : ''
+  // Si params es undefined, devolver un título genérico
+  if (!params) {
+    return {
+      title: 'Cachorro no encontrado',
+    }
+  }
+
+  // Obtener el slug de forma asíncrona
+  const { slug } = await params
 
   if (!slug) {
     return {
