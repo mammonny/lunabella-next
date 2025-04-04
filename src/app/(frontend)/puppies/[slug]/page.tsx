@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import { Home } from 'lucide-react' // Iconos movidos a WhyChooseUsSection
+import { Home, Dog, Info, CalendarDays } from 'lucide-react' // Añadir iconos para botones
 
 import { Media } from '@/components/Media'
 import { Breadcrumbs } from '@/components/ui/breadcrumb'
@@ -169,24 +169,31 @@ export default async function Page({ params }: Args) {
             {
               label: 'Cachorros',
               href: '/puppies',
+              icon: <Dog className="h-4 w-4" />, // Añadir icono Dog
             },
             {
               label: name || 'Cachorro',
             },
           ]}
         />
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-24">
+          {' '}
+          {/* Aumentado gap a 24 */} {/* Aumentado gap aún más (a 16) */}{' '}
+          {/* Aumentado gap en pantallas grandes */}
           {/* Imágenes del Cachorro */}
-          <div className="w-full lg:w-3/5">
+          <div className="w-full lg:w-1/2">
+            {' '}
+            {/* Reducido de 3/5 a 1/2 */}
             <PuppyGallery
               mainImage={mainImage}
               gallery={gallery || []}
               puppyName={name || 'Cachorro'}
             />
           </div>
-
           {/* Información del Cachorro */}
-          <div className="w-full lg:w-2/5">
+          <div className="w-full lg:w-1/2">
+            {' '}
+            {/* Ajustado de 2/5 a 1/2 */}
             <div className="flex justify-between items-start">
               <div>
                 <Badge className={`mb-2 ${statusBgColor}`}>{statusText}</Badge>
@@ -207,11 +214,9 @@ export default async function Page({ params }: Args) {
                 />
               </div>
             </div>
-
             <div className="text-3xl font-bold mb-6">
               {price?.toLocaleString('es-ES') || 'Consultar'} €
             </div>
-
             <Tabs defaultValue="detalles" className="mb-6">
               <TabsList className="grid grid-cols-3 mb-4">
                 <TabsTrigger value="detalles">Detalles</TabsTrigger>
@@ -299,10 +304,20 @@ export default async function Page({ params }: Args) {
                 </div>
               </TabsContent>
             </Tabs>
-
             <div className="space-y-4">
-              <Button className="w-full">Solicitar información</Button>
-              <Button variant="outline" className="w-full">
+              <Button className="w-full inline-flex items-center justify-center gap-2">
+                {' '}
+                {/* Añadido flex y gap */}
+                <Info className="h-4 w-4" /> {/* Icono Info */}
+                Solicitar información
+              </Button>
+              <Button
+                variant="outline"
+                className="w-full inline-flex items-center justify-center gap-2"
+              >
+                {' '}
+                {/* Añadido flex y gap */}
+                <CalendarDays className="h-4 w-4" /> {/* Icono CalendarDays */}
                 Agendar visita
               </Button>
               <p className="text-sm text-muted-foreground text-center">
