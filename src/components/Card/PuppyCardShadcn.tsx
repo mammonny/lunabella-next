@@ -64,66 +64,82 @@ export const PuppyCardShadcn: React.FC<{
   return (
     <Card
       className={cn(
-        'overflow-hidden hover:shadow-lg transition-shadow hover:cursor-pointer',
+        'overflow-hidden hover:shadow-lg transition-shadow hover:cursor-pointer flex flex-col h-full', // Añadido flex flex-col h-full
         className,
       )}
       // @ts-ignore - Ignoramos el error de tipo ya que sabemos que es compatible
       ref={card.ref}
     >
-      <div className="relative h-48 w-full">
+      {/* Imagen */}
+      <div className="relative aspect-square w-full overflow-hidden">
+        {' '}
+        {/* Cambiado a aspect-square */}
         {!mainImage && (
-          <div className="h-48 bg-gray-800 dark:bg-gray-800 flex items-center justify-center">
-            No image
+          <div className="aspect-square bg-muted flex items-center justify-center text-muted-foreground">
+            Sin imagen
           </div>
         )}
         {mainImage && typeof mainImage !== 'string' && (
-          <div className="relative w-full h-full overflow-hidden">
-            <Media resource={mainImage} size="thumbnail" className="h-full w-full object-fill" />
-            <div className="absolute top-2 right-2">
-              {genderText && (
-                <Badge
-                  variant="secondary"
-                  className={
-                    gender === 'male'
-                      ? 'bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700'
-                      : 'bg-pink-500 hover:bg-pink-600 dark:bg-pink-600 dark:hover:bg-pink-700'
-                  }
-                >
-                  {genderText}
-                </Badge>
-              )}
-            </div>
-            {statusText && (
-              <Badge
-                variant="secondary"
-                className={`absolute top-2 left-2 ${statusColor} hover:${statusColor}`}
-              >
-                {statusText}
-              </Badge>
-            )}
-          </div>
+          <Media
+            resource={mainImage}
+            size="card" // Usar un tamaño adecuado si está definido, si no, ajustar
+            className="h-full w-full object-cover" // object-cover para llenar el aspect-square
+            priority // Priorizar carga si es LCP
+          />
         )}
       </div>
 
-      <CardHeader className="pb-2">
-        <CardTitle className="text-xl">
-          <Link href={href} ref={link.ref as any}>
+      {/* Contenido - Añadido flex-grow para empujar el footer hacia abajo */}
+      <div className="flex flex-col flex-grow p-4 space-y-2">
+        {' '}
+        {/* Padding general y espacio */}
+        {/* Badge de Disponibilidad */}
+        {statusText && (
+          <Badge
+            variant="secondary"
+            className={`w-fit ${statusColor} hover:${statusColor}`} // w-fit para ajustar al contenido
+          >
+            {statusText}
+          </Badge>
+        )}
+        {/* Nombre (Enlace) */}
+        <CardTitle className="text-lg font-semibold leading-tight">
+          {' '}
+          {/* Tamaño ajustado */}
+          <Link
+            href={href}
+            ref={link.ref as any}
+            className="hover:underline focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-sm"
+          >
             {name}
           </Link>
         </CardTitle>
-      </CardHeader>
-
-      <CardContent className="pb-2">
-        {showBreed && breedName && (
-          <p className="text-sm text-muted-foreground">
-            <span className="font-medium">Raza:</span> {breedName}
+        {/* Raza y Género */}
+        <div className="text-sm text-muted-foreground space-y-1">
+          {showBreed && breedName && (
+            <p>
+              <span className="font-medium">Raza:</span> {breedName}
+            </p>
+          )}
+          {genderText && (
+            <p>
+              <span className="font-medium">Sexo:</span> {genderText}
+              {/* Opcional: Usar un badge pequeño para el género */}
+              {/* <Badge variant={gender === 'male' ? 'default' : 'destructive'} className="ml-2 scale-90">{genderText}</Badge> */}
+            </p>
+          )}
+        </div>
+        {/* Empujador para el Footer */}
+        <div className="flex-grow" />
+        {/* Precio */}
+        <div className="pt-2">
+          {' '}
+          {/* Espacio antes del precio */}
+          <p className="text-xl font-bold text-primary">
+            {price > 0 ? `${price.toLocaleString('es-ES')} €` : 'Consultar'}
           </p>
-        )}
-      </CardContent>
-
-      <CardFooter>
-        <p className="text-lg font-bold text-primary">{price.toLocaleString('es-ES')} €</p>
-      </CardFooter>
+        </div>
+      </div>
     </Card>
   )
 }

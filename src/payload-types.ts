@@ -902,6 +902,7 @@ export interface Puppy {
   gender: 'male' | 'female';
   price: number;
   disponibilidad: 'available' | 'reserved' | 'sold';
+  likes?: number | null;
   parents?: {
     father?: (number | null) | Dog;
     mother?: (number | null) | Dog;
@@ -1492,6 +1493,7 @@ export interface PuppiesSelect<T extends boolean = true> {
   gender?: T;
   price?: T;
   disponibilidad?: T;
+  likes?: T;
   parents?:
     | T
     | {

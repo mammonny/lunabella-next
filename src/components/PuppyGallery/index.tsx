@@ -110,32 +110,23 @@ export function PuppyGallery({
         )}
       </div>
 
-      {/* Galería de Miniaturas */}
-      <div className="grid grid-cols-4 gap-2">
-        {gallery && gallery.length > 0
-          ? gallery.slice(0, 4).map((item: any, index: number) => (
-              <div
-                key={index}
-                className="relative aspect-square bg-muted rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
-                onClick={() => {
-                  setInitialImageIndex(index + 1) // +1 porque la imagen principal es la primera
-                  setLightboxOpen(true)
-                }}
-              >
-                <Media resource={item.image} fill className="object-cover" />
-              </div>
-            ))
-          : Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="relative aspect-square bg-muted rounded-lg overflow-hidden">
-                <Image
-                  src={`/placeholder.svg?height=150&width=150`}
-                  alt={`Imagen ${i + 1} del cachorro`}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            ))}
-      </div>
+      {/* Galería de Miniaturas (solo si hay imágenes en la galería) */}
+      {gallery && gallery.length > 0 && (
+        <div className="grid grid-cols-4 gap-2">
+          {gallery.slice(0, 4).map((item: any, index: number) => (
+            <div
+              key={index}
+              className="relative aspect-square bg-muted rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
+              onClick={() => {
+                setInitialImageIndex(index + 1) // +1 porque la imagen principal es la primera
+                setLightboxOpen(true)
+              }}
+            >
+              <Media resource={item.image} fill size="square" className="object-cover" />
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Lightbox */}
       <ImageLightbox

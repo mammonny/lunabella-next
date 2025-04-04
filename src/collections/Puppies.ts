@@ -77,6 +77,15 @@ export const Puppies: CollectionConfig = {
       label: 'Estado',
     },
     {
+      name: 'likes',
+      type: 'number',
+      label: 'Me Gusta',
+      defaultValue: 0,
+      admin: {
+        readOnly: true, // Para que no se edite manualmente en el admin
+      },
+    },
+    {
       name: 'parents',
       type: 'group',
       label: 'Padres',

@@ -1,10 +1,11 @@
 import { cn } from '@/utilities/ui'
 import React from 'react'
 
-import { PuppyCardShadcn, CardPuppyData } from '@/components/Card/PuppyCardShadcn'
+import { PuppyCard } from '@/components/PuppyCard' // Importar la tarjeta original
+// import { PuppyCardShadcn, CardPuppyData } from '@/components/Card/PuppyCardShadcn' // Ya no usamos esta
 
 export type Props = {
-  puppies: CardPuppyData[]
+  puppies: any[] // Usar 'any' temporalmente o importar el tipo correcto si PuppyCard lo exporta
 }
 
 export const PuppiesArchive: React.FC<Props> = (props) => {
@@ -13,13 +14,15 @@ export const PuppiesArchive: React.FC<Props> = (props) => {
   return (
     <div className={cn('container')}>
       <div>
-        <div className="grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-12 gap-y-4 gap-x-4 lg:gap-y-8 lg:gap-x-8 xl:gap-x-8">
+        {/* Ajuste de grid para tarjetas más pequeñas en pantallas grandes */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+          {' '}
+          {/* Simplificado y ajustado para 4 columnas en lg */}
           {puppies?.map((result, index) => {
             if (typeof result === 'object' && result !== null) {
               return (
-                <div className="col-span-4" key={index}>
-                  <PuppyCardShadcn className="h-full" doc={result} relationTo="puppies" showBreed />
-                </div>
+                // El div contenedor ya no es necesario si el grid está en el padre directo
+                <PuppyCard key={index} puppy={result} className="h-full" />
               )
             }
 
