@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import { Heart, Share2, ArrowLeft, ArrowRight } from 'lucide-react'
+import { Heart, Share2, ArrowLeft, ArrowRight, Home } from 'lucide-react'
 
 import { Media } from '@/components/Media'
+import { Breadcrumbs } from '@/components/ui/breadcrumb'
 import { PuppyGallery } from '@/components/PuppyGallery'
 import { PuppyParentsTab } from '@/components/PuppyParentsTab'
 import RichText from '@/components/RichText'
@@ -150,6 +151,24 @@ export default async function Page({ params }: Args) {
 
     return (
       <div className="container mx-auto px-4 py-8">
+        {/* Breadcrumbs */}
+        <Breadcrumbs
+          className="mb-6"
+          items={[
+            {
+              label: 'Home',
+              href: '/',
+              icon: <Home className="h-4 w-4" />,
+            },
+            {
+              label: 'Cachorros',
+              href: '/puppies',
+            },
+            {
+              label: name || 'Cachorro',
+            },
+          ]}
+        />
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Imágenes del Cachorro */}
           <div className="w-full lg:w-3/5">
