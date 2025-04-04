@@ -78,7 +78,7 @@ export const PuppyCardShadcn: React.FC<{
         )}
         {mainImage && typeof mainImage !== 'string' && (
           <div className="relative w-full h-full overflow-hidden">
-            <Media resource={mainImage} size="" className="h-full w-full object-fill" />
+            <Media resource={mainImage} size="thumbnail" className="h-full w-full object-fill" />
             <div className="absolute top-2 right-2">
               {genderText && (
                 <Badge

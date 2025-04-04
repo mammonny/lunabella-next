@@ -36,7 +36,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   let src: StaticImageData | string = srcFromProps || ''
 
   if (!src && resource && typeof resource === 'object') {
-    const { alt: altFromResource, height: fullHeight, url, width: fullWidth } = resource
+    const { alt: altFromResource, height: fullHeight, url, width: fullWidth, sizes } = resource
 
     width = fullWidth!
     height = fullHeight!
@@ -44,7 +44,20 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
 
     const cacheTag = resource.updatedAt
 
-    src = `${getClientSideURL()}${url}?${cacheTag}`
+    // Si se proporciona un size y existe en sizes, usar esa versión
+    if (sizeFromProps && sizes) {
+      // Verificar si el tamaño solicitado existe en sizes
+      const sizeKey = sizeFromProps as keyof typeof sizes
+      if (sizes[sizeKey] && sizes[sizeKey]?.url) {
+        src = `${getClientSideURL()}${sizes[sizeKey]?.url}?${cacheTag}`
+      } else {
+        // Si el tamaño solicitado no existe en sizes, usar la URL original
+        src = `${getClientSideURL()}${url}?${cacheTag}`
+      }
+    } else {
+      // Si no se proporciona un size o no existe en sizes, usar la URL original
+      src = `${getClientSideURL()}${url}?${cacheTag}`
+    }
   }
 
   const loading = loadingFromProps || (!priority ? 'lazy' : undefined)

@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { Heart, Share2, ArrowLeft, ArrowRight } from 'lucide-react'
 
 import { Media } from '@/components/Media'
+import { PuppyGallery } from '@/components/PuppyGallery'
 import { PuppyParentsTab } from '@/components/PuppyParentsTab'
 import RichText from '@/components/RichText'
 import { Badge } from '@/components/ui/badge'
@@ -132,49 +133,31 @@ export default async function Page({ params }: Args) {
     // Generar un ID único para el cachorro
     const puppyId = `${breed?.name?.substring(0, 2).toUpperCase() || 'XX'}-${new Date(birthDate || '').getFullYear() || 'YYYY'}-${String(puppy.id).padStart(2, '0') || '00'}`
 
+    // Función para generar datos de camada de ejemplo si no existen
+    const generatePlaceholderLitter = (currentPuppyId: string | number, galleryImages?: any[]) => {
+      // Usar imágenes de la galería si están disponibles, o crear placeholders
+      const images =
+        galleryImages && galleryImages.length > 0
+          ? galleryImages.slice(0, 6).map((item) => item.image)
+          : Array(6).fill(null)
+
+      return Array.from({ length: 6 }).map((_, i) => ({
+        id: i === 0 ? currentPuppyId : `placeholder-${i}`,
+        image: images[i] || null,
+        isCurrentPuppy: i === 0,
+      }))
+    }
+
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Imágenes del Cachorro */}
           <div className="w-full lg:w-3/5">
-            <div className="relative aspect-square mb-4 bg-muted rounded-lg overflow-hidden">
-              {mainImage ? (
-                <Media resource={mainImage} fill className="object-cover" priority />
-              ) : (
-                <Image
-                  src="/placeholder.svg?height=600&width=600"
-                  alt={name || 'Cachorro'}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              )}
-            </div>
-            <div className="grid grid-cols-4 gap-2">
-              {gallery && gallery.length > 0
-                ? gallery.slice(0, 4).map((item: any, index: number) => (
-                    <div
-                      key={index}
-                      className="relative aspect-square bg-muted rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
-                    >
-                      <Media resource={item.image} fill className="object-cover" />
-                    </div>
-                  ))
-                : // Placeholders si no hay galería
-                  Array.from({ length: 4 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="relative aspect-square bg-muted rounded-lg overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
-                    >
-                      <Image
-                        src={`/placeholder.svg?height=150&width=150`}
-                        alt={`Imagen ${i + 1} del cachorro`}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  ))}
-            </div>
+            <PuppyGallery
+              mainImage={mainImage}
+              gallery={gallery || []}
+              puppyName={name || 'Cachorro'}
+            />
           </div>
 
           {/* Información del Cachorro */}
@@ -275,7 +258,18 @@ export default async function Page({ params }: Args) {
               </TabsContent>
               <TabsContent value="padres">
                 <div className="space-y-4">
-                  <PuppyParentsTab parents={parents} puppyName={name} />
+                  <PuppyParentsTab
+                    parents={parents}
+                    puppyName={name}
+                    coupleStory={
+                      puppy.coupleStory ||
+                      'Esta unión cuidadosamente seleccionada combina las mejores características de ambos padres: la inteligencia y nobleza del padre con la dulzura y belleza de la madre. El resultado es una camada excepcional de cachorros con excelente genética y temperamento.'
+                    }
+                    litterPuppies={
+                      puppy.litterPuppies || generatePlaceholderLitter(puppy.id, gallery)
+                    }
+                    currentPuppyId={puppy.id}
+                  />
                 </div>
               </TabsContent>
             </Tabs>
@@ -498,64 +492,61 @@ export default async function Page({ params }: Args) {
         </div>
 
         {/* CTA final */}
-        <div className="mt-16 bg-muted rounded-lg p-8">
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="text-2xl font-bold mb-4">¿Interesado en este cachorro?</h2>
-            <p className="mb-6">
-              Contáctanos para obtener más información o agendar una visita para conocer a nuestros
-              cachorros en persona.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button>Solicitar información</Button>
-              <Button variant="outline">Llamar ahora: 123-456-789</Button>
-            </div>
+        <div className="mt-16 text-center">
+          <h2 className="text-2xl font-bold mb-4">¿Listo para conocer a tu nuevo mejor amigo?</h2>
+          <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
+            Contáctanos hoy mismo para agendar una visita y conocer a nuestros cachorros en persona.
+            Estaremos encantados de asesorarte en la elección de tu nuevo compañero.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button size="lg" className="px-8">
+              Contactar ahora
+            </Button>
+            <Button size="lg" variant="outline" className="px-8">
+              Ver más cachorros
+            </Button>
           </div>
         </div>
       </div>
     )
   } catch (error) {
-    console.error('Error al cargar la página del cachorro:', error)
+    console.error('Error fetching puppy:', error)
     return notFound()
   }
 }
 
 export async function generateMetadata({ params }: Args): Promise<Metadata> {
-  // Si params es undefined, devolver un título genérico
   if (!params) {
     return {
       title: 'Cachorro no encontrado',
+      description: 'El cachorro que buscas no existe',
     }
   }
-
-  // Obtener el slug de forma asíncrona
-  const { slug } = await params
-
-  if (!slug) {
-    return {
-      title: 'Cachorro no encontrado',
-    }
-  }
-
-  const payload = await getPayload({ config: configPromise })
 
   try {
-    const puppy = (await queryPuppyBySlug({ slug })) as any
+    const { slug } = await params
+    const puppy = await queryPuppyBySlug({ slug })
 
     if (!puppy) {
       return {
         title: 'Cachorro no encontrado',
+        description: 'El cachorro que buscas no existe',
       }
     }
 
+    // Tratar puppy como any para evitar errores de TypeScript
+    const puppyData = puppy as any
+
     return {
-      title: `${puppy.name} - Cachorro en venta - Criadero Goizametz`,
-      description: `${puppy.breed?.name} - ${puppy.gender === 'male' ? 'Macho' : 'Hembra'} - ${puppy.disponibilidad === 'available' ? 'Disponible' : puppy.disponibilidad === 'reserved' ? 'Reservado' : 'Vendido'}`,
+      title: `${puppyData.name || 'Cachorro'} ${puppyData.breed?.name || ''} - Criadero Goizametz`,
+      description: `Conoce a ${puppyData.name || 'nuestro cachorro'} de ${
+        puppyData.breed?.name || 'raza pura'
+      }, ${puppyData.gender === 'male' ? 'un macho' : 'una hembra'} disponible para adopción.`,
     }
   } catch (error) {
-    console.error('Error al generar metadata:', error)
     return {
-      title: 'Cachorro - Criadero Goizametz',
-      description: 'Información sobre nuestros cachorros disponibles',
+      title: 'Error',
+      description: 'Ha ocurrido un error al cargar la información del cachorro',
     }
   }
 }
