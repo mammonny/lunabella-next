@@ -1,13 +1,24 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
-import { Home, Dog, Info, CalendarDays } from 'lucide-react' // Añadir iconos para botones
+import {
+  Home,
+  Dog,
+  Info,
+  CalendarDays,
+  Syringe,
+  ShieldCheck,
+  Award,
+  ScrollText,
+  ThumbsUp,
+} from 'lucide-react' // Iconos para Salud
 
 import { Media } from '@/components/Media'
 import { Breadcrumbs } from '@/components/ui/breadcrumb'
 import { PuppyGallery } from '@/components/PuppyGallery'
 import { PuppyParentsTab } from '@/components/PuppyParentsTab'
-import RichText from '@/components/RichText'
+import RichText from '@/components/RichText' // Mantenido por si se usa en otro sitio, pero la descripción usará ExpandableDescription
+import { ExpandableDescription } from '@/components/ExpandableDescription' // Importar nuevo componente
 import { ShareButton } from '@/components/ShareButton'
 import { LikeButton } from '@/components/LikeButton'
 import { OtherAvailablePuppiesCarousel } from '@/components/OtherAvailablePuppiesCarousel' // Importar el carrusel
@@ -262,28 +273,53 @@ export default async function Page({ params }: Args) {
                 <div className="space-y-4">
                   <div>
                     <h3 className="font-medium mb-2">Vacunas</h3>
-                    <ul className="list-disc pl-5 space-y-1">
-                      <li>Primera vacuna polivalente (6 semanas)</li>
-                      <li>Segunda vacuna polivalente (8 semanas)</li>
-                      <li>Desparasitación completa</li>
-                      {/* Esto también debería ser dinámico */}
+                    {/* Cambiado a lista sin estilo y usando flex con iconos */}
+                    <ul className="list-none pl-0 space-y-2">
+                      <li className="flex items-start gap-2">
+                        <Syringe className="h-4 w-4 mt-0.5 text-primary flex-shrink-0" />
+                        <span>Primera vacuna polivalente (6 semanas)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Syringe className="h-4 w-4 mt-0.5 text-primary flex-shrink-0" />
+                        <span>Segunda vacuna polivalente (8 semanas)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Syringe className="h-4 w-4 mt-0.5 text-primary flex-shrink-0" />
+                        <span>Desparasitación completa</span>
+                      </li>
+                      {/* Comentario eliminado ya que la estructura ahora es diferente */}
                     </ul>
                   </div>
                   <div>
                     <h3 className="font-medium mb-2">Certificados</h3>
-                    <ul className="list-disc pl-5 space-y-1">
-                      <li>Certificado veterinario de salud</li>
-                      <li>Microchip</li>
-                      <li>Pedigree oficial</li>
-                      {/* Esto también debería ser dinámico */}
+                    {/* Cambiado a lista sin estilo y usando flex con iconos */}
+                    <ul className="list-none pl-0 space-y-2">
+                      <li className="flex items-start gap-2">
+                        <ShieldCheck className="h-4 w-4 mt-0.5 text-primary flex-shrink-0" />
+                        <span>Certificado veterinario de salud</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Award className="h-4 w-4 mt-0.5 text-primary flex-shrink-0" />{' '}
+                        {/* Usando Award para Microchip */}
+                        <span>Microchip</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <ScrollText className="h-4 w-4 mt-0.5 text-primary flex-shrink-0" />
+                        <span>Pedigree oficial</span>
+                      </li>
+                      {/* Comentario eliminado */}
                     </ul>
                   </div>
                   <div>
                     <h3 className="font-medium mb-2">Garantías</h3>
-                    <p>
-                      Ofrecemos garantía de salud por 2 años contra enfermedades genéticas
-                      hereditarias. {/* Esto también debería ser dinámico */}
-                    </p>
+                    {/* Añadido icono a la garantía */}
+                    <div className="flex items-start gap-2">
+                      <ThumbsUp className="h-4 w-4 mt-0.5 text-primary flex-shrink-0" />
+                      <p>
+                        Ofrecemos garantía de salud por 2 años contra enfermedades genéticas
+                        hereditarias. {/* Esto también debería ser dinámico */}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </TabsContent>
@@ -331,8 +367,9 @@ export default async function Page({ params }: Args) {
         <div className="mt-16">
           <h2 className="text-2xl font-bold mb-6">Descripción</h2>
           <div className="prose max-w-none">
+            {/* Usar ExpandableDescription en lugar de RichText directamente */}
             {description ? (
-              <RichText data={description} enableGutter={false} />
+              <ExpandableDescription data={description} />
             ) : (
               <>
                 <p>
