@@ -17,15 +17,37 @@ export function ExpandableDescription({
 }: ExpandableDescriptionProps) {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isOverflowing, setIsOverflowing] = useState(false)
+  const [needsExpansionButton, setNeedsExpansionButton] = useState(false) // Nuevo estado
   const contentRef = useRef<HTMLDivElement>(null)
+  const initialCheckDone = useRef(false) // Ref para controlar la comprobación inicial
 
   // Comprobar si el contenido realmente necesita el botón "Leer más"
   useEffect(() => {
-    const checkOverflow = () => {
+    // Usamos un temporizador para dar tiempo al DOM a renderizar completamente, especialmente el RichText
+    const timer = setTimeout(() => {
       const current = contentRef.current
       if (current) {
-        // Compara la altura real del scroll con la altura visible del contenedor
-        // Damos un pequeño margen (e.g., 1px) por si acaso hay diferencias mínimas de renderizado
+        const doesOverflow = current.scrollHeight > current.clientHeight + 1
+        setIsOverflowing(doesOverflow)
+
+        // Establecer si el botón es necesario solo en la comprobación inicial
+        if (!initialCheckDone.current) {
+          setNeedsExpansionButton(doesOverflow)
+          initialCheckDone.current = true
+        }
+      } else {
+        setIsOverflowing(false)
+        if (!initialCheckDone.current) {
+          setNeedsExpansionButton(false)
+          initialCheckDone.current = true
+        }
+      }
+    }, 100) // Pequeño retraso (100ms) para asegurar renderizado
+
+    const handleResize = () => {
+      // Al redimensionar, solo actualizamos isOverflowing, no needsExpansionButton
+      const current = contentRef.current
+      if (current) {
         setIsOverflowing(current.scrollHeight > current.clientHeight + 1)
       } else {
         setIsOverflowing(false)
@@ -33,12 +55,18 @@ export function ExpandableDescription({
     }
 
     // Comprobar inicialmente y al cambiar el tamaño de la ventana
-    checkOverflow()
-    window.addEventListener('resize', checkOverflow)
+    // Ejecutar al montar y limpiar temporizador
+    // No necesitamos checkOverflow aquí porque el timer lo hace
+    window.addEventListener('resize', handleResize)
 
-    // Limpiar el listener al desmontar
-    return () => window.removeEventListener('resize', checkOverflow)
-  }, [data, isExpanded, collapsedHeightClass]) // Añadir dependencias a useEffect
+    // Limpiar el listener y el temporizador al desmontar
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('resize', handleResize)
+    }
+    // Ejecutar solo al montar y cuando cambian los datos o la altura colapsada,
+    // pero NO cuando cambia isExpanded para evitar recalcular needsExpansionButton
+  }, [data, collapsedHeightClass])
 
   // Comprobación más robusta: asegurarse de que data tiene la estructura esperada por RichText
   const hasValidRichTextData =
@@ -74,7 +102,8 @@ export function ExpandableDescription({
       )}
 
       {/* Botón solo si el contenido es más largo que la altura colapsada */}
-      {isOverflowing && (
+      {/* Mostrar botón si originalmente era necesario */}
+      {needsExpansionButton && (
         <div className="mt-4 text-center">
           <Button
             variant="outline"

@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { Media } from '@/components/Media'
+import { Media as MediaComponent } from '@/components/Media' // Renombrar import del componente
+import type { Media } from '@/payload-types' // Importar tipo Media
 import RichText from '@/components/RichText'
 
 // Función para extraer texto seguro de posibles objetos complejos
@@ -19,7 +20,9 @@ type ParentsTabProps = {
   coupleStory?: string | any
   litterPuppies?: Array<{
     id: string | number
-    image: any
+    image: Media | null // Usar tipo Media importado
+    slug: string
+    name?: string | null // Añadir nombre
     isCurrentPuppy?: boolean
   }>
   currentPuppyId?: string | number
@@ -57,7 +60,7 @@ export const PuppyParentsTab = ({
               <h3 className="font-medium mb-3 text-center">Padre</h3>
               <div className="relative aspect-video bg-muted rounded-lg overflow-hidden mb-3">
                 {parents.father.mainImage && typeof parents.father.mainImage === 'object' ? (
-                  <Media
+                  <MediaComponent
                     resource={parents.father.mainImage}
                     size="thumbnail"
                     className="h-full w-full object-cover"
@@ -144,7 +147,7 @@ export const PuppyParentsTab = ({
               <h3 className="font-medium mb-3 text-center">Madre</h3>
               <div className="relative aspect-video bg-muted rounded-lg overflow-hidden mb-3">
                 {parents.mother.mainImage && typeof parents.mother.mainImage === 'object' ? (
-                  <Media
+                  <MediaComponent
                     resource={parents.mother.mainImage}
                     fill
                     className="object-cover"
@@ -242,33 +245,64 @@ export const PuppyParentsTab = ({
         <div className="mt-4">
           <h3 className="font-medium mb-3 text-center">Camada actual</h3>
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-            {litterPuppies.map((puppy) => (
-              <div
-                key={puppy.id}
-                className="relative aspect-square bg-muted rounded-lg overflow-hidden border"
-              >
-                {puppy.image && typeof puppy.image === 'object' ? (
-                  <Media
-                    resource={puppy.image}
-                    fill
-                    className="object-cover"
-                    alt={`Cachorro de la camada`}
-                  />
-                ) : (
-                  <Image
-                    src={`/placeholder.svg?height=100&width=100`}
-                    alt={`Cachorro de la camada`}
-                    fill
-                    className="object-cover"
-                  />
-                )}
-                {(puppy.isCurrentPuppy || puppy.id === currentPuppyId) && (
+            {litterPuppies.map((puppy) =>
+              // No enlazar si es el cachorro actual
+              puppy.id === currentPuppyId ? (
+                <div
+                  key={puppy.id}
+                  className="relative aspect-square bg-muted rounded-lg overflow-hidden border opacity-50" // Añadir opacidad para el actual
+                >
+                  {/* Contenido del div (imagen y texto 'Este cachorro') */}
+                  {puppy.image && typeof puppy.image === 'object' ? (
+                    <MediaComponent
+                      resource={puppy.image}
+                      size="square" // Añadir tamaño square
+                      fill
+                      className="object-cover"
+                      alt={`Cachorro de la camada (actual)`}
+                    />
+                  ) : (
+                    <Image
+                      src={`/placeholder.svg?height=100&width=100`}
+                      alt={`Cachorro de la camada (actual)`}
+                      fill
+                      className="object-cover"
+                    />
+                  )}
                   <div className="absolute bottom-0 left-0 right-0 bg-amber-100 text-amber-800 text-xs text-center py-1">
                     Este cachorro
                   </div>
-                )}
-              </div>
-            ))}
+                </div>
+              ) : (
+                // Enlazar si es un hermano
+                <Link
+                  href={`/puppies/${puppy.slug}#padres`} // Añadir fragmento #padres
+                  key={puppy.id}
+                  className="block relative aspect-square bg-muted rounded-lg overflow-hidden border cursor-pointer transition-opacity hover:opacity-80"
+                >
+                  {puppy.image && typeof puppy.image === 'object' ? (
+                    <MediaComponent
+                      resource={puppy.image} // Ya es tipo Media | null
+                      size="square" // Añadir tamaño square
+                      fill
+                      className="object-cover"
+                      alt={`Cachorro de la camada`}
+                    />
+                  ) : (
+                    <Image
+                      src={`/placeholder.svg?height=100&width=100`}
+                      alt={`Cachorro de la camada`}
+                      fill
+                      className="object-cover"
+                    />
+                  )}
+                  {/* Mostrar nombre del hermano */}
+                  <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white text-xs text-center py-1 truncate px-1">
+                    {puppy.name || 'Cachorro'}
+                  </div>
+                </Link>
+              ),
+            )}
           </div>
         </div>
       )}

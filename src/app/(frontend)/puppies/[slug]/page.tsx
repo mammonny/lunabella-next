@@ -13,7 +13,8 @@ import {
   ThumbsUp,
 } from 'lucide-react' // Iconos para Salud
 
-import { Media } from '@/components/Media'
+import { Media as MediaComponent } from '@/components/Media' // Renombrar import del componente
+import type { Media } from '@/payload-types' // Importar tipo Media
 import { Breadcrumbs } from '@/components/ui/breadcrumb'
 import { PuppyGallery } from '@/components/PuppyGallery'
 import { PuppyParentsTab } from '@/components/PuppyParentsTab'
@@ -25,7 +26,8 @@ import { OtherAvailablePuppiesCarousel } from '@/components/OtherAvailablePuppie
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card' // CardContent no se usa aquí, pero lo dejo por si acaso
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs' // Ya no se usa aquí
+import { PuppyTabs } from '@/components/PuppyTabs' // Importar el nuevo componente
 import { TestimonialsSection } from '@/components/TestimonialsSection'
 import { WhyChooseUsSection } from '@/components/WhyChooseUsSection' // Importar el nuevo componente
 import configPromise from '@payload-config'
@@ -98,6 +100,71 @@ export default async function Page({ params }: Args) {
       likes, // Añadir likes a la desestructuración
     } = puppy
 
+    // --- Inicio: Obtener hermanos de camada ---
+    // Definir tipo explícito para litterMates
+    type LitterMate = {
+      id: string | number
+      image: Media | null
+      slug: string
+      name?: string | null
+    } // Añadir name al tipo
+    let litterMates: LitterMate[] = [] // Inicializar con tipo explícito
+    // @ts-ignore - Acceder a litter, asumiendo que puede existir después de la regeneración de tipos y que depth: 2 lo pobló
+    const litterId = puppy.litter?.id
+
+    if (litterId) {
+      try {
+        const siblingsResult = await payload.find({
+          collection: 'puppies',
+          depth: 1, // Asegurarse que depth 1 incluye slug y mainImage poblada
+          pagination: false,
+          where: {
+            and: [
+              {
+                // @ts-ignore - Asumiendo que 'litter.id' es la forma correcta de consultar por ID de relación
+                'litter.id': {
+                  equals: litterId,
+                },
+              },
+              {
+                id: {
+                  not_equals: puppy.id, // Excluir al cachorro actual
+                },
+              },
+            ],
+          },
+          // overrideAccess: false, // Mantener el control de acceso por defecto
+        })
+
+        // Mapear para que coincida con la estructura esperada por PuppyParentsTab { id, image }
+        // Mapear asegurando que image sea Media o null
+        // Mapear los hermanos
+        const siblings = siblingsResult.docs.map(
+          (sibling): LitterMate => ({
+            id: sibling.id,
+            image: sibling.mainImage as Media | null,
+            slug: sibling.slug as string,
+            name: sibling.name, // Incluir el nombre del hermano
+          }),
+        )
+
+        // Crear objeto para el cachorro actual
+        const currentPuppyMate: LitterMate = {
+          id: puppy.id,
+          image: puppy.mainImage as Media | null,
+          slug: puppy.slug as string,
+          name: puppy.name, // Incluir el nombre del cachorro actual
+        }
+
+        // Añadir el cachorro actual al principio del array
+        litterMates = [currentPuppyMate, ...siblings]
+      } catch (fetchError) {
+        console.error('Error fetching siblings:', fetchError)
+        // Mantener litterMates como array vacío en caso de error
+      }
+    }
+    // --- Fin: Obtener hermanos de camada ---
+
     // Función para extraer texto seguro de posibles objetos complejos
     const getSafeText = (value: any, defaultText: string): string => {
       if (typeof value === 'string') return value
@@ -151,21 +218,6 @@ export default async function Page({ params }: Args) {
     // Generar un ID único para el cachorro
     const puppyId = `${breed?.name?.substring(0, 2).toUpperCase() || 'XX'}-${new Date(birthDate || '').getFullYear() || 'YYYY'}-${String(puppy.id).padStart(2, '0') || '00'}`
 
-    // Función para generar datos de camada de ejemplo si no existen
-    const generatePlaceholderLitter = (currentPuppyId: string | number, galleryImages?: any[]) => {
-      // Usar imágenes de la galería si están disponibles, o crear placeholders
-      const images =
-        galleryImages && galleryImages.length > 0
-          ? galleryImages.slice(0, 6).map((item) => item.image)
-          : Array(6).fill(null)
-
-      return Array.from({ length: 6 }).map((_, i) => ({
-        id: i === 0 ? currentPuppyId : `placeholder-${i}`,
-        image: images[i] || null,
-        isCurrentPuppy: i === 0,
-      }))
-    }
-
     return (
       <div className="container mx-auto py-8">
         {/* Breadcrumbs */}
@@ -196,7 +248,7 @@ export default async function Page({ params }: Args) {
             {' '}
             {/* Reducido de 3/5 a 1/2 */}
             <PuppyGallery
-              mainImage={mainImage}
+              mainImage={mainImage as Media} // Asegurar tipo para el componente MediaComponent
               gallery={gallery || []}
               puppyName={name || 'Cachorro'}
             />
@@ -228,118 +280,13 @@ export default async function Page({ params }: Args) {
             <div className="text-3xl font-bold mb-6">
               {price?.toLocaleString('es-ES') || 'Consultar'} €
             </div>
-            <Tabs defaultValue="detalles" className="mb-6">
-              <TabsList className="grid grid-cols-3 mb-4">
-                <TabsTrigger value="detalles">Detalles</TabsTrigger>
-                <TabsTrigger value="salud">Salud</TabsTrigger>
-                <TabsTrigger value="padres">Padres</TabsTrigger>
-              </TabsList>
-              <TabsContent value="detalles" className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <h3 className="font-medium text-muted-foreground">Raza</h3>
-                    <p>{breed?.name || 'No disponible'}</p>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-muted-foreground">Sexo</h3>
-                    <p>{gender === 'male' ? 'Macho' : 'Hembra'}</p>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-muted-foreground">Edad</h3>
-                    <p>{ageInWeeks}</p>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-muted-foreground">Color</h3>
-                    <p>{color || 'No disponible'}</p>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-muted-foreground">Peso actual</h3>
-                    <p>{weight ? `${weight} kg` : 'No disponible'}</p>
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-muted-foreground">Tamaño adulto est.</h3>
-                    <p>25-30 kg</p> {/* Esto debería ser dinámico probablemente */}
-                  </div>
-                </div>
-                <div>
-                  <h3 className="font-medium text-muted-foreground mb-2">Temperamento</h3>
-                  <p>
-                    Juguetón, sociable, cariñoso y muy inteligente. Excelente con niños y otros
-                    animales. {/* Esto también debería ser dinámico */}
-                  </p>
-                </div>
-              </TabsContent>
-              <TabsContent value="salud">
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="font-medium mb-2">Vacunas</h3>
-                    {/* Cambiado a lista sin estilo y usando flex con iconos */}
-                    <ul className="list-none pl-0 space-y-2">
-                      <li className="flex items-start gap-2">
-                        <Syringe className="h-4 w-4 mt-0.5 text-primary flex-shrink-0" />
-                        <span>Primera vacuna polivalente (6 semanas)</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Syringe className="h-4 w-4 mt-0.5 text-primary flex-shrink-0" />
-                        <span>Segunda vacuna polivalente (8 semanas)</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Syringe className="h-4 w-4 mt-0.5 text-primary flex-shrink-0" />
-                        <span>Desparasitación completa</span>
-                      </li>
-                      {/* Comentario eliminado ya que la estructura ahora es diferente */}
-                    </ul>
-                  </div>
-                  <div>
-                    <h3 className="font-medium mb-2">Certificados</h3>
-                    {/* Cambiado a lista sin estilo y usando flex con iconos */}
-                    <ul className="list-none pl-0 space-y-2">
-                      <li className="flex items-start gap-2">
-                        <ShieldCheck className="h-4 w-4 mt-0.5 text-primary flex-shrink-0" />
-                        <span>Certificado veterinario de salud</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Award className="h-4 w-4 mt-0.5 text-primary flex-shrink-0" />{' '}
-                        {/* Usando Award para Microchip */}
-                        <span>Microchip</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <ScrollText className="h-4 w-4 mt-0.5 text-primary flex-shrink-0" />
-                        <span>Pedigree oficial</span>
-                      </li>
-                      {/* Comentario eliminado */}
-                    </ul>
-                  </div>
-                  <div>
-                    <h3 className="font-medium mb-2">Garantías</h3>
-                    {/* Añadido icono a la garantía */}
-                    <div className="flex items-start gap-2">
-                      <ThumbsUp className="h-4 w-4 mt-0.5 text-primary flex-shrink-0" />
-                      <p>
-                        Ofrecemos garantía de salud por 2 años contra enfermedades genéticas
-                        hereditarias. {/* Esto también debería ser dinámico */}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </TabsContent>
-              <TabsContent value="padres">
-                <div className="space-y-4">
-                  <PuppyParentsTab
-                    parents={parents}
-                    puppyName={name}
-                    coupleStory={
-                      puppy.coupleStory ||
-                      'Esta unión cuidadosamente seleccionada combina las mejores características de ambos padres: la inteligencia y nobleza del padre con la dulzura y belleza de la madre. El resultado es una camada excepcional de cachorros con excelente genética y temperamento.'
-                    }
-                    litterPuppies={
-                      puppy.litterPuppies || generatePlaceholderLitter(puppy.id, gallery)
-                    }
-                    currentPuppyId={puppy.id}
-                  />
-                </div>
-              </TabsContent>
-            </Tabs>
+            {/* Renderizar el nuevo componente PuppyTabs */}
+            <PuppyTabs
+              puppyData={puppy} // Pasar el objeto puppy completo
+              litterMates={litterMates}
+              ageInWeeks={ageInWeeks}
+              // Pasar cualquier otra prop necesaria para las pestañas
+            />
             <div className="space-y-4">
               <Button className="w-full inline-flex items-center justify-center gap-2">
                 {' '}

@@ -115,6 +115,16 @@ export const Puppies: CollectionConfig = {
       ],
     },
     {
+      name: 'litter',
+      type: 'relationship',
+      relationTo: 'litters',
+      required: false, // Opcional, como se definió en el plan
+      label: 'Camada',
+      admin: {
+        description: 'Selecciona la camada a la que pertenece este cachorro (opcional).',
+      },
+    },
+    {
       type: 'tabs',
       tabs: [
         {

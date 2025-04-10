@@ -72,6 +72,7 @@ export interface Config {
     breeds: Breed;
     dogs: Dog;
     puppies: Puppy;
+    litters: Litter;
     media: Media;
     categories: Category;
     users: User;
@@ -91,6 +92,7 @@ export interface Config {
     breeds: BreedsSelect<false> | BreedsSelect<true>;
     dogs: DogsSelect<false> | DogsSelect<true>;
     puppies: PuppiesSelect<false> | PuppiesSelect<true>;
+    litters: LittersSelect<false> | LittersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -907,6 +909,10 @@ export interface Puppy {
     father?: (number | null) | Dog;
     mother?: (number | null) | Dog;
   };
+  /**
+   * Selecciona la camada a la que pertenece este cachorro (opcional).
+   */
+  litter?: (number | null) | Litter;
   birthDate: string;
   description: {
     root: {
@@ -946,6 +952,47 @@ export interface Puppy {
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * Colección para gestionar las camadas de cachorros.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "litters".
+ */
+export interface Litter {
+  id: number;
+  /**
+   * Ejemplo: Camada Pastor Alemán 2025-08
+   */
+  name: string;
+  /**
+   * Selecciona el perro macho padre de la camada.
+   */
+  father: number | Dog;
+  /**
+   * Selecciona la perra hembra madre de la camada.
+   */
+  mother: number | Dog;
+  birthDate?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1138,6 +1185,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'puppies';
         value: number | Puppy;
+      } | null)
+    | ({
+        relationTo: 'litters';
+        value: number | Litter;
       } | null)
     | ({
         relationTo: 'media';
@@ -1500,6 +1551,7 @@ export interface PuppiesSelect<T extends boolean = true> {
         father?: T;
         mother?: T;
       };
+  litter?: T;
   birthDate?: T;
   description?: T;
   mainImage?: T;
@@ -1525,6 +1577,21 @@ export interface PuppiesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "litters_select".
+ */
+export interface LittersSelect<T extends boolean = true> {
+  name?: T;
+  father?: T;
+  mother?: T;
+  birthDate?: T;
+  description?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

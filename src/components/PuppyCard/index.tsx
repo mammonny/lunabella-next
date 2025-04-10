@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-// Iconos de género no encontrados en lucide-react, se usarán caracteres Unicode
+import { Mars, Venus } from 'lucide-react' // Importar iconos Mars y Venus
 import type { Puppy } from '@/payload-types' // Asegúrate de que este tipo incluya los campos necesarios
 import { Media } from '@/components/Media' // Usar Media si es el componente preferido para imágenes de Payload
 
@@ -138,25 +138,22 @@ export const PuppyCard: React.FC<PuppyCardProps> = ({ puppy, className }) => {
             {' '}
             {/* Usar flex para alinear Badge y edad */}
             {/* Mostrar género como Badge si está disponible */}
-            {genderText && (
+            {/* Usar Badge con icono Mars/Venus */}
+            {gender && (
               <Badge
                 variant="outline"
                 className={`inline-flex items-center gap-1 px-1.5 py-0.5 text-xs ${
-                  // Ajustar padding y tamaño de texto si es necesario
                   gender === 'male'
                     ? 'border-blue-500 text-blue-700 dark:text-blue-400'
-                    : gender === 'female'
-                      ? 'border-pink-500 text-pink-700 dark:text-pink-400'
-                      : ''
+                    : 'border-pink-500 text-pink-700 dark:text-pink-400'
                 }`}
               >
-                {/* Añadir símbolo Unicode */}
-                <span aria-hidden="true" className="text-sm leading-none">
-                  {' '}
-                  {/* Ajustar tamaño/estilo del símbolo si es necesario */}
-                  {gender === 'male' ? '♂' : gender === 'female' ? '♀' : ''}
-                </span>
-                <span>{genderText}</span>
+                {gender === 'male' ? (
+                  <Mars className="h-3 w-3" /> // Icono Mars (tamaño pequeño)
+                ) : (
+                  <Venus className="h-3 w-3" /> // Icono Venus (tamaño pequeño)
+                )}
+                <span>{genderText}</span> {/* Mostrar texto junto al icono */}
               </Badge>
             )}
             {/* Mostrar edad si está disponible y es válida */}

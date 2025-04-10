@@ -13,6 +13,7 @@ import { Posts } from './collections/Posts'
 import { Breeds } from './collections/Breeds'
 import { Dogs } from './collections/Dogs'
 import { Puppies } from './collections/Puppies'
+import { Litters } from './collections/Litters' // Añadir import para Litters
 import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
@@ -67,7 +68,7 @@ export default buildConfig({
       connectionString: process.env.POSTGRES_URL || '',
     },
   }),
-  collections: [Pages, Posts, Breeds, Dogs, Puppies, Media, Categories, Users],
+  collections: [Pages, Posts, Breeds, Dogs, Puppies, Litters, Media, Categories, Users], // Añadir Litters al array
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [

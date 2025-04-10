@@ -3,6 +3,7 @@ import { cn } from '@/utilities/ui'
 import useClickableCard from '@/utilities/useClickableCard'
 import Link from 'next/link'
 import React from 'react'
+// import { Mars, Venus } from 'lucide-react' // Revertir importación
 
 import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
@@ -121,6 +122,7 @@ export const PuppyCardShadcn: React.FC<{
               <span className="font-medium">Raza:</span> {breedName}
             </p>
           )}
+          {/* Volver a mostrar texto de género */}
           {genderText && (
             <p>
               <span className="font-medium">Sexo:</span> {genderText}
