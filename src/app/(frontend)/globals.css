@@ -10,30 +10,29 @@
   h5,
   h6 {
     font-size: unset;
-    font-weight: unset;
-  }
+    font-weight: unset;  }
 
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 2.54 0% 100%;  /* #f8f2f2 - Rosa muy claro para el fondo */
+--foreground: 2.55 59.49% 15.49%;  /* #555555 - Gris medio para textos principales */
 
-    --card: 240 5% 98.5%; /* Aumentado Lightness para un fondo de tarjeta más claro */
+    --card: 0 71.43% 97.25%;  /* Versión ligeramente diferente del fondo para tarjetas */
     --card-foreground: 222.2 84% 4.9%;
 
-    --popover: 0 0% 100%;
+    --popover: 0 20% 97%; /* Igual que el background */
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 2 77% 75%; /* #ee9591 - Rosa melocotón específico */
+    --primary-foreground: 0 0% 33%; /* #555555 - Gris medio para textos sobre primario */
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 2 40% 90%; /* Rosa claro complementario */
+    --secondary-foreground: 2 60% 30%;
 
-    --muted: 210 40% 98%; /* Revertido al valor anterior (o al original si era 96.1%) */
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 0 43.55% 98.61%;   /* Versión muy clara del primario #ee9591 */
+    --muted-foreground: 215.4 16.3% 46.9%; /* Versión del texto basada en el color principal */
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 2 70% 60%; /* Rosa más intenso para acentos */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -51,7 +50,7 @@
 
   [data-theme='dark'] {
     --background: 0 0% 0%;
-    --foreground: 210 40% 98%;
+    --foreground: 0 0% 90%; /* Versión clara del gris para modo oscuro */
 
     --card: 0 0% 4%;
     --card-foreground: 210 40% 98%;
@@ -59,17 +58,17 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 2 70% 60%; /* Versión oscura del #ee9591 para modo oscuro */
+    --primary-foreground: 0 0% 100%; /* Texto blanco para modo oscuro */
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 2 30% 25%; /* Rosa oscuro complementario */
+    --secondary-foreground: 2 30% 90%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 2 15% 20%; /* Versión oscura del primario */
+    --muted-foreground: 2 50% 65%; /* Versión del texto basada en el color principal para modo oscuro */
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 2 50% 40%; /* Rosa más intenso para acentos en modo oscuro */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;

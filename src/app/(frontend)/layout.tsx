@@ -7,7 +7,8 @@ import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/Footer/Component'
-import { Header } from '@/Header/Component'
+import { Header } from '@/components/Header/header'
+import Footer2 from '@/components/Footer/footer2'
 import { Providers } from '@/providers'
 import { Toaster } from 'sonner'
 import { InitTheme } from '@/providers/Theme/InitTheme'
@@ -37,7 +38,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
           <Header />
           {children}
-          <Footer />
+          <Footer2 />
           <Toaster richColors position="bottom-right" />
         </Providers>
       </body>

@@ -74,81 +74,86 @@ export const PuppyTabs = ({ puppyData, litterMates, ageInWeeks }: PuppyTabsProps
       <TabsContent value="detalles" className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <h3 className="font-medium text-muted-foreground flex items-center gap-1.5">
-              <Tag className="h-4 w-4" /> {/* Icono movido aquí */}
+            <h3 className="font-medium text-foreground flex items-center gap-1.5">
+              <Tag className="h-4 w-4 text-accent" /> {/* Icono movido aquí */}
               Raza
             </h3>
             <div>
               {' '}
               {/* Div sin flex */}
-              <p>{puppyData.breed?.name || 'No disponible'}</p>
+              <p className="text-muted-foreground">{puppyData.breed?.name || 'No disponible'}</p>
             </div>
           </div>
           <div>
-            <h3 className="font-medium text-muted-foreground flex items-center gap-1.5">
-              <VenusAndMars className="h-4 w-4" /> {/* Usar VenusMars */}
+            <h3 className="font-medium text-foreground flex items-center gap-1.5">
+              <VenusAndMars className="h-4 w-4 text-accent" /> {/* Usar VenusMars */}
               Sexo
             </h3>
             <div>
               {' '}
               {/* Div sin flex */}
-              <p>{puppyData.gender === 'male' ? 'Macho' : 'Hembra'}</p>
+              <p className="text-muted-foreground">
+                {puppyData.gender === 'male' ? 'Macho' : 'Hembra'}
+              </p>
             </div>
           </div>
           <div>
-            <h3 className="font-medium text-muted-foreground flex items-center gap-1.5">
-              <Cake className="h-4 w-4" /> {/* Volver a CakeSlice */}
+            <h3 className="font-medium text-foreground flex items-center gap-1.5">
+              <Cake className="h-4 w-4 text-accent" /> {/* Volver a CakeSlice */}
               Edad
             </h3>
             <div>
               {' '}
               {/* Div sin flex */}
-              <p>{ageInWeeks}</p>
+              <p className="text-muted-foreground">{ageInWeeks}</p>
             </div>
           </div>
           <div>
-            <h3 className="font-medium text-muted-foreground flex items-center gap-1.5">
-              <Palette className="h-4 w-4" /> {/* Icono movido aquí */}
+            <h3 className="font-medium text-foreground flex items-center gap-1.5">
+              <Palette className="h-4 w-4 text-accent" /> {/* Icono movido aquí */}
               Color
             </h3>
             <div>
               {' '}
               {/* Div sin flex */}
-              <p>{puppyData.color || 'No disponible'}</p>
+              <p className="text-muted-foreground">{puppyData.color || 'No disponible'}</p>
             </div>
           </div>
           <div>
-            <h3 className="font-medium text-muted-foreground flex items-center gap-1.5">
-              <Scale className="h-4 w-4" /> {/* Icono movido aquí */}
+            <h3 className="font-medium text-foreground flex items-center gap-1.5">
+              <Scale className="h-4 w-4 text-accent" /> {/* Icono movido aquí */}
               Peso actual
             </h3>
             <div>
               {' '}
               {/* Div sin flex */}
-              <p>{puppyData.weight ? `${puppyData.weight} kg` : 'No disponible'}</p>
+              <p className="text-muted-foreground">
+                {puppyData.weight ? `${puppyData.weight} kg` : 'No disponible'}
+              </p>
             </div>
           </div>
           <div>
-            <h3 className="font-medium text-muted-foreground flex items-center gap-1.5">
-              <Ruler className="h-4 w-4" /> {/* Icono movido aquí */}
+            <h3 className="font-medium text-foreground flex items-center gap-1.5">
+              <Ruler className="h-4 w-4 text-accent" /> {/* Icono movido aquí */}
               Tamaño adulto est.
             </h3>
             <div>
               {' '}
               {/* Div sin flex */}
-              <p>25-30 kg</p> {/* TODO: Hacer dinámico si es posible */}
+              <p className="text-muted-foreground">3,5 kg</p>{' '}
+              {/* TODO: Hacer dinámico si es posible */}
             </div>
           </div>
         </div>
         <div>
-          <h3 className="font-medium text-muted-foreground mb-2 flex items-center gap-1.5">
-            <Smile className="h-4 w-4" /> {/* Icono movido aquí */}
+          <h3 className="font-medium text-foreground mb-2 flex items-center gap-1.5">
+            <Smile className="h-4 w-4 text-accent" /> {/* Icono movido aquí */}
             Temperamento
           </h3>
           <div>
             {' '}
             {/* Div sin flex */}
-            <p>
+            <p className="text-muted-foreground">
               Juguetón, sociable, cariñoso y muy inteligente. Excelente con niños y otros animales.{' '}
               {/* TODO: Hacer dinámico si es posible */}
             </p>
@@ -161,78 +166,52 @@ export const PuppyTabs = ({ puppyData, litterMates, ageInWeeks }: PuppyTabsProps
         <div className="space-y-4">
           <div>
             <h3 className="font-medium mb-2 flex items-center gap-2">
-              <Syringe className="h-4 w-4 text-primary flex-shrink-0" />
+              <Syringe className="h-4 w-4 text-accent flex-shrink-0" />
               Vacunas
             </h3>
             {/* Mostrar viñetas estándar */}
-            <ul className="list-disc pl-5 space-y-1">
-              {' '}
+            <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
               {/* Cambiado list-none a list-disc, añadido pl-5, ajustado space-y */}
               <li>
-                {' '}
-                {/* Eliminado flex, items-start, gap-2 */}
-                {/* Icono eliminado de aquí */}
                 <span>Primera vacuna polivalente (6 semanas)</span>
               </li>
               <li>
-                {' '}
-                {/* Eliminado flex, items-start, gap-2 */}
-                {/* Icono eliminado de aquí */}
                 <span>Segunda vacuna polivalente (8 semanas)</span>
               </li>
               <li>
-                {' '}
-                {/* Eliminado flex, items-start, gap-2 */}
-                {/* Icono eliminado de aquí */}
                 <span>Desparasitación completa</span>
               </li>
             </ul>
           </div>
           <div>
             <h3 className="font-medium mb-2 flex items-center gap-2">
-              <ShieldCheck className="h-4 w-4 text-primary flex-shrink-0" />
+              <ShieldCheck className="h-4 w-4 text-accent flex-shrink-0" />
               Certificados
             </h3>
             {/* Mostrar viñetas estándar */}
-            <ul className="list-disc pl-5 space-y-1">
-              {' '}
-              {/* Cambiado list-none a list-disc, añadido pl-5, ajustado space-y */}
+            <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
               <li>
-                {' '}
-                {/* Eliminado flex, items-start, gap-2 */}
-                {/* Icono eliminado de aquí */}
                 <span>Certificado veterinario de salud</span>
               </li>
               <li>
-                {' '}
-                {/* Eliminado flex, items-start, gap-2 */}
-                {/* Icono eliminado de aquí */}
                 <span>Microchip</span>
               </li>
               <li>
-                {' '}
-                {/* Eliminado flex, items-start, gap-2 */}
-                {/* Icono eliminado de aquí */}
                 <span>Pedigree oficial</span>
               </li>
             </ul>
           </div>
           <div>
             <h3 className="font-medium mb-2 flex items-center gap-2">
-              <ThumbsUp className="h-4 w-4 text-primary flex-shrink-0" />
+              <ThumbsUp className="h-4 w-4 text-accent flex-shrink-0" />
               Garantías
             </h3>
             {/* Mostrar viñetas estándar */}
-            <ul className="list-disc pl-5 space-y-1">
-              {' '}
-              {/* Cambiado list-none a list-disc, añadido pl-5, ajustado space-y */}
+            <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
               <li>
-                {' '}
-                {/* Eliminado flex, items-start, gap-2 */}
-                {/* Icono ya está en el h3 */}
                 <span>
-                  Ofrecemos garantía de salud por 2 años contra enfermedades genéticas hereditarias.{' '}
-                  {/* TODO: Hacer dinámico */}
+                  Ofrecemos garantía de salud por 2 años contra enfermedades genéticas
+                  hereditarias.{' '}
                 </span>
               </li>
             </ul>

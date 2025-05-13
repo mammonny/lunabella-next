@@ -11,6 +11,7 @@ import {
   Award,
   ScrollText,
   ThumbsUp,
+  PhoneForwarded,
 } from 'lucide-react' // Iconos para Salud
 
 import { Media as MediaComponent } from '@/components/Media' // Renombrar import del componente
@@ -186,7 +187,7 @@ export default async function Page({ params }: Args) {
 
     const statusBgColor =
       disponibilidad === 'available'
-        ? 'bg-amber-100 text-amber-800 hover:bg-amber-200'
+        ? 'bg-primary text-white'
         : disponibilidad === 'reserved'
           ? 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200'
           : disponibilidad === 'sold'
@@ -219,7 +220,7 @@ export default async function Page({ params }: Args) {
     const puppyId = `${breed?.name?.substring(0, 2).toUpperCase() || 'XX'}-${new Date(birthDate || '').getFullYear() || 'YYYY'}-${String(puppy.id).padStart(2, '0') || '00'}`
 
     return (
-      <div className="container mx-auto py-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
         {/* Breadcrumbs */}
         <Breadcrumbs
           className="mb-6"
@@ -264,8 +265,8 @@ export default async function Page({ params }: Args) {
                   {name || 'Cachorro'} {breed?.name || ''}
                 </h1>
                 <div className="flex items-center gap-2 text-muted-foreground mb-4">
-                  <span>ID: {puppyId}</span>
-                  <span>•</span>
+                  {/*  <span>ID: {puppyId}</span>
+                  <span>•</span> */}
                   <span>Nacido: {formattedBirthDate}</span>
                 </div>
               </div>
@@ -288,7 +289,7 @@ export default async function Page({ params }: Args) {
               // Pasar cualquier otra prop necesaria para las pestañas
             />
             <div className="space-y-4">
-              <Button className="w-full inline-flex items-center justify-center gap-2">
+              <Button className="w-full inline-flex items-center justify-center gap-2 text-white font-semibold">
                 {' '}
                 {/* Añadido flex y gap */}
                 <Info className="h-4 w-4" /> {/* Icono Info */}
@@ -296,15 +297,15 @@ export default async function Page({ params }: Args) {
               </Button>
               <Button
                 variant="outline"
-                className="w-full inline-flex items-center justify-center gap-2"
+                className="w-full inline-flex items-center justify-center gap-2 font-semibold"
               >
                 {' '}
                 {/* Añadido flex y gap */}
-                <CalendarDays className="h-4 w-4" /> {/* Icono CalendarDays */}
-                Agendar visita
+                <PhoneForwarded className="h-4 w-4" /> {/* Icono CalendarDays */}
+                Contactar
               </Button>
-              <p className="text-sm text-muted-foreground text-center">
-                Incluye: kit de iniciación, primeras vacunas, microchip, y asesoramiento continuo{' '}
+              <p className="text-sm text-muted-foreground">
+                Incluye: kit de iniciación, primeras vacunas, microchip, y asesoramiento continuo.
                 {/* Esto también debería ser dinámico */}
               </p>
             </div>
@@ -313,7 +314,7 @@ export default async function Page({ params }: Args) {
         {/* Sección de Descripción */}
         <div className="mt-16">
           <h2 className="text-2xl font-bold mb-6">Descripción</h2>
-          <div className="prose max-w-none">
+          <div className="prose max-w-none text-muted-foreground">
             {/* Usar ExpandableDescription en lugar de RichText directamente */}
             {description ? (
               <ExpandableDescription data={description} />

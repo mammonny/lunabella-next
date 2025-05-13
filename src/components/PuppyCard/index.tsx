@@ -97,7 +97,7 @@ export const PuppyCard: React.FC<PuppyCardProps> = ({ puppy, className }) => {
 
   return (
     <Card
-      className={`overflow-hidden h-full flex flex-col shadow-md hover:shadow-lg transition-shadow duration-300 ${className}`}
+      className={`overflow-hidden h-full flex flex-col shadow-none rounded-xl hover:shadow-lg transition-shadow duration-300 ${className}`}
     >
       {/* Enlace en la imagen */}
       <Link href={puppyUrl} className="block group relative aspect-square bg-muted overflow-hidden">
@@ -141,11 +141,10 @@ export const PuppyCard: React.FC<PuppyCardProps> = ({ puppy, className }) => {
             {/* Usar Badge con icono Mars/Venus */}
             {gender && (
               <Badge
-                variant="outline"
                 className={`inline-flex items-center gap-1 px-1.5 py-0.5 text-xs ${
                   gender === 'male'
-                    ? 'border-blue-500 text-blue-700 dark:text-blue-400'
-                    : 'border-pink-500 text-pink-700 dark:text-pink-400'
+                    ? ' bg-blue-400 text-white dark:text-blue-400'
+                    : ' text-white bg-primary dark:text-pink-400'
                 }`}
               >
                 {gender === 'male' ? (

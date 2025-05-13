@@ -58,7 +58,7 @@ export const PuppyParentsTab = ({
           >
             <div className="border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
               <h3 className="font-medium mb-3 text-center">Padre</h3>
-              <div className="relative aspect-video bg-muted rounded-lg overflow-hidden mb-3">
+              <div className="relative aspect-video bg-muted rounded-2xl overflow-hidden mb-3">
                 {parents.father.mainImage && typeof parents.father.mainImage === 'object' ? (
                   <MediaComponent
                     resource={parents.father.mainImage}
@@ -90,7 +90,7 @@ export const PuppyParentsTab = ({
         ) : (
           <div className="border rounded-lg p-4 shadow-sm">
             <h3 className="font-medium mb-3 text-center">Padre</h3>
-            <div className="relative aspect-video bg-muted rounded-lg overflow-hidden mb-3">
+            <div className="relative aspect-video bg-muted rounded-2xl overflow-hidden mb-3">
               <Image
                 src="/placeholder.svg?height=200&width=300"
                 alt="Padre del cachorro"
@@ -145,12 +145,12 @@ export const PuppyParentsTab = ({
           >
             <div className="border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
               <h3 className="font-medium mb-3 text-center">Madre</h3>
-              <div className="relative aspect-video bg-muted rounded-lg overflow-hidden mb-3">
+              <div className="relative aspect-video bg-muted rounded-2xl overflow-hidden mb-3">
                 {parents.mother.mainImage && typeof parents.mother.mainImage === 'object' ? (
                   <MediaComponent
                     resource={parents.mother.mainImage}
-                    fill
-                    className="object-cover"
+                    size="thumbnail"
+                    className="h-full w-full object-cover"
                     alt={`Madre de ${getSafeText(puppyName, 'cachorro')}`}
                   />
                 ) : (
@@ -177,7 +177,7 @@ export const PuppyParentsTab = ({
         ) : (
           <div className="border rounded-lg p-4 shadow-sm">
             <h3 className="font-medium mb-3 text-center">Madre</h3>
-            <div className="relative aspect-video bg-muted rounded-lg overflow-hidden mb-3">
+            <div className="relative aspect-video bg-muted rounded-2xl overflow-hidden mb-3">
               <Image
                 src="/placeholder.svg?height=200&width=300"
                 alt="Madre del cachorro"
@@ -250,7 +250,7 @@ export const PuppyParentsTab = ({
               puppy.id === currentPuppyId ? (
                 <div
                   key={puppy.id}
-                  className="relative aspect-square bg-muted rounded-lg overflow-hidden border opacity-50" // Añadir opacidad para el actual
+                  className="relative aspect-square bg-muted rounded-2xl overflow-hidden border opacity-50" // Añadir opacidad para el actual
                 >
                   {/* Contenido del div (imagen y texto 'Este cachorro') */}
                   {puppy.image && typeof puppy.image === 'object' ? (
@@ -278,7 +278,7 @@ export const PuppyParentsTab = ({
                 <Link
                   href={`/puppies/${puppy.slug}#padres`} // Añadir fragmento #padres
                   key={puppy.id}
-                  className="block relative aspect-square bg-muted rounded-lg overflow-hidden border cursor-pointer transition-opacity hover:opacity-80"
+                  className="block relative aspect-square bg-muted rounded-2xl overflow-hidden border cursor-pointer transition-opacity hover:opacity-80"
                 >
                   {puppy.image && typeof puppy.image === 'object' ? (
                     <MediaComponent

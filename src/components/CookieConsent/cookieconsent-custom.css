@@ -1,0 +1,127 @@
+/* Estilos personalizados para el banner de consentimiento de cookies */
+.cc_div {
+  /* Colores principales del sitio - Usando valores hexadecimales para mayor precisión */
+  --cc-bg: #ffffff;
+  --cc-text: #3d3630; /* Color de texto principal más oscuro */
+
+  /* Botón primario - Verde */
+  --cc-btn-primary-bg: #006160 !important; /* Verde Principal */
+  --cc-btn-primary-text: #ffffff;
+  --cc-btn-primary-hover-bg: #004b4a; /* Verde más oscuro para hover */
+
+  /* Botón secundario - Dorado */
+  --cc-btn-secondary-bg: #D99A36; /* Dorado Secundario */
+  --cc-btn-secondary-text: #ffffff;
+  --cc-btn-secondary-hover-bg: #c48929; /* Dorado más oscuro para hover */
+
+  /* Toggle y otros elementos */
+  --cc-toggle-bg-off: #d6d3d1; /* Más claro y menos grisáceo */
+  --cc-toggle-bg-on: #006160; /* Verde Principal */
+  --cc-toggle-bg-readonly: #d6d3d1;
+  --cc-toggle-knob-bg: #fff;
+  --cc-toggle-knob-icon-color: #fff;
+
+  /* Textos y bloques */
+  --cc-block-text: #3d3630; /* Texto más oscuro */
+  --cc-cookie-category-block-bg: #fafaf9; /* Fondo más claro */
+  --cc-cookie-category-block-bg-hover: #f5f5f4;
+  --cc-section-border: #e7e5e4; /* Borde más claro */
+  --cc-cookie-table-border: #e7e5e4;
+
+  /* Otros */
+  --cc-overlay-bg: rgba(0, 0, 0, 0.7);
+  --cc-webkit-scrollbar-bg: #d6d3d1;
+  --cc-webkit-scrollbar-bg-hover: #78716c;
+}
+
+/* Asegurarse de que los colores se apliquen correctamente */
+.cc_div #cm {
+  background-color: var(--cc-bg) !important;
+  color: var(--cc-text) !important;
+  border: 1px solid var(--cc-section-border) !important;
+}
+
+.cc_div .c-bn {
+  background-color: var(--cc-btn-primary-bg) !important;
+  color: var(--cc-btn-primary-text) !important;
+}
+
+.cc_div .c-bn:hover {
+  background-color: var(--cc-btn-primary-hover-bg) !important;
+}
+
+.cc_div .c-bn.c-bl {
+  background-color: transparent !important;
+  color: var(--cc-btn-secondary-bg) !important;
+}
+
+.cc_div .c-bn.c-bl:hover {
+  color: var(--cc-btn-secondary-hover-bg) !important;
+}
+
+.cc_div .c-bn {
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.cc_div .c-bn.c-bl {
+  background-color: transparent;
+  color: var(--cc-btn-secondary-text);
+  text-decoration: underline;
+}
+
+.cc_div #cm {
+  max-width: 350px;
+  border-radius: 0.2rem; /* Usar el mismo radio que el sitio (--radius) */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  font-family: 'Inter', sans-serif; /* Usar la misma fuente que el sitio */
+}
+
+/* Títulos con la fuente Playfair Display */
+.cc_div .cc_title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  color: #3d3630 !important; /* Asegurar que el título tenga el color correcto */
+}
+
+/* Hacer que el banner destaque más */
+.cc_div #cm.box.inline {
+  border-top: 3px solid #006160 !important; /* Borde superior verde */
+}
+
+.cc_div #cm.box.inline {
+  right: 20px;
+  bottom: 20px;
+  left: auto;
+  max-width: 350px;
+}
+
+.cc_div #cm .c-bn {
+  margin-top: 10px;
+}
+
+.cc_div #cm .c-bn.c-bl {
+  margin-right: 10px;
+  color: #78716c !important; /* Stone 600 para enlaces */
+}
+
+/* Enlaces */
+.cc_div a {
+  color: #006160 !important; /* Verde Principal */
+  text-decoration: underline;
+}
+
+.cc_div a:hover {
+  color: #D99A36 !important; /* Dorado Secundario */
+}
+
+/* Asegurar que los textos tengan el color correcto */
+.cc_div .cc_message {
+  color: #3d3630 !important;
+}
+
+/* Hacer que los botones sean más prominentes */
+.cc_div .c-bn {
+  padding: 8px 16px !important;
+  font-weight: 600 !important;
+}

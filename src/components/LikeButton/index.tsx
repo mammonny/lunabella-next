@@ -75,7 +75,7 @@ export const LikeButton: React.FC<LikeButtonProps> = ({ puppyId, initialLikes })
       onClick={handleLike}
       disabled={hasLiked || isPending}
       aria-label={hasLiked ? 'Ya te gusta este cachorro' : 'Dar me gusta a este cachorro'}
-      className={`flex items-center gap-1 ${hasLiked ? 'text-red-500 border-red-300 hover:bg-red-50' : ''}`}
+      className={`flex items-center p-1 gap-1 ${hasLiked ? 'text-red-500 border-red-300 hover:bg-red-50' : ''}`}
     >
       <Heart
         className={`h-5 w-5 ${hasLiked ? 'fill-red-500' : 'fill-none'}`}
