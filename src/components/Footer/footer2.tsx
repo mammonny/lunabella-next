@@ -8,15 +8,15 @@ const footerLinks = [
     href: '#quiensomos',
   },
   {
-    title: 'Servicios',
+    title: 'Ejemplares',
     href: '#servicios',
   },
   {
-    title: 'Equipo',
+    title: 'Cachorros',
     href: '#equipo',
   },
   {
-    title: 'Encuéntranos',
+    title: 'Contáctanos',
     href: '#encuentranos',
   },
 ]
@@ -46,9 +46,9 @@ const navigation = {
     { name: 'Terms', href: '#' },
   ],
   social: [
-    /* {
+    {
       name: 'Facebook',
-      href: '#',
+      href: 'https://www.facebook.com/criadero.goizametz',
       icon: (props: React.SVGProps<SVGSVGElement>) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -58,7 +58,7 @@ const navigation = {
           />
         </svg>
       ),
-    }, */
+    },
     {
       name: 'Instagram',
       href: 'https://www.instagram.com/clinica.innovacare',
@@ -99,16 +99,17 @@ const navigation = {
 
 export default function Footer2() {
   return (
-    <footer className="bg-primary" aria-labelledby="footer-heading">
+    <footer className="bg-pink-950" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
       <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
         <div className="xl:grid xl:grid-cols-2 xl:gap-8">
           <div className="space-y-8 max-w-sm">
-            <img className="h-14" src="/logosemi.svg" alt="InnovaCare" />
+            <img className="h-14" src="/criadero-Goiz_Ametz-logo.png" alt="Goiz-Ametz" />
             <p className="text-sm leading-6 text-stone-200">
-              Recupera la salud y la calidad de vida, siempre en las mejores manos.
+              Criando con amor en Ollauri, La Rioja. Donde cada cachorro nace para formar vínculos
+              duraderos.
             </p>
             <div className="flex conten space-x-6">
               {navigation.social.map((item) => (
@@ -145,7 +146,7 @@ export default function Footer2() {
           <span className="text-xs leading-5 text-stone-400 text-center sm:text-left">
             &copy; {new Date().getFullYear()}{' '}
             <Link href="/" target="_blank" className="hover:text-stone-200">
-              InnovaCare
+              Goiz-Ametz
             </Link>
             . Todos los derechos reservados.
           </span>

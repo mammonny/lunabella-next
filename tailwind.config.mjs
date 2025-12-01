@@ -113,6 +113,14 @@ const config = {
             {
               '--tw-prose-body': 'var(--text)',
               '--tw-prose-headings': 'var(--text)',
+              strong: {
+                color: 'inherit',
+                fontWeight: '700',
+              },
+              b: {
+                color: 'inherit',
+                fontWeight: '700',
+              },
               h1: {
                 fontWeight: 'normal',
                 marginBottom: '0.25em',

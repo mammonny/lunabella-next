@@ -61,11 +61,16 @@ const getStatusBadge = (disponibilidad: Puppy['disponibilidad']) => {
 interface PuppyCardProps {
   puppy: Puppy | null | undefined // Permitir puppy nulo o indefinido
   className?: string
+  collectionType?: 'puppies' | 'dogs' // Nuevo parámetro para indicar el tipo de colección
 }
 
 // --- PuppyCard Component ---
 
-export const PuppyCard: React.FC<PuppyCardProps> = ({ puppy, className }) => {
+export const PuppyCard: React.FC<PuppyCardProps> = ({
+  puppy,
+  className,
+  collectionType = 'puppies',
+}) => {
   // Si no hay datos del cachorro, no renderizar nada o un placeholder
   if (!puppy) {
     // Opcionalmente, renderizar un esqueleto/placeholder aquí
@@ -93,7 +98,7 @@ export const PuppyCard: React.FC<PuppyCardProps> = ({ puppy, className }) => {
   const genderText = gender === 'male' ? 'Macho' : gender === 'female' ? 'Hembra' : ''
 
   // Construir URL del enlace (usar slug si existe, si no, id)
-  const puppyUrl = `/puppies/${slug || id}`
+  const puppyUrl = `/${collectionType}/${slug || id}`
 
   return (
     <Card

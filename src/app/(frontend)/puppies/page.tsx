@@ -6,6 +6,8 @@ import { Pagination } from '@/components/Pagination'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
+import { Container } from '@/components/Container/container'
+import { NavbarCombined } from '@/components/Header/navbar-combined'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -38,34 +40,38 @@ export default async function Page() {
   })
 
   return (
-    <div className="pt-24 pb-24">
-      <div className="container mb-16">
-        <div className="prose dark:prose-invert max-w-none">
-          <h1>Cachorros en Venta</h1>
-          <p>
-            Explora nuestra selección de cachorros disponibles para compra. Cada cachorro viene con
-            pedigrí completo y todas las vacunas necesarias.
-          </p>
+    <>
+      <main className="isolate">
+        <div className="pt-64 pb-24">
+          <div className="container mb-16">
+            <div className="prose dark:prose-invert max-w-none">
+              <h1>Cachorros en Venta</h1>
+              <p>
+                Explora nuestra selección de cachorros disponibles para compra. Cada cachorro viene
+                con pedigrí completo y todas las vacunas necesarias.
+              </p>
+            </div>
+          </div>
+
+          <div className="container mb-8">
+            <PageRange
+              collection="puppies"
+              currentPage={puppies.page}
+              limit={12}
+              totalDocs={puppies.totalDocs}
+            />
+          </div>
+
+          <PuppiesArchive puppies={puppies.docs} />
+
+          <div className="container">
+            {puppies.totalPages > 1 && puppies.page && (
+              <Pagination page={puppies.page} totalPages={puppies.totalPages} />
+            )}
+          </div>
         </div>
-      </div>
-
-      <div className="container mb-8">
-        <PageRange
-          collection="puppies"
-          currentPage={puppies.page}
-          limit={12}
-          totalDocs={puppies.totalDocs}
-        />
-      </div>
-
-      <PuppiesArchive puppies={puppies.docs} />
-
-      <div className="container">
-        {puppies.totalPages > 1 && puppies.page && (
-          <Pagination page={puppies.page} totalPages={puppies.totalPages} />
-        )}
-      </div>
-    </div>
+      </main>
+    </>
   )
 }
 

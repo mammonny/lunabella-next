@@ -14,6 +14,8 @@ import { Toaster } from 'sonner'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
+import { NavbarCombined } from '@/components/Header/navbar-combined'
+import { Container } from '@/components/Container/container'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -35,8 +37,21 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               preview: isEnabled,
             }}
           />
-
-          <Header />
+          <div className="relative">
+            <Container className="relative">
+              <NavbarCombined
+              /* banner={
+                      <Link
+                        href="/blog/radiant-raises-100m-series-a-from-tailwind-ventures"
+                        className="flex items-center gap-1 rounded-full bg-fuchsia-950/35 px-3 py-0.5 text-sm/6 font-medium text-white data-hover:bg-fuchsia-950/30"
+                      >
+                        Descubre mi nueva página web
+                        <ChevronRightIcon className="size-4" />
+                      </Link>
+                    } */
+              />
+            </Container>
+          </div>
           {children}
           <Footer2 />
           <Toaster richColors position="bottom-right" />

@@ -6,7 +6,6 @@ import { Pagination } from '@/components/Pagination'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
-import PageClient from './page.client'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -31,32 +30,38 @@ export default async function Page() {
   })
 
   return (
-    <div className="pt-24 pb-24">
-      <PageClient />
+    <>
+      <main className="isolate">
+        <div className="pt-64 pb-24">
+          <div className="container mb-16">
+            <div className="prose dark:prose-invert max-w-none">
+              <h1>Nuestros Ejemplares</h1>
+              <p>
+                Conoce nuestros ejemplares reproductores. Cada ejemplar cuenta con pedigrí completo,
+                certificaciones de salud y un temperamento excepcional.
+              </p>
+            </div>
+          </div>
 
-      <div className="container mb-16">
-        <div className="prose dark:prose-invert max-w-none">
-          <h1>Nuestros Ejemplares</h1>
+          <div className="container mb-8">
+            <PageRange
+              collection="dogs"
+              currentPage={dogs.page}
+              limit={12}
+              totalDocs={dogs.totalDocs}
+            />
+          </div>
+
+          <DogsArchive dogs={dogs.docs} />
+
+          <div className="container">
+            {dogs.totalPages > 1 && dogs.page && (
+              <Pagination page={dogs.page} totalPages={dogs.totalPages} />
+            )}
+          </div>
         </div>
-      </div>
-
-      <div className="container mb-8">
-        <PageRange
-          collection="dogs"
-          currentPage={dogs.page}
-          limit={12}
-          totalDocs={dogs.totalDocs}
-        />
-      </div>
-
-      <DogsArchive dogs={dogs.docs} />
-
-      <div className="container">
-        {dogs.totalPages > 1 && dogs.page && (
-          <Pagination page={dogs.page} totalPages={dogs.totalPages} />
-        )}
-      </div>
-    </div>
+      </main>
+    </>
   )
 }
 

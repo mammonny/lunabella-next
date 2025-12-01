@@ -4,15 +4,45 @@
  */
 
 export const companyInfo = {
-  name: 'InnovaCare', // Nombre de la empresa
-  address: 'Calle Granito 20, 28045 Madrid', // Dirección de la empresa
-  phone: '+34660490797', // Número de teléfono
-  email: 'info@clinicainnovacare.es', // Email de contacto
-  metro: 'Arganzuela-Planetario, Legazpi, Delicias', // Estaciones de metro cercanas
-  razonSocial: 'INTIMATECARE AND BALANCE, S.L.P.', // Razón social
+  name: 'Goiz Amezt', // Nombre de la empresa
+  address: 'Camino Del Romeral, 15, 26220 Ollauri, La Rioja​', // Dirección de la empresa
+  phone: '+34619105489', // Número de teléfono
+  email: 'elenauribe@goizametz.com', // Email de contacto
+  metro: '-', // Estaciones de metro cercanas
+  razonSocial: 'Goiz Amezt', // Razón social
   NIF: 'B75388397', // NIF
-  domicilio: 'AV Cordoba 29, 11C 28026 Madrid ', // Domicilio fiscal
-  web: 'https://clinicainnovacare.es', // URL de la web
+  domicilio: 'Camino Del Romeral, 15, 26220 Ollauri, La Rioja', // Domicilio fiscal
+  web: 'https://goizametz.com/', // URL de la web
+}
+
+/**
+ * Configuración de WhatsApp con ofuscación para prevenir spam
+ * El número se construye dinámicamente para dificultar el scraping automático
+ */
+const whatsappParts = ['3', '4', '6', '1', '9', '1', '0', '5', '4', '8', '9']
+
+/**
+ * Obtiene el número de WhatsApp construyéndolo dinámicamente
+ * @returns Número de WhatsApp sin espacios ni símbolos (formato: 34660490797)
+ */
+export const getWhatsAppNumber = (): string => {
+  return whatsappParts.join('')
+}
+
+/**
+ * Obtiene el mensaje predeterminado para WhatsApp
+ * @returns Mensaje de contacto predeterminado
+ */
+export const getWhatsAppMessage = (): string => {
+  return 'Hola, me gustaría tener más información'
+}
+
+/**
+ * Obtiene el mensaje de WhatsApp para consultas sobre servicios
+ * @returns Mensaje para información de servicios
+ */
+export const getWhatsAppMessageBotonWhatsApp = (): string => {
+  return 'Hola, me gustaría tener más información'
 }
 
 // Función auxiliar para obtener toda la información de la empresa

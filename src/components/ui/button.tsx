@@ -23,8 +23,13 @@ const buttonVariants = cva(
         destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
         ghost: 'hover:bg-card hover:text-accent-foreground',
         link: 'text-primary items-start justify-start underline-offset-4 hover:underline',
-        outline: 'border border-border bg-background hover:bg-card hover:text-accent-foreground',
-        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+        // Nuevas variantes de botones
+        primary:
+          'inline-flex items-center justify-center px-4 py-2 rounded-full border border-transparent bg-[hsl(332.63_46.34%_51.76%)] shadow-md text-base font-medium whitespace-nowrap text-white disabled:bg-pink-950 disabled:opacity-40 hover:bg-[hsl(332.63_46.34%_41.76%)]',
+        secondary:
+          'relative inline-flex items-center justify-center px-4 py-2 rounded-full border border-transparent bg-white/15 ring-1 shadow-md ring-[#D15052]/15 after:absolute after:inset-0 after:rounded-full after:shadow-[inset_0_0_2px_1px_#ffffff4d] text-base font-medium whitespace-nowrap text-pink-950 disabled:bg-white/15 disabled:opacity-40 hover:bg-white/20',
+        outline:
+          'inline-flex items-center justify-center px-2 py-1.5 rounded-lg border border-transparent ring-1 shadow-sm ring-black/10 text-sm font-medium whitespace-nowrap text-pink-950 disabled:bg-transparent disabled:opacity-40 hover:bg-stone-50',
       },
     },
   },

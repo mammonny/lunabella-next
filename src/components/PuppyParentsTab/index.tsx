@@ -3,6 +3,10 @@ import Link from 'next/link'
 import { Media as MediaComponent } from '@/components/Media' // Renombrar import del componente
 import type { Media } from '@/payload-types' // Importar tipo Media
 import RichText from '@/components/RichText'
+import { Card, CardContent } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Mars, Venus } from 'lucide-react'
 
 // Función para extraer texto seguro de posibles objetos complejos
 const getSafeText = (value: any, defaultText: string): string => {
@@ -51,64 +55,57 @@ export const PuppyParentsTab = ({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
         {/* Padre */}
-        {parents.father && parents.father.slug ? (
-          <Link
-            href={`/dogs/${parents.father.slug}`}
-            className="block transition-transform hover:scale-[1.02]"
-          >
-            <div className="border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
-              <h3 className="font-medium mb-3 text-center">Padre</h3>
-              <div className="relative aspect-video bg-muted rounded-2xl overflow-hidden mb-3">
-                {parents.father.mainImage && typeof parents.father.mainImage === 'object' ? (
-                  <MediaComponent
-                    resource={parents.father.mainImage}
-                    size="thumbnail"
-                    className="h-full w-full object-cover"
-                    alt={`Padre de ${getSafeText(puppyName, 'cachorro')}`}
-                  />
-                ) : (
-                  <Image
-                    src="/placeholder.svg?height=200&width=300"
-                    alt="Padre del cachorro"
-                    fill
-                    className="object-cover"
-                  />
-                )}
-              </div>
-              <div className="bg-slate-50 p-3 rounded">
-                <h4 className="font-medium text-sm mb-1">Información</h4>
-                <p className="text-sm">
-                  <strong>Nombre:</strong> {getSafeText(parents?.father?.name, 'No disponible')}
-                </p>
-                <p className="text-sm mt-1">
-                  <strong>Descripción:</strong>{' '}
-                  {getSafeText(parents?.father?.description, 'Información no disponible')}
-                </p>
-              </div>
-            </div>
-          </Link>
-        ) : (
-          <div className="border rounded-lg p-4 shadow-sm">
-            <h3 className="font-medium mb-3 text-center">Padre</h3>
-            <div className="relative aspect-video bg-muted rounded-2xl overflow-hidden mb-3">
-              <Image
-                src="/placeholder.svg?height=200&width=300"
-                alt="Padre del cachorro"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="bg-slate-50 p-3 rounded">
-              <h4 className="font-medium text-sm mb-1">Información</h4>
-              <p className="text-sm">
-                <strong>Nombre:</strong> No disponible
-              </p>
-              <p className="text-sm mt-1">
-                <strong>Descripción:</strong> Información no disponible
-              </p>
-            </div>
+        <Card className="overflow-hidden h-full flex flex-col shadow-none rounded-xl hover:shadow-lg transition-shadow duration-300 bg-white">
+          <div className="relative">
+            <Badge className="absolute top-2 left-2 z-10 bg-blue-100 text-blue-800 border-blue-300 shadow-sm inline-flex items-center gap-1">
+              <Mars className="h-3 w-3" />
+              Padre
+            </Badge>
+            <Link
+              href={parents.father && parents.father.slug ? `/dogs/${parents.father.slug}` : '#'}
+              className="block group relative aspect-square bg-muted overflow-hidden"
+            >
+              {parents.father &&
+              parents.father.mainImage &&
+              typeof parents.father.mainImage === 'object' ? (
+                <MediaComponent
+                  resource={parents.father.mainImage}
+                  size="thumbnail"
+                  className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out"
+                  alt={`Padre de ${getSafeText(puppyName, 'cachorro')}`}
+                />
+              ) : (
+                <Image
+                  src="/placeholder.svg?height=200&width=300"
+                  alt="Padre del cachorro"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out"
+                />
+              )}
+            </Link>
           </div>
-        )}
+          <CardContent className="p-3 md:p-4 flex-grow flex flex-col justify-between">
+            <div>
+              <h3 className="font-semibold text-base md:text-lg mb-1 truncate text-accent text-center">
+                {getSafeText(parents?.father?.name, 'Padre sin nombre')}
+              </h3>
+              {/* <p className="text-sm text-muted-foreground mb-2">
+                {getSafeText(parents?.father?.description, 'Información no disponible')}
+              </p> */}
+            </div>
+            {/* <div className="flex justify-end items-center mt-2">
+              <Button variant="ghost" size="sm" className="text-xs md:text-sm" asChild>
+                <Link
+                  href={
+                    parents.father && parents.father.slug ? `/dogs/${parents.father.slug}` : '#'
+                  }
+                >
+                  Ver detalles
+                </Link>
+              </Button>
+            </div> */}
+          </CardContent>
+        </Card>
         {/* Elemento central - Anillos de unión */}
         <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 hidden md:block">
           <div className="bg-white rounded-full p-1 ">
@@ -138,64 +135,57 @@ export const PuppyParentsTab = ({
         </div>
 
         {/* Madre */}
-        {parents.mother && parents.mother.slug ? (
-          <Link
-            href={`/dogs/${parents.mother.slug}`}
-            className="block transition-transform hover:scale-[1.02]"
-          >
-            <div className="border rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
-              <h3 className="font-medium mb-3 text-center">Madre</h3>
-              <div className="relative aspect-video bg-muted rounded-2xl overflow-hidden mb-3">
-                {parents.mother.mainImage && typeof parents.mother.mainImage === 'object' ? (
-                  <MediaComponent
-                    resource={parents.mother.mainImage}
-                    size="thumbnail"
-                    className="h-full w-full object-cover"
-                    alt={`Madre de ${getSafeText(puppyName, 'cachorro')}`}
-                  />
-                ) : (
-                  <Image
-                    src="/placeholder.svg?height=200&width=300"
-                    alt="Madre del cachorro"
-                    fill
-                    className="object-cover"
-                  />
-                )}
-              </div>
-              <div className="bg-slate-50 p-3 rounded">
-                <h4 className="font-medium text-sm mb-1">Información</h4>
-                <p className="text-sm">
-                  <strong>Nombre:</strong> {getSafeText(parents?.mother?.name, 'No disponible')}
-                </p>
-                <p className="text-sm mt-1">
-                  <strong>Descripción:</strong>{' '}
-                  {getSafeText(parents?.mother?.description, 'Información no disponible')}
-                </p>
-              </div>
-            </div>
-          </Link>
-        ) : (
-          <div className="border rounded-lg p-4 shadow-sm">
-            <h3 className="font-medium mb-3 text-center">Madre</h3>
-            <div className="relative aspect-video bg-muted rounded-2xl overflow-hidden mb-3">
-              <Image
-                src="/placeholder.svg?height=200&width=300"
-                alt="Madre del cachorro"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="bg-slate-50 p-3 rounded">
-              <h4 className="font-medium text-sm mb-1">Información</h4>
-              <p className="text-sm">
-                <strong>Nombre:</strong> No disponible
-              </p>
-              <p className="text-sm mt-1">
-                <strong>Descripción:</strong> Información no disponible
-              </p>
-            </div>
+        <Card className="overflow-hidden h-full flex flex-col shadow-none rounded-xl hover:shadow-lg transition-shadow duration-300 bg-white">
+          <div className="relative">
+            <Badge className="absolute top-2 left-2 z-10 bg-pink-100 text-pink-800 border-pink-300 shadow-sm inline-flex items-center gap-1">
+              <Venus className="h-3 w-3" />
+              Madre
+            </Badge>
+            <Link
+              href={parents.mother && parents.mother.slug ? `/dogs/${parents.mother.slug}` : '#'}
+              className="block group relative aspect-square bg-muted overflow-hidden"
+            >
+              {parents.mother &&
+              parents.mother.mainImage &&
+              typeof parents.mother.mainImage === 'object' ? (
+                <MediaComponent
+                  resource={parents.mother.mainImage}
+                  size="thumbnail"
+                  className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out"
+                  alt={`Madre de ${getSafeText(puppyName, 'cachorro')}`}
+                />
+              ) : (
+                <Image
+                  src="/placeholder.svg?height=200&width=300"
+                  alt="Madre del cachorro"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out"
+                />
+              )}
+            </Link>
           </div>
-        )}
+          <CardContent className="p-3 md:p-4 flex-grow flex flex-col justify-between">
+            <div>
+              <h3 className="font-semibold text-base md:text-lg mb-1 truncate text-accent text-center">
+                {getSafeText(parents?.mother?.name, 'Madre sin nombre')}
+              </h3>
+              {/* <p className="text-sm text-muted-foreground mb-2">
+                {getSafeText(parents?.mother?.description, 'Información no disponible')}
+              </p> */}
+            </div>
+            {/*  <div className="flex justify-end items-center mt-2">
+              <Button variant="ghost" size="sm" className="text-xs md:text-sm" asChild>
+                <Link
+                  href={
+                    parents.mother && parents.mother.slug ? `/dogs/${parents.mother.slug}` : '#'
+                  }
+                >
+                  Ver detalles
+                </Link>
+              </Button>
+            </div> */}
+          </CardContent>
+        </Card>
       </div>
 
       {/* Elemento de unión para móviles */}
