@@ -92,10 +92,15 @@ const config = {
         success: 'hsl(var(--success))',
         error: 'hsl(var(--error))',
         warning: 'hsl(var(--warning))',
+        // Colores LunaBella Brandbook 2025
+        corporativo: '#ece8e1',
+        'lunabella-gold': '#a58a1b',
+        'lunabella-dark': '#000000',
+        'lunabella-cream': '#ece8e1',
       },
       fontFamily: {
-        mono: ['var(--font-geist-mono)'],
-        sans: ['var(--font-geist-sans)'],
+        sans: ['var(--font-sans)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        heading: ['var(--font-heading)', 'serif'],
       },
       keyframes: {
         'accordion-down': {

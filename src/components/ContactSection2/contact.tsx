@@ -1,9 +1,7 @@
-import { Mail, Phone, TrainFrontTunnel, MapPin, QrCode, SquareParking } from 'lucide-react'
 import { FormBlock } from '@/blocks/Form/Component'
 import type { Form as FormType } from '@payloadcms/plugin-form-builder/types'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import { companyInfo } from '@/config/company'
 import { Container } from '../Container/container'
 
 export default async function ContactSection2() {
@@ -38,86 +36,101 @@ export default async function ContactSection2() {
   }
 
   return (
-    <div id="encuentranos" className="relative isolate bg-white py-24 sm:py-32">
-      <svg
-        aria-hidden="true"
-        className="absolute inset-0 -z-10 size-full stroke-stone-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
-      >
-        <defs>
-          <pattern
-            x="50%"
-            y={-64}
-            id="83fd4e5a-9d52-42fc-97b6-718e5d7ee527"
-            width={200}
-            height={200}
-            patternUnits="userSpaceOnUse"
-          >
-            <path d="M100 200V.5M.5 .5H200" fill="none" />
-          </pattern>
-        </defs>
-        <svg x="50%" y={-64} className="overflow-visible fill-stone-50">
-          <path
-            d="M-100.5 0h201v201h-201Z M699.5 0h201v201h-201Z M499.5 400h201v201h-201Z M299.5 800h201v201h-201Z"
-            strokeWidth={0}
-          />
-        </svg>
-        <rect
-          fill="url(#83fd4e5a-9d52-42fc-97b6-718e5d7ee527)"
-          width="100%"
-          height="100%"
-          strokeWidth={0}
-        />
-      </svg>
+    <section id="contacto" className="relative isolate py-28 md:py-40 overflow-hidden bg-[#faf8f5]">
+      {/* Subtle decorative pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0v100M0 50h100' stroke='%23a58a1b' stroke-width='0.5' fill='none'/%3E%3C/svg%3E")`,
+        }}
+      />
+
       <Container>
-        <h2 className="text-pretty text-4xl font-semibold tracking-tight  sm:text-5xl">
-          Contáctanos
-        </h2>
-        <p className="mt-2 text-lg/8 text-stone-600 text-lg">
-          Ponte en contacto conmigo para conocer más sobre nuestros cachorros.
-        </p>
-        <div className="mx-auto mt-16 grid max-w-7xl grid-cols-1 lg:grid-cols-2">
-          {/* Sección de información de contacto - se mantiene intacta */}
-          <div className="mb-20 sm:mb-0 lg:mt-6 lg:w-auto lg:flex-row">
-            <img alt="" src="/logo-criadero-goizametz.png" className="h-12 w-auto mt-10" />
-            <figure className="mt-10">
-              <blockquote className="text-lg/8 font-semibold text-pink-950">
+        {/* Header with editorial style */}
+        <div className="max-w-4xl mb-20">
+          <div className="flex items-center gap-4 mb-8">
+            <span className="w-16 h-px bg-[#a58a1b]" />
+            <span className="text-[#a58a1b] text-sm font-medium tracking-[0.25em] uppercase">
+              Contacto
+            </span>
+          </div>
+
+          <h2 className="text-display text-4xl md:text-5xl lg:text-6xl text-gray-900 mb-8">
+            ¿Quieres saber más sobre{' '}
+            <span className="text-gradient-gold">LunaBella</span>?
+          </h2>
+
+          <p className="text-gray-600 text-lg md:text-xl leading-relaxed max-w-2xl">
+            Ponte en contacto con nosotros para conocer más sobre nuestros Golden Retriever,
+            cachorros disponibles o próximas camadas.
+          </p>
+        </div>
+
+        <div className="grid max-w-7xl grid-cols-1 gap-16 lg:grid-cols-2">
+          {/* Información de contacto - LunaBella */}
+          <div>
+            {/* Logo LunaBella */}
+            <div className="mb-12">
+              <span
+                className="font-heading text-4xl text-gray-900 tracking-tight"
+              >
+                LunaBella<sup className="text-xs align-super ml-0.5">®</sup>
+              </span>
+            </div>
+
+            <figure className="relative pl-8 border-l-2 border-[#a58a1b]/30">
+              <blockquote className="text-xl font-heading italic text-gray-800 leading-relaxed">
                 <p>
-                  "Cada cachorro que criamos es parte de nuestra familia. Me dedico con pasión a
-                  criar cachorros sanos y felices que se convertirán en compañeros leales para toda
-                  la vida."
+                  "Cada cachorro que criamos es parte de nuestra familia. Nos dedicamos con
+                  pasión a criar Golden Retriever sanos, equilibrados y felices que se convertirán
+                  en compañeros leales para toda la vida."
                 </p>
               </blockquote>
-              <figcaption className="mt-10 flex gap-x-6">
-                <img
-                  alt=""
-                  src="/fotos/elena-uribe.jpg"
-                  className="size-12 flex-none rounded-full bg-stone-50"
-                />
+              <figcaption className="mt-10 flex gap-x-5 items-center">
+                <div
+                  className="w-14 h-14 flex-none flex items-center justify-center"
+                  style={{ backgroundColor: '#a58a1b' }}
+                >
+                  <span className="font-heading text-xl text-[#ece8e1]">LB</span>
+                </div>
                 <div>
-                  <div className="text-base font-semibold text-pink-950">Elena Uribe</div>
-                  <div className="text-sm/6 text-stone-600">
-                    Criadora profesional de cachorros - Criadero Goiz-Ametz
+                  <div className="font-heading font-semibold text-lg text-gray-900">
+                    María Oruna y Mikel Aldanondo
+                  </div>
+                  <div className="text-sm text-gray-500 mt-1">
+                    Criadores de Golden Retriever
                   </div>
                 </div>
               </figcaption>
             </figure>
+
+            {/* Contact details */}
+            <div className="mt-14 space-y-4">
+              <div className="flex items-center gap-4 text-gray-600">
+                <svg className="w-5 h-5 text-[#a58a1b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                </svg>
+                <span>País Vasco, España</span>
+              </div>
+            </div>
           </div>
 
-          {/* Reemplazar el formulario HTML por FormBlock */}
-          {/* Reducido padding en móvil (px-4 pt-16 pb-16), ajustado para sm+ */}
-          <div className="">
+          {/* Formulario de contacto */}
+          <div className="bg-white p-8 lg:p-12">
             {contactForm ? (
               <FormBlock enableIntro={false} form={contactForm} blockType="formBlock" />
             ) : (
-              <div className="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
-                <p className="text-stone-500">
-                  No se pudo cargar el formulario. Por favor, inténtalo de nuevo más tarde.
+              <div className="p-8">
+                <p className="text-gray-600">
+                  No se pudo cargar el formulario. Por favor, inténtalo de nuevo más tarde o
+                  contáctanos directamente.
                 </p>
               </div>
             )}
           </div>
         </div>
       </Container>
-    </div>
+    </section>
   )
 }

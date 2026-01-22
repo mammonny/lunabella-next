@@ -1,164 +1,170 @@
-import { ArrowRight, PhoneOutgoing, Heart, Home, Award } from 'lucide-react'
 import Image from 'next/image'
-import { Button } from 'src/components/ui/button'
-import { NavbarCombined } from '@/components/Header/navbar-combined'
-import { Container } from '@/components/Container/container'
-import { Badge } from 'src/components/ui/badge'
-// Eliminamos importaciones no utilizadas
 import { Hero } from '@/components/Hero/Hero'
-import Services from '@/components/Services/Services'
+import WhyLunaBella from '@/components/WhyLunaBella'
 import ContactSection2 from '@/components/ContactSection2/contact'
-import CTASection2 from '@/components/CTASection/ctasection2'
-import Testimonials from '@/components/Testimonials/testimonials'
-import LogoCloud from '@/components/LogoCloud/logocloud'
-// import { Header } from '@/Header/Component' // Comentado o eliminado si no se usa
-// Eliminamos importación no utilizada
-import Team2 from '@/components/Team/team2'
-import { companyInfo } from '@/config/company'
+import CTAConditional from '@/components/CTAConditional'
 import Link from 'next/link'
 import TestimonialsGrid from '@/components/Testimonials/testimonialsgrid'
+import SectionDivider from '@/components/SectionDivider'
+import ScrollProgress from '@/components/ScrollProgress'
+
+// Silueta Golden Retriever dorada para LunaBella
+const GoldenIcon = ({ className }: { className?: string }) => (
+  <span className={`golden-silhouette-sm ${className || ''}`} />
+)
 
 const features = [
   {
-    name: 'Centro de cría familiar.',
-    /*     description: 'Especializado en Bichon Maltés y Shih Tzu con Núcleo Zoológico registrado.',
-     */ icon: Home,
+    name: 'Salud',
+    description: 'criar perros genéticamente testados y sanos',
   },
   {
-    name: 'Crianza con amor y pasión.',
-    /*     description: 'Cada cachorro es especial y valioso, criado en un entorno familiar cariñoso.',
-     */ icon: Heart,
+    name: 'Carácter',
+    description: 'socializar excelentes perros de familia',
   },
   {
-    name: 'Socialización adecuada.',
-    /*     description: 'Nuestros perritos crecen como parte de nuestro hogar para ser bien socializados.',
-     */ icon: Award,
+    name: 'Belleza',
+    description: 'fieles al estándar oficial de la raza',
   },
 ]
 
 const HomePage3 = () => (
   <>
+    {/* Scroll Progress Indicator */}
+    <ScrollProgress />
+
     <main className="isolate">
       <Hero
-        variant="home"
-        title={
-          <>
-            Cría <br />
-            Familiar
-            <br />{' '}
-            <span className="[text-shadow:-10px_6px_15px_hsla(35,66%,53%,0.5)]">Goiz-Ametz</span>
-          </>
-        }
-        description="Núcleo Zoológico: ES261110000003"
-        additionalText="Un acogedor centro de cría familiar especializado en Bichon Maltés, Shih Tzu, Lou Lou Pomerania y Yorkshire Terrier ubicado en Ollauri (La Rioja)."
-        imageSrc="/fotos/bichonmaltesraza.webp"
-        imageAlt="Perro corriendo en el criadero Goiz Ametz"
-        blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+        variant="lunabella"
+        title={<>Cría familiar, responsable y exclusiva de <span className="bg-gradient-to-r from-[#c9a93d] to-[#a58a1b] bg-clip-text text-transparent">Golden Retriever</span></>}
+        description=""
+        imageSrc="/images/lunabella/hero-bg.jpg"
+        imageAlt="Golden Retriever en LunaBella"
+        quote={{
+          text: 'Una forma ética de entender la crianza del Golden Retriever.',
+          author: 'María Oruna y Mikel Aldanondo',
+        }}
+        ctaButtons={{
+          primary: { label: 'Nuestros perros', href: '/nuestros-perros' },
+          secondary: { label: 'Conócenos', href: '#quiensomos' },
+        }}
       />
-      {/* Hero section */}
 
-      {/* Cierre del primer div w-full py-20 lg:pb-40 */}
-      <div id="quiensomos" className="w-full py-24 sm:py-56">
-        {' '}
-        {/* Re-abrir un div contenedor si es necesario o ajustar estructura */}
-        {/* hero2 bien */}
-        {/* Content section */}
-        <div className=" container max-w-7xl overflow-hidden lg:overflow-visible">
-          <div className="mx-auto max-w-7xl ">
-            <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-12 gap-y-16 lg:mx-0 lg:min-w-full lg:max-w-none lg:flex-none lg:gap-y-8">
-              <div className="lg:col-end-1 lg:w-full lg:max-w-lg lg:pb-8">
-                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                  <span className="[text-shadow:-10px_6px_15px_hsla(35,66%,53%,0.5)]">
-                    Bienvenido a Goiz-Ametz
-                  </span>
-                </h2>
-                <p className="mt-6 text-base leading-8 ">
-                  Somos Goiz Ametz, un acogedor centro de cría familiar especializado en Bichon
-                  Maltés y Shih Tzu, ubicado en Ollauri (La Rioja). Contamos con el Núcleo Zoológico
-                  ES261110000003.
-                </p>
-                <p className="mt-6 text-base leading-7 ">
-                  No somos simplemente un criadero; somos una familia con una profunda conexión con
-                  el reino animal, donde las mascotas son más que simples compañeros, son nuestra
-                  pasión, nuestro trabajo y nuestra forma de vivir. Creemos fervientemente que los
-                  perros merecen crecer en un entorno familiar para ser socializados adecuadamente.
-                </p>
-                <p className="mt-6 text-base leading-7 ">
-                  En Goiz Ametz, nos esforzamos por hacer las cosas correctamente porque cada
-                  pequeño que criamos es especial y valioso. Así nació Goiz Ametz, que en euskera
-                  significa “Sueños Alegres“, porque nuestros perritos son cariñosos y
-                  verdaderamente parte de nuestro hogar.
-                </p>
-                <dl className="mt-10 max-w-xl space-y-8 text-base leading-7  lg:max-w-none">
-                  {features.map((feature) => (
-                    <div key={feature.name} className="relative pl-8">
-                      <dt className="inline font-semibold text-primary">
-                        <feature.icon
-                          className="absolute left-0 top-1 h-5 w-5"
-                          aria-hidden="true"
-                        />
-                        <span className="text-stone-600">{feature.name}</span>
-                      </dt>
-                    </div>
-                  ))}
-                </dl>
+      {/* Sección Filosofía - Editorial Asymmetric Layout */}
+      <section id="quiensomos" className="relative py-32 xl:py-44 bg-white overflow-hidden">
+        {/* Decorative background element - Golden Retriever silhouette */}
+        <div
+          className="absolute top-1/4 right-0 w-80 h-56 opacity-[0.04] pointer-events-none"
+          style={{
+            backgroundImage: `url('/silueta-golden.svg')`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+          }}
+        />
+
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="grid grid-cols-1 xl:grid-cols-12 gap-12 xl:gap-20 items-center">
+            {/* Imagen con tratamiento editorial */}
+            <div className="xl:col-span-5 xl:col-start-1 order-2 xl:order-1">
+              <div className="relative">
+                {/* Frame decorativo */}
+                <div
+                  className="absolute -inset-4 border border-[#a58a1b]/20 -z-10 transition-all duration-700 hover:border-[#a58a1b]/40"
+                />
+                {/* Sombra offset */}
+                <div
+                  className="absolute inset-0 translate-x-6 translate-y-6 -z-20 transition-transform duration-700"
+                  style={{ backgroundColor: '#ece8e1' }}
+                />
+                <Image
+                  src="/images/lunabella/filosofia.jpg"
+                  alt="Crianza ética de Golden Retriever en Goiz-Ametz"
+                  width={560}
+                  height={700}
+                  className="relative w-full object-cover aspect-[4/5]"
+                />
+                {/* Badge flotante */}
+                <div
+                  className="absolute -bottom-6 -right-6 xl:-right-12 bg-[#a58a1b] text-[#ece8e1] px-6 py-4 z-10"
+                >
+                  <span className="block text-3xl font-heading font-semibold">+15</span>
+                  <span className="text-xs uppercase tracking-[0.2em]">Años</span>
+                </div>
               </div>
-              <div className="flex flex-wrap items-start justify-end gap-6 sm:gap-8 lg:contents">
-                <div className="w-0 flex-auto lg:ml-auto lg:w-auto lg:flex-none lg:self-end">
-                  {/* Modified Image 1 */}
-                  <div className="relative aspect-[5/7] w-[37rem] max-w-none rounded-2xl bg-gray-50">
-                    <Image
-                      src="/fotos/Agatha.jpg"
-                      alt="Exterior de la clínica InnovaCare"
-                      fill
-                      className="rounded-2xl object-cover"
-                    />
-                  </div>
-                </div>
-                <div className="contents lg:col-span-2 lg:col-end-2 lg:ml-auto lg:flex lg:w-[37rem] lg:items-start lg:justify-end lg:gap-x-8">
-                  <div className="order-first flex w-64 flex-none justify-end self-end lg:w-auto">
-                    {/* Modified Image 2 */}
-                    <div className="relative aspect-[4/3] w-[24rem] max-w-none flex-none rounded-2xl bg-gray-50">
-                      <Image
-                        src="/fotos/dscn1739.jpg"
-                        alt="Team meeting"
-                        fill
-                        className="rounded-2xl object-cover"
-                      />
+            </div>
+
+            {/* Contenido */}
+            <div className="xl:col-span-6 xl:col-start-7 order-1 xl:order-2">
+              {/* Ornamento superior */}
+              <div className="flex items-center gap-4 mb-8">
+                <span className="w-16 h-px bg-[#a58a1b]" />
+                <span className="text-[#a58a1b] text-sm font-medium tracking-[0.25em] uppercase">
+                  Nuestra esencia
+                </span>
+              </div>
+
+              <h2 className="mb-10 text-display text-4xl lg:text-5xl xl:text-6xl text-gray-900">
+                Filosofía de{' '}
+                <span className="text-gradient-gold">crianza</span>
+              </h2>
+
+              <div className="space-y-6 text-gray-600 leading-relaxed text-lg">
+                <p>
+                  Para nosotros, el perro es una parte importantísima en la familia. Nuestra vida es
+                  perfecta cuando la compartimos con nuestros Golden Retriever.
+                </p>
+                <p className="text-editorial text-xl text-gray-800">
+                  Criamos para familias como la nuestra; que vivan y disfruten de sus perros tanto
+                  o más que nosotros.
+                </p>
+              </div>
+
+              {/* Features con diseño refinado */}
+              <div className="mt-12 space-y-5">
+                {features.map((feature, index) => (
+                  <div
+                    key={feature.name}
+                    className="group flex items-start gap-4 p-4 -mx-4 rounded-sm transition-all duration-300 hover:bg-[#faf8f5]"
+                  >
+                    <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center border border-[#a58a1b]/30 rounded-full group-hover:bg-[#a58a1b] group-hover:border-[#a58a1b] transition-all duration-300">
+                      <span className="text-[#a58a1b] text-xs font-semibold group-hover:text-[#ece8e1] transition-colors duration-300">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="font-heading font-semibold text-lg text-gray-900">
+                        {feature.name}
+                      </span>
+                      <span className="text-gray-500 mx-2">—</span>
+                      <span className="text-gray-600">{feature.description}</span>
                     </div>
                   </div>
-                  <div className="flex w-96 flex-auto justify-end lg:w-auto lg:flex-none">
-                    {/* Modified Image 3 */}
-                    <div className="relative aspect-[7/5] w-[37rem] max-w-none flex-none rounded-2xl bg-gray-50">
-                      <Image
-                        src="/fotos/llamadas.jpg"
-                        alt="Colleagues collaborating"
-                        fill
-                        className="rounded-2xl object-cover"
-                      />
-                    </div>
-                  </div>
-                  <div className="hidden sm:block sm:w-0 sm:flex-auto lg:w-auto lg:flex-none">
-                    {/* Modified Image 4 */}
-                    <div className="relative aspect-[4/3] w-[24rem] max-w-none rounded-2xl bg-gray-50">
-                      <Image
-                        src="/fotos/nena.jpg"
-                        alt="Person working on laptop"
-                        fill
-                        className="rounded-2xl object-cover"
-                      />
-                    </div>
-                  </div>
-                </div>
+                ))}
+              </div>
+
+              <div className="mt-14">
+                <Link
+                  href="/nosotros"
+                  className="group inline-flex items-center gap-4 text-sm font-medium uppercase tracking-[0.2em] text-gray-900 hover:text-[#a58a1b] transition-colors duration-300"
+                >
+                  <span>Conoce nuestra historia</span>
+                  <span className="w-12 h-px bg-current transition-all duration-300 group-hover:w-16" />
+                </Link>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <Services />
-      <CTASection2 />
+      </section>
 
-      {/* <Testimonials /> */}
+      {/* CTA Condicional - muestra según disponibilidad de cachorros/camadas */}
+      <CTAConditional />
+
+      <WhyLunaBella />
+
+      {/* Elegant section divider with Golden silhouette */}
+      <SectionDivider variant="subtle" />
+
       <TestimonialsGrid />
       <ContactSection2 />
     </main>

@@ -3,49 +3,76 @@
 @tailwind utilities;
 
 @layer base {
+  /* Fuentes LunaBella - Editorial Luxury */
+  html {
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    scroll-behavior: smooth;
+  }
+
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
+    font-family: var(--font-heading), serif;
     font-size: unset;
-    font-weight: unset;  }
+    font-weight: unset;
+    letter-spacing: -0.02em;
+  }
+
+  /* Clase para aplicar fuente heading */
+  .font-heading {
+    font-family: var(--font-heading), serif;
+    letter-spacing: -0.02em;
+  }
 
   :root {
-    --background: 2.54 0% 100%;  /* #f8f2f2 - Rosa muy claro para el fondo */
---foreground: 2.55 59.49% 15.49%;  /* #555555 - Gris medio para textos principales */
+    /* LunaBella Brandbook 2025 - Refined Palette */
+    --lb-cream: #ece8e1;
+    --lb-cream-dark: #ddd7cc;
+    --lb-gold: #a58a1b;
+    --lb-gold-light: #c9a93d;
+    --lb-gold-dark: #8a7316;
+    --lb-black: #000000;
+    --lb-charcoal: #1a1a1a;
+    --lb-warm-white: #faf8f5;
+    --lb-warm-gray: #6b6560;
 
-    --card: 0 71.43% 97.25%;  /* Versión ligeramente diferente del fondo para tarjetas */
-    --card-foreground: 222.2 84% 4.9%;
+    /* Color corporativo LunaBella: #ece8e1 */
+    --background: 40 23% 91%;  /* #ece8e1 - Color corporativo */
+    --foreground: 0 0% 12%;  /* Negro suave para textos */
 
-    --popover: 0 20% 97%; /* Igual que el background */
-    --popover-foreground: 222.2 84% 4.9%;
+    --card: 40 30% 97%;  /* Warm white para tarjetas */
+    --card-foreground: 0 0% 12%;
 
-    --primary: 2 77% 75%; /* #ee9591 - Rosa melocotón específico */
-    --primary-foreground: 0 0% 33%; /* #555555 - Gris medio para textos sobre primario */
+    --popover: 40 23% 91%;
+    --popover-foreground: 0 0% 12%;
 
-    --secondary: 2 40% 90%; /* Rosa claro complementario */
-    --secondary-foreground: 2 60% 30%;
+    --primary: 45 73% 37%; /* Dorado brandbook #a58a1b */
+    --primary-foreground: 40 23% 91%; /* Crema para textos sobre primario */
 
-    --muted: 0 43.55% 98.61%;   /* Versión muy clara del primario #ee9591 */
-    --muted-foreground: 215.4 16.3% 46.9%; /* Versión del texto basada en el color principal */
+    --secondary: 40 20% 92%; /* Crema claro */
+    --secondary-foreground: 0 0% 12%;
 
-    --accent: 2 70% 60%; /* Rosa más intenso para acentos */
-    --accent-foreground: 0 0% 100%;
+    --muted: 40 15% 96%;
+    --muted-foreground: 30 5% 45%;
+
+    --accent: 45 73% 37%; /* Dorado */
+    --accent-foreground: 40 23% 91%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 240 6% 80%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 35 10% 85%;
+    --input: 40 20% 92%;
+    --ring: 45 73% 37%;
 
-    --radius: 0.2rem;
+    --radius: 0.5rem;
 
-    --success: 196 52% 74%;
-    --warning: 34 89% 85%;
-    --error: 10 100% 86%;
+    --success: 142 52% 40%;
+    --warning: 38 92% 50%;
+    --error: 0 72% 51%;
   }
 
   [data-theme='dark'] {
@@ -99,4 +126,817 @@ html {
 html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
+}
+
+/* LunaBella Style Utilities - Colores del Brandbook 2025 */
+/* Paleta: #000000 (negro), #a58a1b (dorado), #ece8e1 (crema) */
+@layer utilities {
+  /* Texto dorado sólido - color brandbook #a58a1b */
+  .text-gold {
+    color: #a58a1b;
+  }
+
+  /* Texto con gradiente dorado estilo LunaBella */
+  .text-gradient-gold {
+    @apply inline-block bg-clip-text text-transparent;
+    background-image: linear-gradient(90deg, #8a7316, #a58a1b);
+  }
+
+  /* Línea de acento gruesa - dorado brandbook */
+  .thick-accent-line {
+    @apply absolute left-0 right-0 bottom-0 w-full;
+    height: 1rem;
+    background-color: #a58a1b;
+  }
+
+  /* Fondo crema para cards */
+  .bg-lunabella-card {
+    background-color: #ece8e1;
+  }
+
+  /* Fondo con gradiente CTA estilo LunaBella */
+  .bg-lunabella-cta {
+    background-image: linear-gradient(
+      -109.61deg,
+      rgba(165, 138, 27, 0.6),
+      rgba(236, 232, 225, 0.7)
+    );
+  }
+
+  /* Hero background con gradiente oscuro */
+  .bg-hero-dark {
+    background-image: linear-gradient(99deg, rgb(0, 0, 0) 22%, rgba(255, 255, 255, 0));
+  }
+
+  /* Footer/Dark background - negro */
+  .bg-lunabella-dark {
+    background-color: #000000;
+  }
+
+  /* Botón estilo LunaBella - negro con texto crema, animación elegante */
+  .btn-lunabella {
+    @apply px-10 py-4 font-medium text-center uppercase tracking-[0.15em] text-[13px];
+    background-color: #000000;
+    color: #ece8e1;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .btn-lunabella:hover {
+    background-color: #1a1a1a;
+    box-shadow: 0 15px 50px -12px rgba(0, 0, 0, 0.35);
+    transform: translateY(-2px);
+  }
+
+  .btn-lunabella:active {
+    transform: translateY(0);
+  }
+
+  /* Botón outline dorado */
+  .btn-lunabella-outline {
+    @apply px-10 py-4 font-medium text-center uppercase tracking-[0.15em] text-[13px] border;
+    border-color: #a58a1b;
+    color: #a58a1b;
+    background-color: transparent;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .btn-lunabella-outline:hover {
+    background-color: #a58a1b;
+    color: #ece8e1;
+    box-shadow: 0 15px 50px -12px rgba(165, 138, 27, 0.35);
+    transform: translateY(-2px);
+  }
+
+  .btn-lunabella-outline:active {
+    transform: translateY(0);
+  }
+
+  /* Icono Golden con fondo dorado */
+  .icon-golden-gold {
+    background-color: #a58a1b;
+    padding: 12px 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icon-golden-gold::before {
+    content: '';
+    width: 1.5rem;
+    height: 1rem;
+    background: #ece8e1;
+    mask-image: url('/silueta-golden.svg');
+    -webkit-mask-image: url('/silueta-golden.svg');
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+  }
+
+  /* Color corporativo LunaBella #ece8e1 */
+  .bg-corporativo {
+    background-color: #ece8e1;
+  }
+
+  .text-corporativo {
+    color: #ece8e1;
+  }
+
+  /* Dorado brandbook */
+  .bg-gold {
+    background-color: #a58a1b;
+  }
+
+  /* Sombras de texto para secciones de perros */
+  .shadow-macho {
+    text-shadow: 4px 4px 0 rgba(190, 224, 251, 0.3);
+  }
+
+  .shadow-hembra {
+    text-shadow: 4px 4px 0 rgba(255, 203, 192, 0.3);
+  }
+
+  .shadow-golden {
+    text-shadow: 4px 4px 0 rgba(255, 210, 164, 0.3);
+  }
+
+  /* ===== ELEGANT ANIMATIONS ===== */
+
+  /* Fade In Up - for staggered reveals */
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Staggered delays */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+  .delay-600 { animation-delay: 600ms; }
+  .delay-700 { animation-delay: 700ms; }
+
+  /* Smooth image reveal */
+  .animate-image-reveal {
+    animation: imageReveal 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    clip-path: inset(100% 0 0 0);
+  }
+
+  @keyframes imageReveal {
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+
+  /* Elegant scale on hover */
+  .hover-lift {
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Subtle float animation */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* Line draw animation */
+  .animate-line-draw {
+    background: linear-gradient(90deg, var(--lb-gold), var(--lb-gold-light));
+    height: 3px;
+    transform-origin: left;
+    animation: lineDraw 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    transform: scaleX(0);
+  }
+
+  @keyframes lineDraw {
+    to { transform: scaleX(1); }
+  }
+
+  /* ===== GRAIN TEXTURE OVERLAY ===== */
+  .grain-overlay {
+    position: relative;
+  }
+
+  .grain-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ===== EDITORIAL TYPOGRAPHY ===== */
+  .text-display {
+    font-family: var(--font-heading), serif;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+
+  .text-editorial {
+    font-family: var(--font-heading), serif;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* Elegant blockquote styling */
+  .quote-elegant {
+    position: relative;
+    padding-left: 2rem;
+    border-left: 2px solid var(--lb-gold);
+    font-family: var(--font-heading), serif;
+    font-style: italic;
+  }
+
+  .quote-elegant::before {
+    content: '"';
+    position: absolute;
+    left: -0.5rem;
+    top: -1rem;
+    font-size: 4rem;
+    color: var(--lb-gold);
+    opacity: 0.3;
+    font-family: var(--font-heading), serif;
+  }
+
+  /* ===== SECTION DIVIDERS ===== */
+  .section-divider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--lb-gold), transparent);
+  }
+
+  /* ===== ENHANCED BUTTONS ===== */
+
+  /* Primary Button - Elegant with subtle glow */
+  .btn-elegant {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.125rem 2.5rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    background: var(--lb-black);
+    color: var(--lb-cream);
+    border: none;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .btn-elegant:hover {
+    background: var(--lb-charcoal);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+  }
+
+  .btn-elegant:active {
+    transform: translateY(0);
+  }
+
+  /* Secondary Button - Outline with fill on hover */
+  .btn-outline-elegant {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1.0625rem 2.5rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    background: transparent;
+    color: var(--lb-gold);
+    border: 1px solid var(--lb-gold);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .btn-outline-elegant:hover {
+    background: var(--lb-gold);
+    color: var(--lb-cream);
+    box-shadow: 0 10px 40px -10px rgba(165, 138, 27, 0.4);
+    transform: translateY(-2px);
+  }
+
+  /* Ghost Button - Text with animated underline */
+  .btn-ghost-elegant {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--lb-black);
+    background: transparent;
+    border: none;
+  }
+
+  .btn-ghost-elegant::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--lb-gold);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .btn-ghost-elegant:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .btn-ghost-elegant:hover {
+    color: var(--lb-gold);
+  }
+
+  /* Arrow icon animation for buttons */
+  .btn-arrow {
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .group:hover .btn-arrow {
+    transform: translateX(4px);
+  }
+
+  /* ===== IMAGE TREATMENTS ===== */
+  .image-frame {
+    position: relative;
+  }
+
+  .image-frame::before {
+    content: '';
+    position: absolute;
+    inset: -1rem;
+    border: 1px solid var(--lb-gold);
+    opacity: 0.4;
+    z-index: -1;
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .image-frame:hover::before {
+    inset: -0.5rem;
+    opacity: 0.7;
+  }
+
+  /* Offset shadow for images - warm tone */
+  .image-offset-shadow {
+    position: relative;
+  }
+
+  .image-offset-shadow::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translate(1rem, 1rem);
+    background: var(--lb-cream-dark);
+    z-index: -1;
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .image-offset-shadow:hover::after {
+    transform: translate(1.5rem, 1.5rem);
+  }
+
+  /* ===== CARD ENHANCEMENTS ===== */
+  .card-elegant {
+    background: var(--lb-warm-white);
+    border: 1px solid rgba(165, 138, 27, 0.1);
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .card-elegant:hover {
+    border-color: rgba(165, 138, 27, 0.3);
+    box-shadow: 0 20px 40px -15px rgba(165, 138, 27, 0.15);
+  }
+
+  /* ===== SCROLL-TRIGGERED ANIMATIONS ===== */
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .scroll-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* ===== WARM GRADIENT BACKGROUNDS ===== */
+  .bg-warm-gradient {
+    background: linear-gradient(180deg, var(--lb-warm-white) 0%, var(--lb-cream) 100%);
+  }
+
+  .bg-golden-hour {
+    background: linear-gradient(135deg,
+      rgba(236, 232, 225, 1) 0%,
+      rgba(250, 248, 245, 1) 50%,
+      rgba(165, 138, 27, 0.08) 100%
+    );
+  }
+
+  /* ===== DECORATIVE ELEMENTS ===== */
+  .ornament-line {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .ornament-line::before,
+  .ornament-line::after {
+    content: '';
+    width: 3rem;
+    height: 1px;
+    background: var(--lb-gold);
+  }
+
+  /* ===== GOLDEN RETRIEVER SILHOUETTE SYSTEM ===== */
+
+  /* Base silhouette - medium size */
+  .golden-silhouette {
+    width: 3rem;
+    height: 2rem;
+    background: var(--lb-gold);
+    mask-image: url('/silueta-golden.svg');
+    -webkit-mask-image: url('/silueta-golden.svg');
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-position: center;
+  }
+
+  /* Small silhouette - for inline use */
+  .golden-silhouette-sm {
+    width: 1.75rem;
+    height: 1.25rem;
+    background: var(--lb-gold);
+    mask-image: url('/silueta-golden.svg');
+    -webkit-mask-image: url('/silueta-golden.svg');
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-position: center;
+  }
+
+  /* Large silhouette - for decorative use */
+  .golden-silhouette-lg {
+    width: 5rem;
+    height: 3.5rem;
+    background: var(--lb-gold);
+    mask-image: url('/silueta-golden.svg');
+    -webkit-mask-image: url('/silueta-golden.svg');
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-position: center;
+  }
+
+  /* Quality Seal - appears on hover as brand mark */
+  .quality-seal {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quality-seal::after {
+    content: '';
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    width: 2.5rem;
+    height: 1.75rem;
+    background: var(--lb-gold);
+    mask-image: url('/silueta-golden.svg');
+    -webkit-mask-image: url('/silueta-golden.svg');
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-position: center;
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .quality-seal:hover::after {
+    opacity: 0.15;
+    transform: scale(1) translateY(0);
+  }
+
+  /* Quote watermark - subtle background for testimonials */
+  .quote-watermark {
+    position: relative;
+  }
+
+  .quote-watermark::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 85px;
+    background: var(--lb-gold);
+    mask-image: url('/silueta-golden.svg');
+    -webkit-mask-image: url('/silueta-golden.svg');
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-position: center;
+    -webkit-mask-position: center;
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Animated silhouette - subtle breathing effect */
+  .golden-silhouette-animated {
+    animation: gentleBreath 4s ease-in-out infinite;
+  }
+
+  @keyframes gentleBreath {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.6;
+    }
+    50% {
+      transform: scale(1.05);
+      opacity: 0.8;
+    }
+  }
+
+  /* ===== CONTACT FORM ELEGANT STYLING ===== */
+  .contact-form-wrapper input[type="text"],
+  .contact-form-wrapper input[type="email"],
+  .contact-form-wrapper input[type="tel"],
+  .contact-form-wrapper textarea,
+  .contact-form-wrapper select {
+    width: 100%;
+    padding: 1rem 0;
+    font-size: 0.9375rem;
+    color: #1a1a1a;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #ddd7cc;
+    border-radius: 0;
+    outline: none;
+    transition: border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .contact-form-wrapper input[type="text"]:focus,
+  .contact-form-wrapper input[type="email"]:focus,
+  .contact-form-wrapper input[type="tel"]:focus,
+  .contact-form-wrapper textarea:focus,
+  .contact-form-wrapper select:focus {
+    border-bottom-color: #a58a1b;
+  }
+
+  .contact-form-wrapper input::placeholder,
+  .contact-form-wrapper textarea::placeholder {
+    color: #9ca3af;
+    font-style: italic;
+  }
+
+  .contact-form-wrapper label {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #6b6560;
+    margin-bottom: 0.5rem;
+  }
+
+  .contact-form-wrapper textarea {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  .contact-form-wrapper button[type="submit"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 1.125rem 2rem;
+    margin-top: 1.5rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    background: #000000;
+    color: #ece8e1;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .contact-form-wrapper button[type="submit"]:hover {
+    background: #1a1a1a;
+    box-shadow: 0 15px 50px -12px rgba(0, 0, 0, 0.35);
+    transform: translateY(-2px);
+  }
+
+  .contact-form-wrapper button[type="submit"]:active {
+    transform: translateY(0);
+  }
+
+  .contact-form-wrapper .form-field {
+    margin-bottom: 1.5rem;
+  }
+
+  /* ===== LUXURY MONOGRAM PATTERN ===== */
+  /* Inspired by high-end fashion house patterns */
+
+  .bg-lunabella-monogram {
+    position: relative;
+    background-color: #faf8f5;
+  }
+
+  .bg-lunabella-monogram::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      /* Row 1 - silhouettes */
+      url('/silueta-golden.svg'),
+      url('/silueta-golden.svg'),
+      url('/silueta-golden.svg'),
+      url('/silueta-golden.svg'),
+      url('/silueta-golden.svg'),
+      /* Row 2 - offset silhouettes */
+      url('/silueta-golden.svg'),
+      url('/silueta-golden.svg'),
+      url('/silueta-golden.svg'),
+      url('/silueta-golden.svg'),
+      url('/silueta-golden.svg');
+    background-size:
+      60px 42px,
+      60px 42px,
+      60px 42px,
+      60px 42px,
+      60px 42px,
+      60px 42px,
+      60px 42px,
+      60px 42px,
+      60px 42px,
+      60px 42px;
+    background-position:
+      0px 0px,
+      200px 0px,
+      400px 0px,
+      600px 0px,
+      800px 0px,
+      100px 100px,
+      300px 100px,
+      500px 100px,
+      700px 100px,
+      900px 100px;
+    background-repeat: repeat;
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Luxury brand pattern - LunaBella monogram style with multiple dog poses */
+  .bg-lunabella-diagonal {
+    position: relative;
+    background-color: #faf8f5;
+    overflow: hidden;
+  }
+
+  .bg-lunabella-diagonal::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/lunabella-pattern.svg');
+    background-size: 1800px 1100px;
+    background-repeat: repeat;
+    background-position: center;
+    opacity: 0.045;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Premium scattered pattern - art directed placement */
+  .bg-lunabella-scattered {
+    position: relative;
+    background-color: #faf8f5;
+    overflow: hidden;
+  }
+
+  .bg-lunabella-scattered::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      url('/silueta-golden.svg'),
+      url('/silueta-golden.svg'),
+      url('/silueta-golden.svg'),
+      url('/silueta-golden.svg'),
+      url('/silueta-golden.svg'),
+      url('/silueta-golden.svg');
+    background-size:
+      100px 70px,
+      70px 49px,
+      50px 35px,
+      80px 56px,
+      60px 42px,
+      90px 63px;
+    background-position:
+      5% 10%,
+      95% 5%,
+      85% 90%,
+      10% 85%,
+      50% 50%,
+      30% 60%;
+    background-repeat: no-repeat;
+    opacity: 0.025;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Geometric grid with silhouettes - most luxurious */
+  .bg-lunabella-grid-luxury {
+    position: relative;
+    background-color: #faf8f5;
+    overflow: hidden;
+  }
+
+  .bg-lunabella-grid-luxury::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      /* Subtle grid lines */
+      linear-gradient(to right, rgba(165, 138, 27, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(165, 138, 27, 0.03) 1px, transparent 1px);
+    background-size: 120px 120px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .bg-lunabella-grid-luxury::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/silueta-golden.svg');
+    background-size: 50px 35px;
+    background-position: 60px 60px;
+    background-repeat: repeat;
+    opacity: 0.035;
+    pointer-events: none;
+    z-index: 0;
+  }
 }

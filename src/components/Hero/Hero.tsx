@@ -7,10 +7,9 @@ import { Button } from 'src/components/ui/button'
 import { CalendarArrowUp, ArrowRight, Calendar, PhoneOutgoing } from 'lucide-react'
 import { Heading, Lead, Subheading } from '@/components/Text/text'
 import { Badge } from 'src/components/ui/badge'
-import { Arrow } from '@radix-ui/react-popover'
 
 interface HeroProps {
-  variant?: 'default' | 'home'
+  variant?: 'default' | 'home' | 'lunabella'
   title: string | React.ReactNode
   description: string
   imageSrc: string
@@ -20,6 +19,14 @@ interface HeroProps {
   descriptionClassName?: string
   containerClassName?: string
   additionalText?: string
+  quote?: {
+    text: string
+    author: string
+  }
+  ctaButtons?: {
+    primary: { label: string; href: string }
+    secondary: { label: string; href: string }
+  }
 }
 
 export function Hero({
@@ -33,6 +40,8 @@ export function Hero({
   descriptionClassName = 'mt-8 text-pretty text-base font-medium text-slate-600 sm:text-xl/8',
   containerClassName = 'relative py-20',
   additionalText,
+  quote,
+  ctaButtons,
 }: HeroProps) {
   // Optimización: Props de imagen optimizadas para prevenir CLS y mejorar LCP
   const imageProps = {
@@ -180,6 +189,143 @@ export function Hero({
         </div>
         {ImageComponent}
       </Container>
+    )
+  }
+
+  // Variante LunaBella: Diseño editorial luxury con elementos premium
+  if (variant === 'lunabella') {
+    return (
+      <section className="relative min-h-[85vh] flex flex-col justify-center py-24 overflow-hidden">
+        {/* Background Image with cinematic gradient */}
+        <div
+          className="absolute inset-0 animate-image-reveal bg-cover bg-[position:85%_top] md:bg-[position:center_top]"
+          style={{
+            backgroundImage: `url(${imageSrc})`,
+          }}
+        />
+
+        {/* Primary gradient - strong from bottom */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(
+              180deg,
+              rgba(0, 0, 0, 0.35) 0%,
+              rgba(0, 0, 0, 0.25) 30%,
+              rgba(0, 0, 0, 0.55) 60%,
+              rgba(0, 0, 0, 0.92) 100%
+            )`,
+          }}
+        />
+
+        {/* Left side gradient for text readability */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(
+              90deg,
+              rgba(0, 0, 0, 0.75) 0%,
+              rgba(0, 0, 0, 0.5) 40%,
+              rgba(0, 0, 0, 0.15) 65%,
+              transparent 85%
+            )`,
+          }}
+        />
+
+        {/* Warm golden accent overlay */}
+        <div
+          className="absolute inset-0 mix-blend-soft-light"
+          style={{
+            background: 'linear-gradient(180deg, transparent 50%, rgba(165, 138, 27, 0.25) 100%)',
+          }}
+        />
+
+        {/* Subtle grain texture overlay */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none grain-overlay" />
+
+        {/* Main Content */}
+        <div className="relative z-10 container mx-auto px-6 lg:px-12">
+          <div className="max-w-3xl">
+            {/* Encabezado sutil */}
+            <div className="animate-fade-in-up mb-6">
+              <div className="flex items-center gap-3">
+                <span className="w-12 h-[1px] bg-gradient-to-r from-[#c9a93d] to-transparent" />
+                <span className="golden-silhouette-sm opacity-80" />
+                <span
+                  className="text-[#c9a93d] text-[11px] font-medium tracking-[0.35em] uppercase"
+                  style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}
+                >
+                  LunaBella
+                </span>
+              </div>
+            </div>
+
+            {/* Título principal */}
+            <h1
+              className="animate-fade-in-up delay-100 mb-10 text-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white leading-[1.08]"
+              style={{ textShadow: '0 4px 30px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.3)' }}
+            >
+              {title}
+            </h1>
+
+            {/* Cita */}
+            {quote && (
+              <blockquote className="animate-fade-in-up delay-200 mb-12 max-w-xl">
+                <p
+                  className="text-editorial text-white/90 text-lg md:text-xl leading-relaxed"
+                  style={{ textShadow: '0 2px 15px rgba(0,0,0,0.6)' }}
+                >
+                  &ldquo;{quote.text}&rdquo;
+                </p>
+                <footer className="mt-5 flex items-center gap-3">
+                  <span className="w-10 h-[1px] bg-gradient-to-r from-[#c9a93d] to-transparent" />
+                  <span
+                    className="text-white/70 text-sm tracking-wide"
+                    style={{ textShadow: '0 1px 8px rgba(0,0,0,0.5)' }}
+                  >
+                    {quote.author}
+                  </span>
+                </footer>
+              </blockquote>
+            )}
+
+            {/* Botones */}
+            {ctaButtons && (
+              <div className="animate-fade-in-up delay-300 flex flex-col sm:flex-row gap-4">
+                <Link
+                  href={ctaButtons.primary.href}
+                  className="group inline-flex items-center justify-center gap-3 px-10 py-4 text-[13px] font-medium uppercase tracking-[0.2em] transition-all duration-500 ease-out hover:shadow-[0_20px_50px_-15px_rgba(236,232,225,0.4)] hover:-translate-y-1"
+                  style={{ backgroundColor: '#ece8e1', color: '#000000' }}
+                >
+                  {ctaButtons.primary.label}
+                  <svg
+                    className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                  </svg>
+                </Link>
+                <Link
+                  href={ctaButtons.secondary.href}
+                  className="inline-flex items-center justify-center px-10 py-4 text-[13px] font-medium uppercase tracking-[0.2em] border transition-all duration-500 ease-out hover:bg-white/10 hover:border-white/50"
+                  style={{ borderColor: 'rgba(236, 232, 225, 0.35)', color: '#ece8e1' }}
+                >
+                  {ctaButtons.secondary.label}
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in-up delay-500">
+          <span className="text-white/50 text-[10px] uppercase tracking-[0.3em]">Scroll</span>
+          <div className="w-[1px] h-8 bg-gradient-to-b from-white/50 to-transparent animate-pulse" />
+        </div>
+      </section>
     )
   }
 

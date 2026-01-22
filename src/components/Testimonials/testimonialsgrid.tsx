@@ -1,13 +1,12 @@
 import { Star } from 'lucide-react'
-import { Heading, Lead, Subheading } from '@/components/Text/text'
-import { GradientBackgroundTestimonials } from '../Gradient/gradient'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useMemo, useCallback, memo } from 'react'
 
 // Componente StarRating optimizado
 const StarRating = memo(({ size = 'h-5 w-5' }: { size?: string }) => {
   return (
-    <div className="flex gap-x-1 text-amber-400">
+    <div className="flex gap-x-1 text-amber-500">
       {Array.from({ length: 5 }, (_, i) => (
         <Star
           key={i}
@@ -22,40 +21,42 @@ const StarRating = memo(({ size = 'h-5 w-5' }: { size?: string }) => {
 
 StarRating.displayName = 'StarRating'
 
-const featustoneTestimonial = {
-  body: 'El pasado 2 de enero Dama, una cachorro d ShihTzu pasó a formar parte d mi familia. Elena nos la entregó preciosa y con todas las instrucciones referentes a sus cuidados y un kit para los primeros días con comida, mantita, cepillo. Es muy juguetona y alegre. Elena me escribe para interesarse x su evolución y x si tengo dudas.',
+// Testimonios de LunaBella Golden Retriever (placeholders - actualizar con testimonios reales)
+const featuredTestimonial = {
+  body: 'Desde el primer momento que contactamos con María y Mikel supimos que habíamos encontrado el lugar perfecto para nuestra familia. El cariño con el que crían a sus Golden es evidente, y nuestro Max es el perro más feliz y equilibrado que hemos conocido. La atención post-venta ha sido excepcional.',
   author: {
-    name: 'Elena Navaridas',
-    handle: 'Cliente',
+    name: 'Familia García',
+    handle: 'Madrid',
     imageUrl: '/fotos/avatares/claudia.png',
   },
 }
+
 const testimonials = [
   [
     [
       {
-        body: 'Hace 18 años confíe en Elena para comprar a mi primer Shi-tzu y creí que no se podía mejorar, pues sí! He comprado el segundo hace 1 semana y se me ha puesto malito, Elena me ha atendido en todo momento, incluso me ha estado llamando y preocupándose por mi cachorro continuamente. De verdad, la confianza y tranquilidad que te da es inmejorable!',
+        body: 'LunaBella nos entregó a Luna, nuestra Golden, con toda la documentación, vacunas al día y un seguimiento que nos hizo sentir muy tranquilos. Se nota el amor que ponen en cada cachorro.',
         author: {
-          name: 'Noemi Aguirregabiria',
-          handle: 'Cliente',
+          name: 'Carlos y Ana',
+          handle: 'Barcelona',
           imageUrl: '/fotos/avatares/cristina.jpg',
         },
       },
       {
-        body: 'Nuestra experiencia ha sido de sobresaliente. La propietaria, Elena, es encantadora en el trato y muy profesional. Ya llevamos una semana con Ludo, un shit tzu precioso, cariñoso y lleno de energía, nos tiene enamorados. Mi recomendación es totalmente positiva al 100%.',
+        body: 'La transparencia y profesionalidad de María y Mikel es admirable. Pudimos conocer a los padres de nuestro cachorro y ver las condiciones en las que se crían. Totalmente recomendable.',
         author: {
-          name: 'Mar Rodríguez Ibáñez',
-          handle: 'Cliente',
+          name: 'Patricia Ruiz',
+          handle: 'Bilbao',
           imageUrl: '/fotos/avatares/testimonio-debora.jpg',
         },
       },
     ],
     [
       {
-        body: 'Elena, su propietaria es una persona encantadísima. Se nota que ama a las criaturas que tiene y muy entendida. Nos vendió un bichón maltés y es de lo más cariñoso. Cuando lo trajimos a casa, se amoldó a su nueva casa en dos días. Nos sigue a todas partes, es una maravilla y un miembro más de la familia.',
+        body: 'Nuestro Golden de LunaBella tiene un carácter excepcional. Se nota el trabajo de socialización que hacen desde cachorros. Es un perro equilibrado, cariñoso y perfecto con los niños.',
         author: {
-          name: 'Alberto Javier Dios',
-          handle: 'Cliente',
+          name: 'David Martínez',
+          handle: 'Valencia',
           imageUrl: '/fotos/avatares/jaime.png',
         },
       },
@@ -64,28 +65,28 @@ const testimonials = [
   [
     [
       {
-        body: 'Muy recomendable si estás buscando una de las razas que ofrecen. En nuestro caso, nos llevamos un pomerania precioso que aparte de bonito es un solete. No podríamos estar más contentos con su carácter. Es muy sociable, cariñoso y avispado. Lo que verdaderamente me hizo decidirme fue la confianza que me dio Elena.',
+        body: 'Después de mucho buscar, encontramos LunaBella y fue la mejor decisión. La salud de los reproductores está testada y nos dieron todas las garantías. Nuestro Thor es un campeón.',
         author: {
-          name: 'Miriam Calvo Ortiz',
-          handle: 'Cliente',
+          name: 'Marta López',
+          handle: 'Sevilla',
           imageUrl: '/fotos/avatares/testimonio-irene.jpg',
         },
       },
     ],
     [
       {
-        body: 'Hace muchos años, exactamente 13 me acerqué sin ningún tipo de referencia a donde Elena, y un 11 de noviembre conocí a la que luego fue Ara, la perrita más maravillosa que he conocido. Lo que Ara me ha dado no se paga con dinero. Es una opción segura, y sé que no me voy a arrepentir, porque son perritas sanas, y de un carácter magnífico.',
+        body: 'Lo que más me impresionó fue el seguimiento. Meses después de llevarnos a Nala, siguen preguntando cómo está y nos dan consejos. Se nota que les importa el bienestar de cada cachorro.',
         author: {
-          name: 'Estefania Unciti',
-          handle: 'Cliente',
+          name: 'Roberto Sánchez',
+          handle: 'Zaragoza',
           imageUrl: '/fotos/avatares/testimonio-ruth.jpg',
         },
       },
       {
-        body: 'Elena una mujer maravillosa desde el primer momento que hablé con ella me causó muchísima confianza te explica todo super bien y es sincera con todo. Fuimos a ver los perritos que tiene y nos enamoramos de un pomerania chiquitín. Una mujer encantadora atenta te deja tu tiempo con los perritos y sobretodo se ve toda la dedicación que tiene con sus perros, cuidados con muchísimo amor.',
+        body: 'Criadores de verdad, no un negocio. María y Mikel aman lo que hacen y eso se refleja en la calidad de sus Golden. Nuestro Simba es pura alegría.',
         author: {
-          name: 'Verónica Caballero',
-          handle: 'Cliente',
+          name: 'Laura y Miguel',
+          handle: 'San Sebastián',
           imageUrl: '/fotos/avatares/testimonio-ruxandra.jpg',
         },
       },
@@ -100,7 +101,7 @@ const classNames = (...classes: (string | boolean | undefined | null)[]) => {
 
 export default function TestimonialsGrid() {
   // Memoizar los datos para evitar recreación en cada render
-  const memoizedFeatustoneTestimonial = useMemo(() => featustoneTestimonial, [])
+  const memoizedFeaturedTestimonial = useMemo(() => featuredTestimonial, [])
   const memoizedTestimonials = useMemo(() => testimonials, [])
 
   // Función para calcular className de columnas memoizada
@@ -118,71 +119,76 @@ export default function TestimonialsGrid() {
     [memoizedTestimonials.length],
   )
   return (
-    <div className="relative isolate bg-white pb-24 pt-24 sm:pt-14">
+    <section className="relative isolate py-28 md:py-40 bg-white overflow-hidden">
+      {/* Subtle decorative background - Golden Retriever silhouette */}
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-1/2 -z-10 -translate-y-1/2 transform-gpu overflow-hidden opacity-30 blur-3xl"
+        className="absolute inset-x-0 top-0 -z-10 h-full overflow-hidden"
       >
         <div
+          className="absolute top-1/4 right-0 w-80 h-56 opacity-[0.04]"
           style={{
-            clipPath:
-              'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+            backgroundImage: `url('/silueta-golden.svg')`,
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
           }}
-          className="ml-[max(50%,38rem)] aspect-[1313/771] w-[82.0625rem] bg-gradient-to-tr from-[#ff80b5] to-[#fcfa89]"
-        />
-      </div>
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 -z-10 flex transform-gpu overflow-hidden pt-32 opacity-25 blur-3xl sm:pt-40 xl:justify-end"
-      >
-        <div
-          style={{
-            clipPath:
-              'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-          }}
-          className="ml-[-22rem] aspect-[1313/771] w-[82.0625rem] flex-none origin-top-right rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#fc89ac] xl:ml-0 xl:mr-[calc(50%-12rem)]"
         />
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <Heading as="h3" className="mt-2">
-          Testimonios
-        </Heading>
+      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+        {/* Header with editorial style */}
+        <div className="max-w-4xl mb-20">
+          <div className="flex items-center gap-4 mb-8">
+            <span className="w-16 h-px bg-[#a58a1b]" />
+            <span className="text-[#a58a1b] text-sm font-medium tracking-[0.25em] uppercase">
+              Testimonios
+            </span>
+          </div>
 
-        <Lead className="mt-6 max-w-3xl text-lg ">
-          Estamos orgullosos de cada testimonio que nuestros clientes comparten, porque son el
-          reflejo de nuestro compromiso.
-        </Lead>
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 grid-rows-1 gap-8 text-sm leading-6 text-stone-900 sm:mt-20 sm:grid-cols-2 xl:mx-0 xl:max-w-none xl:grid-flow-col xl:grid-cols-4">
-          <figure className="col-span-2 hidden sm:block sm:rounded-2xl sm:bg-white sm:shadow-lg sm:ring-1 sm:ring-primary/10 xl:col-start-2 xl:row-end-1">
-            <blockquote className="p-12 text-xl font-semibold leading-8 tracking-tight text-pink-950">
-              <p>{`"${memoizedFeatustoneTestimonial.body}"`}</p>
-              <div className="mt-4">
-                <StarRating size="h-5 w-5" />
-                zm
-              </div>
+          <h2 className="text-display text-4xl md:text-5xl lg:text-6xl text-gray-900 mb-8">
+            Lo que dicen nuestras{' '}
+            <span className="text-gradient-gold">familias</span>
+          </h2>
+
+          <p className="text-gray-600 text-lg md:text-xl leading-relaxed max-w-2xl">
+            Estamos orgullosos de cada testimonio que nuestros clientes comparten, porque son el
+            reflejo de nuestro compromiso con la excelencia.
+          </p>
+        </div>
+        <div className="grid max-w-2xl grid-cols-1 grid-rows-1 gap-6 lg:gap-8 text-sm leading-6 text-stone-900 sm:grid-cols-2 xl:mx-0 xl:max-w-none xl:grid-flow-col xl:grid-cols-4">
+          {/* Featured testimonial */}
+          <figure className="group col-span-2 hidden sm:block bg-[#faf8f5] p-10 xl:col-start-2 xl:row-end-1 transition-all duration-500 hover:shadow-[0_20px_60px_-15px_rgba(165,138,27,0.12)] quote-watermark">
+            {/* Quote mark */}
+            <div className="mb-6 text-5xl font-heading text-[#a58a1b]/20 relative z-10">"</div>
+            <blockquote className="text-xl font-medium leading-relaxed text-gray-900 relative z-10">
+              <p>{memoizedFeaturedTestimonial.body}</p>
             </blockquote>
-            <figcaption className="flex items-center gap-x-4 border-t border-primary/15 px-6 py-4">
+            <div className="mt-6">
+              <StarRating size="h-4 w-4" />
+            </div>
+            <figcaption className="mt-8 flex items-center gap-x-4 pt-6 border-t border-[#a58a1b]/10">
               <Image
-                width={40}
-                height={40}
-                className="h-10 w-10 flex-none rounded-full bg-stone-50"
-                src={memoizedFeatustoneTestimonial.author.imageUrl}
+                width={48}
+                height={48}
+                className="h-12 w-12 flex-none rounded-full bg-stone-50 ring-2 ring-[#a58a1b]/20"
+                src={memoizedFeaturedTestimonial.author.imageUrl}
                 loading="lazy"
-                alt={`Avatar de ${memoizedFeatustoneTestimonial.author.name}`}
+                alt={`Avatar de ${memoizedFeaturedTestimonial.author.name}`}
               />
               <div className="flex-auto">
-                <div className="font-semibold text-pink-950">
-                  {memoizedFeatustoneTestimonial.author.name}
+                <div className="font-heading font-semibold text-gray-900">
+                  {memoizedFeaturedTestimonial.author.name}
                 </div>
-                <div className="text-stone-600">{`@${memoizedFeatustoneTestimonial.author.handle}`}</div>
+                <div className="text-gray-500 text-sm">{memoizedFeaturedTestimonial.author.handle}</div>
               </div>
             </figcaption>
           </figure>
+
+          {/* Other testimonials */}
           {memoizedTestimonials.map((columnGroup, columnGroupIdx) => (
             <div
               key={`column-group-${columnGroupIdx}`}
-              className="space-y-8 xl:contents xl:space-y-0"
+              className="space-y-6 lg:space-y-8 xl:contents xl:space-y-0"
             >
               {columnGroup.map((column, columnIdx) => (
                 <div
@@ -192,28 +198,28 @@ export default function TestimonialsGrid() {
                   {column.map((testimonial, testimonialIdx) => (
                     <figure
                       key={`testimonial-${columnGroupIdx}-${columnIdx}-${testimonialIdx}`}
-                      className="rounded-2xl bg-white p-6 shadow-md ring-1 ring-primary/10"
+                      className="group bg-[#faf8f5] p-6 lg:p-8 transition-all duration-500 hover:shadow-[0_15px_40px_-10px_rgba(165,138,27,0.1)]"
                     >
-                      <blockquote className="text-stone-900">
+                      <blockquote className="text-gray-800 leading-relaxed">
                         <p>{`"${testimonial.body}"`}</p>
-                        <div className="mt-3">
-                          <StarRating size="h-4 w-4" />
-                        </div>
                       </blockquote>
-                      <figcaption className="mt-6 flex items-center gap-x-4">
+                      <div className="mt-4">
+                        <StarRating size="h-3.5 w-3.5" />
+                      </div>
+                      <figcaption className="mt-6 flex items-center gap-x-4 pt-4 border-t border-[#a58a1b]/10">
                         <Image
                           width={40}
                           height={40}
-                          className="h-10 w-10 rounded-full bg-stone-50"
+                          className="h-10 w-10 rounded-full bg-stone-50 ring-2 ring-[#a58a1b]/10"
                           src={testimonial.author.imageUrl}
                           loading="lazy"
                           alt={`Avatar de ${testimonial.author.name}`}
                         />
                         <div>
-                          <div className="font-semibold text-pink-950">
+                          <div className="font-heading font-semibold text-gray-900 text-sm">
                             {testimonial.author.name}
                           </div>
-                          <div className="text-stone-600">{`@${testimonial.author.handle}`}</div>
+                          <div className="text-gray-500 text-xs">{testimonial.author.handle}</div>
                         </div>
                       </figcaption>
                     </figure>
@@ -223,7 +229,18 @@ export default function TestimonialsGrid() {
             </div>
           ))}
         </div>
+
+        {/* CTA */}
+        <div className="mt-20 flex justify-center">
+          <Link
+            href="/contacto"
+            className="inline-flex items-center justify-center px-12 py-5 text-[13px] font-medium uppercase tracking-[0.2em] transition-all duration-300 ease-out hover:shadow-[0_15px_50px_-12px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 active:translate-y-0"
+            style={{ backgroundColor: '#000000', color: '#ece8e1' }}
+          >
+            Contactar con LunaBella
+          </Link>
+        </div>
       </div>
-    </div>
+    </section>
   )
 }

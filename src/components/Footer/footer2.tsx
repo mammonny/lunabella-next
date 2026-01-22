@@ -1,54 +1,40 @@
 import React from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { showCookiePreferences } from '@/components/CookieConsent/CookieConsent'
 
 const footerLinks = [
   {
-    title: 'Quién somos',
-    href: '#quiensomos',
+    title: 'Nosotros',
+    href: '/nosotros',
   },
   {
-    title: 'Ejemplares',
-    href: '#servicios',
+    title: 'Nuestros Perros',
+    href: '/nuestros-perros',
   },
   {
     title: 'Cachorros',
-    href: '#equipo',
+    href: '/cachorros',
   },
   {
-    title: 'Contáctanos',
-    href: '#encuentranos',
+    title: 'Exposiciones',
+    href: '/exposiciones',
+  },
+  {
+    title: 'Galeria',
+    href: '/galeria',
+  },
+  {
+    title: 'Contacto',
+    href: '/contacto',
   },
 ]
+
 const navigation = {
-  solutions: [
-    { name: 'Marketing', href: '#' },
-    { name: 'Analytics', href: '#' },
-    { name: 'Commerce', href: '#' },
-    { name: 'Insights', href: '#' },
-  ],
-  support: [
-    { name: 'Pricing', href: '#' },
-    { name: 'Documentation', href: '#' },
-    { name: 'Guides', href: '#' },
-    { name: 'API Status', href: '#' },
-  ],
-  company: [
-    { name: 'About', href: '#' },
-    { name: 'Blog', href: '#' },
-    { name: 'Jobs', href: '#' },
-    { name: 'Press', href: '#' },
-    { name: 'Partners', href: '#' },
-  ],
-  legal: [
-    { name: 'Claim', href: '#' },
-    { name: 'Privacy', href: '#' },
-    { name: 'Terms', href: '#' },
-  ],
   social: [
     {
       name: 'Facebook',
-      href: 'https://www.facebook.com/criadero.goizametz',
+      href: 'https://www.facebook.com/lunabellagolden',
       icon: (props: React.SVGProps<SVGSVGElement>) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -61,7 +47,7 @@ const navigation = {
     },
     {
       name: 'Instagram',
-      href: 'https://www.instagram.com/clinica.innovacare',
+      href: 'https://www.instagram.com/lunabellagolden',
       icon: (props: React.SVGProps<SVGSVGElement>) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -72,104 +58,112 @@ const navigation = {
         </svg>
       ),
     },
-    /* {
-      name: 'Twitter',
-      href: '#',
-      icon: (props: React.SVGProps<SVGSVGElement>) => (
-        <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
-          <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
-        </svg>
-      ),
-    }, */
-    /* {
-      name: 'YouTube',
-      href: '#',
-      icon: (props: React.SVGProps<SVGSVGElement>) => (
-        <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
-          <path
-            fillRule="evenodd"
-            d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
-            clipRule="evenodd"
-          />
-        </svg>
-      ),
-    }, */
   ],
 }
 
 export default function Footer2() {
   return (
-    <footer className="bg-pink-950" aria-labelledby="footer-heading">
+    <footer style={{ backgroundColor: '#ece8e1' }} aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
       <div className="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
         <div className="xl:grid xl:grid-cols-2 xl:gap-8">
           <div className="space-y-8 max-w-sm">
-            <img className="h-14" src="/criadero-Goiz_Ametz-logo.png" alt="Goiz-Ametz" />
-            <p className="text-sm leading-6 text-stone-200">
-              Criando con amor en Ollauri, La Rioja. Donde cada cachorro nace para formar vínculos
-              duraderos.
+            {/* Logo LunaBella para footer */}
+            <Image
+              src="/logo-lunabella-golden-footer.png"
+              alt="LunaBella Golden Retriever"
+              width={280}
+              height={100}
+              className="h-20 w-auto"
+            />
+            <p className="text-sm leading-6 text-gray-700">
+              Cría familiar, responsable y exclusiva de Golden Retriever. Una forma ética de entender
+              la crianza.
             </p>
-            <div className="flex conten space-x-6">
+            <div className="flex space-x-6">
               {navigation.social.map((item) => (
-                <a key={item.name} href={item.href} className="text-stone-300 hover:text-stone-400">
+                <a
+                  key={item.name}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-600 hover:text-gray-900 transition-colors duration-200"
+                >
                   <span className="sr-only">{item.name}</span>
                   <item.icon className="h-6 w-6" aria-hidden="true" />
                 </a>
               ))}
             </div>
           </div>
-          {/* Adjusted container for bottom-left alignment */}
-          {/* Adjusted container for margin and mobile left alignment, right alignment from sm+ */}
+
+          {/* Links de navegación */}
           <div className="mt-8 sm:mt-0 h-full flex flex-col justify-end items-start sm:items-end">
-            <div className="">
-              {' '}
-              {/* This inner div might not be strictly necessary */}
-              {/* Left-aligned links on mobile, right-aligned from sm+, added margin via parent */}
-              <ul className="flex justify-start items-start gap-4 flex-wrap sm:justify-end">
-                {footerLinks.map(({ title, href }) => (
-                  <li key={title}>
-                    {/* Adjusted link style for consistency */}
-                    <Link href={href} className="text-sm text-stone-200 hover:text-stone-100">
-                      {title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <ul className="flex justify-start items-start gap-4 flex-wrap sm:justify-end">
+              {footerLinks.map(({ title, href }) => (
+                <li key={title}>
+                  <Link
+                    href={href}
+                    className="text-sm text-gray-700 hover:text-gray-900 transition-colors duration-200"
+                  >
+                    {title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-        {/* Added flex layout to separate copyright and legal links */}
-        {/* Responsive bottom section: stack and center on mobile, row on sm+ */}
-        <div className="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24 flex flex-col items-center gap-y-4 sm:flex-row sm:justify-between sm:items-center sm:gap-y-0">
-          <span className="text-xs leading-5 text-stone-400 text-center sm:text-left">
+
+        {/* Brand signature - Golden silhouette divider */}
+        <div className="mt-16 sm:mt-20 lg:mt-24 flex items-center justify-center gap-6">
+          <div className="flex-1 h-px bg-[#a58a1b]/20 max-w-[120px]" />
+          <div
+            className="w-10 h-7 opacity-30 hover:opacity-50 transition-opacity duration-500"
+            style={{
+              backgroundColor: '#a58a1b',
+              maskImage: `url('/silueta-golden.svg')`,
+              WebkitMaskImage: `url('/silueta-golden.svg')`,
+              maskSize: 'contain',
+              WebkitMaskSize: 'contain',
+              maskRepeat: 'no-repeat',
+              WebkitMaskRepeat: 'no-repeat',
+              maskPosition: 'center',
+              WebkitMaskPosition: 'center',
+            }}
+          />
+          <div className="flex-1 h-px bg-[#a58a1b]/20 max-w-[120px]" />
+        </div>
+
+        {/* Sección inferior con copyright y links legales */}
+        <div
+          className="mt-8 border-t border-gray-300 pt-8 flex flex-col items-center gap-y-4 sm:flex-row sm:justify-between sm:items-center sm:gap-y-0"
+        >
+          <span className="text-xs leading-5 text-center sm:text-left" style={{ color: '#a58a1b' }}>
             &copy; {new Date().getFullYear()}{' '}
-            <Link href="/" target="_blank" className="hover:text-stone-200">
-              Goiz-Ametz
+            <Link href="/" className="hover:opacity-80" style={{ color: '#a58a1b' }}>
+              LunaBella Golden Retriever
             </Link>
             . Todos los derechos reservados.
           </span>
-          {/* Removed invalid class from this div */}
+
           <div>
-            {/* Replaced single p tag with individual links */}
-            {/* Centered legal links on mobile */}
             <div className="flex justify-center sm:justify-start gap-x-4">
               <Link
                 href="/politica-privacidad"
-                className="text-xs leading-5 text-stone-400 hover:text-stone-200"
+                className="text-xs leading-5 text-gray-600 hover:text-gray-900 transition-colors duration-200"
               >
-                Legal
+                Aviso Legal
               </Link>
               <Link
                 href="/cookies"
-                className="text-xs leading-5 text-stone-400 hover:text-stone-200"
+                className="text-xs leading-5 text-gray-600 hover:text-gray-900 transition-colors duration-200"
               >
                 Cookies
               </Link>
               <button
                 onClick={showCookiePreferences}
-                className="text-xs leading-5 text-stone-400 hover:text-stone-200 cursor-pointer"
+                className="text-xs leading-5 text-gray-600 hover:text-gray-900 cursor-pointer transition-colors duration-200"
               >
                 Configuración de cookies
               </button>

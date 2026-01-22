@@ -5,6 +5,7 @@ import sharp from 'sharp' // sharp-import
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
+import { seed } from './seed'
 
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
@@ -14,6 +15,7 @@ import { Breeds } from './collections/Breeds'
 import { Dogs } from './collections/Dogs'
 import { Puppies } from './collections/Puppies'
 import { Litters } from './collections/Litters' // Añadir import para Litters
+import { Exhibitions } from './collections/Exhibitions'
 import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
@@ -25,6 +27,11 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  onInit: async (payload) => {
+    if (process.env.PAYLOAD_SEED === 'true') {
+      await seed(payload)
+    }
+  },
   admin: {
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
@@ -67,8 +74,9 @@ export default buildConfig({
     pool: {
       connectionString: process.env.POSTGRES_URL || '',
     },
+    push: process.env.NODE_ENV !== 'production',
   }),
-  collections: [Pages, Posts, Breeds, Dogs, Puppies, Litters, Media, Categories, Users], // Añadir Litters al array
+  collections: [Pages, Posts, Breeds, Dogs, Puppies, Litters, Exhibitions, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [

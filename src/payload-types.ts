@@ -73,6 +73,7 @@ export interface Config {
     dogs: Dog;
     puppies: Puppy;
     litters: Litter;
+    exhibitions: Exhibition;
     media: Media;
     categories: Category;
     users: User;
@@ -93,6 +94,7 @@ export interface Config {
     dogs: DogsSelect<false> | DogsSelect<true>;
     puppies: PuppiesSelect<false> | PuppiesSelect<true>;
     litters: LittersSelect<false> | LittersSelect<true>;
+    exhibitions: ExhibitionsSelect<false> | ExhibitionsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -844,6 +846,7 @@ export interface Dog {
   id: number;
   name: string;
   breed: number | Breed;
+  breedingStatus: 'active' | 'retired' | 'deceased';
   gender: 'male' | 'female';
   birthDate: string;
   description: {
@@ -993,6 +996,56 @@ export interface Litter {
   slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "exhibitions".
+ */
+export interface Exhibition {
+  id: number;
+  name: string;
+  date: string;
+  mainImage: number | Media;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  location?: string | null;
+  gallery?:
+    | {
+        image: number | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  awards?:
+    | {
+        dog: number | Dog;
+        /**
+         * Ej: Mejor de Raza, CAC, CACIB, etc.
+         */
+        title: string;
+        position?: ('first' | 'second' | 'third' | 'special' | 'other') | null;
+        id?: string | null;
+      }[]
+    | null;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1189,6 +1242,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'litters';
         value: number | Litter;
+      } | null)
+    | ({
+        relationTo: 'exhibitions';
+        value: number | Exhibition;
       } | null)
     | ({
         relationTo: 'media';
@@ -1497,6 +1554,7 @@ export interface BreedsSelect<T extends boolean = true> {
 export interface DogsSelect<T extends boolean = true> {
   name?: T;
   breed?: T;
+  breedingStatus?: T;
   gender?: T;
   birthDate?: T;
   description?: T;
@@ -1592,6 +1650,38 @@ export interface LittersSelect<T extends boolean = true> {
   slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "exhibitions_select".
+ */
+export interface ExhibitionsSelect<T extends boolean = true> {
+  name?: T;
+  date?: T;
+  mainImage?: T;
+  description?: T;
+  location?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  awards?:
+    | T
+    | {
+        dog?: T;
+        title?: T;
+        position?: T;
+        id?: T;
+      };
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

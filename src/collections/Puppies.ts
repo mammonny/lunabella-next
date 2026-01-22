@@ -16,7 +16,7 @@ export const Puppies: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
-    defaultColumns: ['name', 'breed', 'gender', 'price', 'status', 'updatedAt'],
+    defaultColumns: ['name', 'gender', 'price', 'disponibilidad', 'updatedAt'],
     hidden: ({ user }) => !collectionAccess('puppies')({ user }),
   },
   fields: [
@@ -32,6 +32,9 @@ export const Puppies: CollectionConfig = {
       relationTo: 'breeds',
       required: true,
       label: 'Raza',
+      admin: {
+        hidden: true,
+      },
     },
     {
       name: 'gender',
@@ -214,7 +217,20 @@ export const Puppies: CollectionConfig = {
   ],
   hooks: {
     beforeChange: [
-      ({ data }) => {
+      async ({ data, req }) => {
+        // Auto-asignar Golden Retriever si no hay breed
+        if (!data.breed) {
+          const goldenRetriever = await req.payload.find({
+            collection: 'breeds',
+            where: { slug: { equals: 'golden-retriever' } },
+            limit: 1,
+          })
+          if (goldenRetriever.docs[0]) {
+            data.breed = goldenRetriever.docs[0].id
+          }
+        }
+
+        // Establecer publishedAt cuando se publica
         if (data._status === 'published' && !data.publishedAt) {
           return {
             ...data,

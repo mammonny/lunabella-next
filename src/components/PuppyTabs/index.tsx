@@ -75,7 +75,7 @@ export const PuppyTabs = ({ puppyData, litterMates, ageInWeeks }: PuppyTabsProps
         <div className="grid grid-cols-2 gap-4">
           <div>
             <h3 className="font-medium text-foreground flex items-center gap-1.5">
-              <Tag className="h-4 w-4 text-accent" /> {/* Icono movido aquí */}
+              <Tag className="h-4 w-4 text-lunabella-gold" /> {/* Icono movido aquí */}
               Raza
             </h3>
             <div>
@@ -86,7 +86,7 @@ export const PuppyTabs = ({ puppyData, litterMates, ageInWeeks }: PuppyTabsProps
           </div>
           <div>
             <h3 className="font-medium text-foreground flex items-center gap-1.5">
-              <VenusAndMars className="h-4 w-4 text-accent" /> {/* Usar VenusMars */}
+              <VenusAndMars className="h-4 w-4 text-lunabella-gold" /> {/* Usar VenusMars */}
               Sexo
             </h3>
             <div>
@@ -99,7 +99,7 @@ export const PuppyTabs = ({ puppyData, litterMates, ageInWeeks }: PuppyTabsProps
           </div>
           <div>
             <h3 className="font-medium text-foreground flex items-center gap-1.5">
-              <Cake className="h-4 w-4 text-accent" /> {/* Volver a CakeSlice */}
+              <Cake className="h-4 w-4 text-lunabella-gold" /> {/* Volver a CakeSlice */}
               Edad
             </h3>
             <div>
@@ -110,7 +110,7 @@ export const PuppyTabs = ({ puppyData, litterMates, ageInWeeks }: PuppyTabsProps
           </div>
           <div>
             <h3 className="font-medium text-foreground flex items-center gap-1.5">
-              <Palette className="h-4 w-4 text-accent" /> {/* Icono movido aquí */}
+              <Palette className="h-4 w-4 text-lunabella-gold" /> {/* Icono movido aquí */}
               Color
             </h3>
             <div>
@@ -121,7 +121,7 @@ export const PuppyTabs = ({ puppyData, litterMates, ageInWeeks }: PuppyTabsProps
           </div>
           <div>
             <h3 className="font-medium text-foreground flex items-center gap-1.5">
-              <Scale className="h-4 w-4 text-accent" /> {/* Icono movido aquí */}
+              <Scale className="h-4 w-4 text-lunabella-gold" /> {/* Icono movido aquí */}
               Peso actual
             </h3>
             <div>
@@ -134,7 +134,7 @@ export const PuppyTabs = ({ puppyData, litterMates, ageInWeeks }: PuppyTabsProps
           </div>
           <div>
             <h3 className="font-medium text-foreground flex items-center gap-1.5">
-              <Ruler className="h-4 w-4 text-accent" /> {/* Icono movido aquí */}
+              <Ruler className="h-4 w-4 text-lunabella-gold" /> {/* Icono movido aquí */}
               Tamaño adulto est.
             </h3>
             <div>
@@ -147,7 +147,7 @@ export const PuppyTabs = ({ puppyData, litterMates, ageInWeeks }: PuppyTabsProps
         </div>
         <div>
           <h3 className="font-medium text-foreground mb-2 flex items-center gap-1.5">
-            <Smile className="h-4 w-4 text-accent" /> {/* Icono movido aquí */}
+            <Smile className="h-4 w-4 text-lunabella-gold" /> {/* Icono movido aquí */}
             Temperamento
           </h3>
           <div>
@@ -166,7 +166,7 @@ export const PuppyTabs = ({ puppyData, litterMates, ageInWeeks }: PuppyTabsProps
         <div className="space-y-4">
           <div>
             <h3 className="font-medium mb-2 flex items-center gap-2">
-              <Syringe className="h-4 w-4 text-accent flex-shrink-0" />
+              <Syringe className="h-4 w-4 text-lunabella-gold flex-shrink-0" />
               Vacunas
             </h3>
             {/* Mostrar viñetas estándar */}
@@ -185,7 +185,7 @@ export const PuppyTabs = ({ puppyData, litterMates, ageInWeeks }: PuppyTabsProps
           </div>
           <div>
             <h3 className="font-medium mb-2 flex items-center gap-2">
-              <ShieldCheck className="h-4 w-4 text-accent flex-shrink-0" />
+              <ShieldCheck className="h-4 w-4 text-lunabella-gold flex-shrink-0" />
               Certificados
             </h3>
             {/* Mostrar viñetas estándar */}
@@ -203,7 +203,7 @@ export const PuppyTabs = ({ puppyData, litterMates, ageInWeeks }: PuppyTabsProps
           </div>
           <div>
             <h3 className="font-medium mb-2 flex items-center gap-2">
-              <ThumbsUp className="h-4 w-4 text-accent flex-shrink-0" />
+              <ThumbsUp className="h-4 w-4 text-lunabella-gold flex-shrink-0" />
               Garantías
             </h3>
             {/* Mostrar viñetas estándar */}
