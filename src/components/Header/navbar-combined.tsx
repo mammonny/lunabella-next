@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { Menu, X, ArrowRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from '@/Footer/link'
@@ -105,63 +105,27 @@ function DesktopNav() {
 }
 
 export function NavbarCombined({ banner }: { banner?: React.ReactNode }) {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [navbarHeight, setNavbarHeight] = useState(0)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isClient, setIsClient] = useState(false)
-  const navbarRef = useRef<HTMLDivElement>(null)
 
   // Establecer isClient a true solo en el cliente
   useEffect(() => {
     setIsClient(true)
   }, [])
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.scrollY
-      // Activar con cualquier scroll > 0 para mayor sensibilidad
-      setIsScrolled(scrollTop > 0)
-    }
-
-    // Detectar inmediatamente el estado de scroll al cargar la página
-    handleScroll()
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [navbarHeight])
-
-  useEffect(() => {
-    if (navbarRef.current) {
-      setNavbarHeight(navbarRef.current.offsetHeight)
-    }
-  }, [])
-
   return (
     <>
       <header
-        ref={navbarRef}
-        className="fixed top-0 left-0 right-0 z-[61] transition-all duration-500 ease-out"
+        className="fixed top-0 left-0 right-0 z-[61]"
         style={{
           backgroundColor: COLORS.cream,
-          boxShadow: isScrolled
-            ? '0 4px 30px -5px rgba(0, 0, 0, 0.08), 0 1px 3px -1px rgba(0, 0, 0, 0.05)'
-            : 'none',
         }}
       >
-        {/* Subtle gold accent line at top */}
-        <div
-          className="absolute top-0 left-0 right-0 h-[2px] transition-opacity duration-500"
-          style={{
-            background: `linear-gradient(90deg, transparent, ${COLORS.gold}40, transparent)`,
-            opacity: isScrolled ? 1 : 0,
-          }}
-        />
-
         <div className="px-6 lg:px-12">
           <div className="mx-auto max-w-7xl">
             <div
-              className="flex items-center justify-between transition-all duration-500"
-              style={{ padding: isScrolled ? '0.625rem 0' : '0.875rem 0' }}
+              className="flex items-center justify-between"
+              style={{ padding: '0.875rem 0' }}
             >
               {/* Logo with hover effect */}
               <div className="flex items-center gap-6">
