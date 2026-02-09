@@ -6,7 +6,6 @@ import { Media } from '@/components/Media'
 
 // --- Helper Functions ---
 
-// Calcula la edad en semanas
 const calculateAgeInWeeks = (birthDate: string | null | undefined): string => {
   if (!birthDate) return ''
   try {
@@ -51,6 +50,7 @@ export const PuppyCard: React.FC<PuppyCardProps> = ({
     gender,
   } = puppy
 
+  const apodo = (puppy as any).apodo as string | undefined
   const dogStatus = (puppy as any).breedingStatus as 'active' | 'retired' | 'deceased' | undefined
   const age = calculateAgeInWeeks(birthDate)
   const genderText = gender === 'male' ? 'Macho' : gender === 'female' ? 'Hembra' : ''
@@ -58,33 +58,36 @@ export const PuppyCard: React.FC<PuppyCardProps> = ({
   const basePath = collectionType === 'dogs' ? '/nuestros-perros' : '/cachorros'
   const puppyUrl = `${basePath}/${slug || id}`
 
-  // Status label for dogs
-  const getStatusLabel = () => {
+  // Status configuration - refined colors that harmonize with LunaBella palette
+  const getStatusConfig = () => {
     if (collectionType === 'dogs') {
-      if (dogStatus === 'retired') return 'Retirado'
-      if (dogStatus === 'deceased') return 'En Memoria'
+      if (dogStatus === 'retired') return { label: 'Retirado', bg: '#6b6560', color: '#ece8e1' }
+      if (dogStatus === 'deceased') return { label: 'En Memoria', bg: '#3d3a37', color: '#ece8e1' }
       return null
     }
-    // For puppies
-    if (disponibilidad === 'available') return 'Disponible'
-    if (disponibilidad === 'reserved') return 'Reservado'
-    if (disponibilidad === 'sold') return 'Vendido'
+    // For puppies - warm tones that complement the gold
+    if (disponibilidad === 'available') return { label: 'Disponible', bg: '#a58a1b', color: '#ece8e1' }
+    if (disponibilidad === 'reserved') return { label: 'Reservado', bg: '#8a7316', color: '#ece8e1' }
+    if (disponibilidad === 'sold') return { label: 'Vendido', bg: '#6b6560', color: '#ece8e1' }
     return null
   }
 
-  const statusLabel = getStatusLabel()
+  const statusConfig = getStatusConfig()
+
+  // Gender colors - warm tones that harmonize with gold/cream palette
+  const genderColor = gender === 'male' ? '#7a9bb8' : '#c4a69f'
 
   return (
     <Link href={puppyUrl} className={`group block ${className || ''}`}>
-      <article>
+      <article className="transition-all duration-500 ease-out group-hover:translate-y-[-2px]">
         {/* Image Container */}
-        <div className="relative overflow-hidden mb-4">
+        <div className="relative overflow-hidden mb-5">
           {/* Aspect ratio container */}
           <div className="relative aspect-[4/5] bg-[#f5f4f2]">
             {typeof mainImage === 'object' && mainImage !== null && 'url' in mainImage ? (
               <Media
                 resource={mainImage}
-                className="object-cover w-full h-full transition-transform duration-700 ease-out group-hover:scale-105"
+                className="object-cover w-full h-full transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 imgClassName="object-cover w-full h-full"
               />
             ) : (
@@ -92,63 +95,65 @@ export const PuppyCard: React.FC<PuppyCardProps> = ({
                 src={(typeof mainImage === 'object' && mainImage?.url) || '/placeholder.svg'}
                 alt={`${name} - Golden Retriever LunaBella`}
                 fill
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
               />
             )}
 
-            {/* Subtle overlay on hover */}
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
+            {/* Subtle warm overlay on hover */}
+            <div
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.15) 0%, transparent 50%)' }}
+            />
 
-            {/* Status Badge - LunaBella style */}
-            {statusLabel && (
+            {/* Status Badge */}
+            {statusConfig && (
               <div
                 className="absolute top-0 right-0 px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.15em]"
-                style={{
-                  backgroundColor: dogStatus === 'deceased' ? '#6b6560' : '#a58a1b',
-                  color: '#ece8e1',
-                }}
+                style={{ backgroundColor: statusConfig.bg, color: statusConfig.color }}
               >
-                {statusLabel}
+                {statusConfig.label}
               </div>
             )}
           </div>
 
-          {/* Bottom accent line - appears on hover */}
+          {/* Bottom accent line - gold, appears on hover */}
           <div
-            className="absolute bottom-0 left-0 right-0 h-0.5 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
+            className="absolute bottom-0 left-0 right-0 h-[2px] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
             style={{ backgroundColor: '#a58a1b' }}
           />
         </div>
 
         {/* Content */}
-        <div className="px-1">
-          {/* Name */}
-          <h3 className="font-heading text-lg md:text-xl font-medium text-gray-900 group-hover:text-[#a58a1b] transition-colors duration-300 mb-2 leading-tight">
+        <div className="px-0.5">
+          {/* Name with subtle gold underline on hover */}
+          <h3 className="font-heading text-lg md:text-xl font-medium text-gray-900 group-hover:text-[#8a7316] transition-colors duration-300 leading-tight tracking-[-0.01em]">
             {name}
           </h3>
+          {apodo && (
+            <p className="text-sm text-[#6b6560] italic mb-2.5">"{apodo}"</p>
+          )}
+          {!apodo && <div className="mb-2.5" />}
 
           {/* Details row */}
-          <div className="flex items-center gap-3 text-sm text-gray-500">
+          <div className="flex items-center gap-3 text-[13px] text-[#6b6560]">
             {genderText && (
               <span className="flex items-center gap-1.5">
                 <span
                   className="w-1.5 h-1.5 rounded-full"
-                  style={{
-                    backgroundColor: gender === 'male' ? '#5b8fc9' : '#d4a5a0',
-                  }}
+                  style={{ backgroundColor: genderColor }}
                 />
                 {genderText}
               </span>
             )}
-            {age && genderText && <span className="text-gray-300">·</span>}
+            {age && genderText && <span className="text-[#ddd7cc]">·</span>}
             {age && <span>{age}</span>}
           </div>
 
-          {/* Price - only for puppies */}
+          {/* Price - only for puppies, highlighted with gold */}
           {collectionType === 'puppies' && typeof price === 'number' && (
-            <div className="mt-3">
-              <span className="text-sm font-medium text-gray-900">
+            <div className="mt-3.5">
+              <span className="text-[15px] font-medium text-[#a58a1b]">
                 {price.toLocaleString('es-ES')} €
               </span>
             </div>

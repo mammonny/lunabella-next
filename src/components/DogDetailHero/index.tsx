@@ -6,6 +6,7 @@ import type { Media as MediaType } from '@/payload-types'
 
 interface DogDetailHeroProps {
   name: string
+  apodo?: string | null
   breedName: string
   mainImage: MediaType | null
   gender: 'male' | 'female' | null
@@ -16,6 +17,7 @@ interface DogDetailHeroProps {
 
 export const DogDetailHero: React.FC<DogDetailHeroProps> = ({
   name,
+  apodo,
   breedName,
   mainImage,
   gender,
@@ -119,11 +121,20 @@ export const DogDetailHero: React.FC<DogDetailHeroProps> = ({
 
           {/* Name - with staggered animation */}
           <h1
-            className="text-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white mb-8 leading-[1.05] animate-fade-in-up"
+            className="text-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white leading-[1.05] animate-fade-in-up"
             style={{ animationDelay: '0.1s' }}
           >
             {name}
           </h1>
+          {apodo && (
+            <p
+              className="text-xl md:text-2xl text-white/60 italic mt-2 mb-8 animate-fade-in-up"
+              style={{ animationDelay: '0.15s' }}
+            >
+              "{apodo}"
+            </p>
+          )}
+          {!apodo && <div className="mb-8" />}
 
           {/* Details row - Editorial style with subtle separators */}
           <div

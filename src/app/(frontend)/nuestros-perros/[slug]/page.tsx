@@ -58,6 +58,7 @@ export default async function Page({ params }: Args) {
 
     const {
       name,
+      apodo,
       breed,
       gender,
       breedingStatus,
@@ -125,6 +126,7 @@ export default async function Page({ params }: Args) {
         {/* Hero Section */}
         <DogDetailHero
           name={name || 'Ejemplar'}
+          apodo={apodo}
           breedName={breedName}
           mainImage={mainImage as Media}
           gender={gender}

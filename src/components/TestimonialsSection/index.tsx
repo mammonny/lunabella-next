@@ -50,7 +50,7 @@ export function TestimonialsSection({
               </div>
               <div>
                 <h3 className="font-semibold">{testimonial.name}</h3>
-                <div className="flex text-amber-500 mb-2">
+                <div className="flex mb-2" style={{ color: '#a58a1b' }}>
                   {[...Array(testimonial.rating)].map((_, j) => (
                     <svg
                       key={j}

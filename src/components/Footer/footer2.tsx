@@ -137,7 +137,7 @@ export default function Footer2() {
 
         {/* Sección inferior con copyright y links legales */}
         <div
-          className="mt-8 border-t border-gray-300 pt-8 flex flex-col items-center gap-y-4 sm:flex-row sm:justify-between sm:items-center sm:gap-y-0"
+          className="mt-8 pt-4 flex flex-col items-center gap-y-4 sm:flex-row sm:justify-between sm:items-center sm:gap-y-0"
         >
           <span className="text-xs leading-5 text-center sm:text-left" style={{ color: '#a58a1b' }}>
             &copy; {new Date().getFullYear()}{' '}

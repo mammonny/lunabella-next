@@ -2,24 +2,24 @@ import Link from 'next/link'
 
 const features = [
   {
-    title: 'Salud genética',
+    title: 'Tranquilidad garantizada',
     description:
-      'Todos nuestros reproductores están testados genéticamente y libres de las enfermedades hereditarias más comunes en la raza.',
+      'Tu cachorro viene con todas las pruebas genéticas realizadas y garantía de salud. Podrás disfrutarlo sin preocupaciones desde el primer día.',
   },
   {
-    title: 'Socialización temprana',
+    title: 'Listo para tu hogar',
     description:
-      'Los cachorros crecen en un ambiente familiar, con contacto humano diario y exposición a diferentes estímulos desde las primeras semanas.',
+      'Desde que nacen, nuestros cachorros conviven con niños, otros animales y estímulos del día a día. Llegan a tu casa preparados para integrarse en la familia.',
   },
   {
-    title: 'Estándar de raza',
+    title: 'Siempre a tu lado',
     description:
-      'Criamos siguiendo el estándar oficial de la FCI, buscando la excelencia morfológica sin comprometer la salud ni el carácter.',
+      'No te dejamos solo después de la entrega. Estaremos disponibles para resolver dudas, dar consejos y acompañarte durante toda la vida de tu Golden.',
   },
   {
-    title: 'Acompañamiento',
+    title: 'Ven a conocernos',
     description:
-      'Ofrecemos asesoramiento personalizado antes, durante y después de la adopción. Tu cachorro siempre tendrá nuestro apoyo.',
+      'Te abrimos las puertas de nuestra casa. Conoce a los padres, el entorno donde crecen y comprueba de primera mano cómo trabajamos.',
   },
 ]
 
@@ -42,8 +42,7 @@ export default function WhyLunaBella() {
           </h2>
 
           <p className="text-gray-600 text-lg md:text-xl leading-relaxed max-w-2xl">
-            Más de quince años dedicados a la cría responsable del Golden Retriever. Nuestra pasión
-            se refleja en cada cachorro que sale de nuestra familia.
+            Elegir un cachorro es una decisión importante. Queremos que lo hagas con total confianza, sabiendo exactamente qué esperar de nosotros.
           </p>
         </div>
 
@@ -72,8 +71,7 @@ export default function WhyLunaBella() {
         <div className="mt-20 flex justify-center">
           <Link
             href="/nosotros"
-            className="inline-flex items-center justify-center px-12 py-5 text-[13px] font-medium uppercase tracking-[0.2em] transition-all duration-300 ease-out hover:shadow-[0_15px_50px_-12px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 active:translate-y-0"
-            style={{ backgroundColor: '#000000', color: '#ece8e1' }}
+            className="inline-flex items-center justify-center px-12 py-5 text-[13px] font-medium uppercase tracking-[0.2em] bg-black text-[#ece8e1] transition-all duration-300 ease-out hover:bg-[#1a1a1a]"
           >
             Conoce nuestra historia
           </Link>

@@ -18,6 +18,20 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
+      // Instagram CDN domains
+      {
+        protocol: 'https',
+        hostname: '**.cdninstagram.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.fbcdn.net',
+      },
+      // Google profile images
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
     ],
   },
   reactStrictMode: true,

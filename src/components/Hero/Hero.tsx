@@ -294,8 +294,7 @@ export function Hero({
               <div className="animate-fade-in-up delay-300 flex flex-col sm:flex-row gap-4">
                 <Link
                   href={ctaButtons.primary.href}
-                  className="group inline-flex items-center justify-center gap-3 px-10 py-4 text-[13px] font-medium uppercase tracking-[0.2em] transition-all duration-500 ease-out hover:shadow-[0_20px_50px_-15px_rgba(236,232,225,0.4)] hover:-translate-y-1"
-                  style={{ backgroundColor: '#ece8e1', color: '#000000' }}
+                  className="group inline-flex items-center justify-center gap-3 px-10 py-4 text-[13px] font-medium uppercase tracking-[0.2em] bg-[#ece8e1] text-black transition-all duration-300 ease-out hover:bg-white"
                 >
                   {ctaButtons.primary.label}
                   <svg
@@ -310,8 +309,7 @@ export function Hero({
                 </Link>
                 <Link
                   href={ctaButtons.secondary.href}
-                  className="inline-flex items-center justify-center px-10 py-4 text-[13px] font-medium uppercase tracking-[0.2em] border transition-all duration-500 ease-out hover:bg-white/10 hover:border-white/50"
-                  style={{ borderColor: 'rgba(236, 232, 225, 0.35)', color: '#ece8e1' }}
+                  className="inline-flex items-center justify-center px-10 py-4 text-[13px] font-medium uppercase tracking-[0.2em] border border-[#ece8e1]/35 text-[#ece8e1] transition-all duration-300 ease-out hover:bg-white/10 hover:border-[#ece8e1]/60"
                 >
                   {ctaButtons.secondary.label}
                 </Link>
@@ -320,11 +318,14 @@ export function Hero({
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in-up delay-500">
-          <span className="text-white/50 text-[10px] uppercase tracking-[0.3em]">Scroll</span>
-          <div className="w-[1px] h-8 bg-gradient-to-b from-white/50 to-transparent animate-pulse" />
-        </div>
+        {/* Scroll indicator - clickeable, mismo destino que Conócenos */}
+        <Link
+          href={ctaButtons?.secondary?.href || '#quiensomos'}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in-up delay-500 cursor-pointer group"
+        >
+          <span className="text-white/50 text-[10px] uppercase tracking-[0.3em] group-hover:text-white/70 transition-colors">Scroll</span>
+          <div className="w-[1px] h-8 bg-gradient-to-b from-white/50 to-transparent animate-pulse group-hover:from-white/70" />
+        </Link>
       </section>
     )
   }

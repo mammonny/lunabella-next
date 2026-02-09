@@ -845,11 +845,15 @@ export interface Breed {
 export interface Dog {
   id: number;
   name: string;
+  /**
+   * Nombre cariñoso o apodo del perro (opcional)
+   */
+  apodo?: string | null;
   breed: number | Breed;
   breedingStatus: 'active' | 'retired' | 'deceased';
   gender: 'male' | 'female';
   birthDate: string;
-  description: {
+  description?: {
     root: {
       type: string;
       children: {
@@ -863,7 +867,7 @@ export interface Dog {
       version: number;
     };
     [k: string]: unknown;
-  };
+  } | null;
   mainImage: number | Media;
   gallery?:
     | {
@@ -872,9 +876,9 @@ export interface Dog {
         id?: string | null;
       }[]
     | null;
-  color: string;
-  weight: number;
-  height: number;
+  color?: string | null;
+  weight?: number | null;
+  height?: number | null;
   specialFeatures?:
     | {
         feature: string;
@@ -1553,6 +1557,7 @@ export interface BreedsSelect<T extends boolean = true> {
  */
 export interface DogsSelect<T extends boolean = true> {
   name?: T;
+  apodo?: T;
   breed?: T;
   breedingStatus?: T;
   gender?: T;

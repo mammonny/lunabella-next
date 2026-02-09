@@ -1,52 +1,105 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, ArrowRight } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from '@/Footer/link'
 import { Logo } from '../Logo/Logo'
 import { Button } from '@/components/ui/button'
+import { usePathname } from 'next/navigation'
+
+// Brand colors
+const COLORS = {
+  cream: '#ece8e1',
+  creamDark: '#ddd7cc',
+  gold: '#a58a1b',
+  goldLight: '#c9a93d',
+  black: '#000000',
+  charcoal: '#1a1a1a',
+}
+
+// Navigation items
+const NAV_ITEMS = [
+  { label: 'Nosotros', href: '/nosotros' },
+  { label: 'Nuestros Perros', href: '/nuestros-perros' },
+  { label: 'Cachorros', href: '/cachorros' },
+  { label: 'Exposiciones', href: '/exposiciones' },
+  { label: 'Galería', href: '/galeria' },
+]
+
+// Elegant NavLink with animated underline
+function NavLink({ href, children, isActive }: { href: string; children: React.ReactNode; isActive: boolean }) {
+  return (
+    <Link
+      href={href}
+      className="group relative px-5 py-2"
+    >
+      <span
+        className={`relative z-10 text-[13px] font-medium uppercase tracking-[0.12em] transition-colors duration-300 ${
+          isActive ? '' : 'group-hover:text-[#a58a1b]'
+        }`}
+        style={{ color: isActive ? COLORS.gold : COLORS.charcoal }}
+      >
+        {children}
+      </span>
+      {/* Underline - full width, revealed via clip-path from left */}
+      <span
+        className={`absolute bottom-1 left-5 right-5 h-px transition-[clip-path] duration-300 ease-out ${
+          isActive
+            ? '[clip-path:inset(0_0_0_0)]'
+            : '[clip-path:inset(0_100%_0_0)] group-hover:[clip-path:inset(0_0_0_0)]'
+        }`}
+        style={{ backgroundColor: COLORS.gold }}
+      />
+    </Link>
+  )
+}
+
+// Contact button with consistent styling
+function ContactButton() {
+  return (
+    <Link
+      href="/contacto"
+      className="group ml-6 inline-flex items-center gap-2 px-7 py-2.5 bg-black text-[#ece8e1] transition-all duration-300 ease-out hover:bg-[#1a1a1a]"
+    >
+      <span className="text-[12px] font-medium uppercase tracking-[0.15em]">
+        Contacto
+      </span>
+      <ArrowRight
+        className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1"
+        style={{ color: COLORS.gold }}
+        strokeWidth={2}
+      />
+    </Link>
+  )
+}
 
 function DesktopNav() {
+  const pathname = usePathname()
+
   return (
-    <nav className="relative hidden lg:flex items-center gap-1">
-      <Link
-        href="/nosotros"
-        className="px-4 py-2 text-sm font-medium text-gray-800 hover:text-gray-600 transition-colors"
-      >
-        Nosotros
-      </Link>
-      <Link
-        href="/nuestros-perros"
-        className="px-4 py-2 text-sm font-medium text-gray-800 hover:text-gray-600 transition-colors"
-      >
-        Nuestros Perros
-      </Link>
-      <Link
-        href="/cachorros"
-        className="px-4 py-2 text-sm font-medium text-gray-800 hover:text-gray-600 transition-colors"
-      >
-        Cachorros
-      </Link>
-      <Link
-        href="/exposiciones"
-        className="px-4 py-2 text-sm font-medium text-gray-800 hover:text-gray-600 transition-colors"
-      >
-        Exposiciones
-      </Link>
-      <Link
-        href="/galeria"
-        className="px-4 py-2 text-sm font-medium text-gray-800 hover:text-gray-600 transition-colors"
-      >
-        Galería
-      </Link>
-      <Link
-        href="/contacto"
-        className="ml-4 px-5 py-2 text-sm font-medium rounded-full transition-colors"
-        style={{ backgroundColor: '#000000', color: '#ece8e1' }}
-      >
-        Contacto
-      </Link>
+    <nav className="relative hidden lg:flex items-center">
+      {/* Nav links */}
+      <div className="flex items-center">
+        {NAV_ITEMS.map((item) => (
+          <NavLink
+            key={item.href}
+            href={item.href}
+            isActive={pathname === item.href}
+          >
+            {item.label}
+          </NavLink>
+        ))}
+      </div>
+
+      {/* Separator */}
+      <div
+        className="mx-4 h-5 w-px"
+        style={{ backgroundColor: COLORS.creamDark }}
+      />
+
+      {/* Contact button */}
+      <ContactButton />
     </nav>
   )
 }
@@ -87,15 +140,36 @@ export function NavbarCombined({ banner }: { banner?: React.ReactNode }) {
     <>
       <header
         ref={navbarRef}
-        className="fixed top-0 left-0 right-0 z-[61] transition-all duration-300 ease-out"
-        style={{ backgroundColor: '#ece8e1' }}
+        className="fixed top-0 left-0 right-0 z-[61] transition-all duration-500 ease-out"
+        style={{
+          backgroundColor: COLORS.cream,
+          boxShadow: isScrolled
+            ? '0 4px 30px -5px rgba(0, 0, 0, 0.08), 0 1px 3px -1px rgba(0, 0, 0, 0.05)'
+            : 'none',
+        }}
       >
+        {/* Subtle gold accent line at top */}
+        <div
+          className="absolute top-0 left-0 right-0 h-[2px] transition-opacity duration-500"
+          style={{
+            background: `linear-gradient(90deg, transparent, ${COLORS.gold}40, transparent)`,
+            opacity: isScrolled ? 1 : 0,
+          }}
+        />
+
         <div className="px-6 lg:px-12">
           <div className="mx-auto max-w-7xl">
-            <div className="py-3 flex items-center justify-between">
-              {/* Logo */}
+            <div
+              className="flex items-center justify-between transition-all duration-500"
+              style={{ padding: isScrolled ? '0.625rem 0' : '0.875rem 0' }}
+            >
+              {/* Logo with hover effect */}
               <div className="flex items-center gap-6">
-                <Link href="/" title="Home">
+                <Link
+                  href="/"
+                  title="Home"
+                  className="group transition-transform duration-300 hover:scale-[1.02]"
+                >
                   <Logo />
                 </Link>
                 {banner && (
@@ -113,13 +187,13 @@ export function NavbarCombined({ banner }: { banner?: React.ReactNode }) {
                     variant="ghost"
                     size="icon"
                     aria-label="Toggle site navigation"
-                    className="relative z-[70]"
+                    className="relative z-[70] transition-colors duration-300 hover:bg-transparent"
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                   >
                     {isMobileMenuOpen ? (
-                      <X className="h-6 w-6 text-gray-600" />
+                      <X className="h-6 w-6" style={{ color: COLORS.charcoal }} />
                     ) : (
-                      <Menu className="h-6 w-6 text-gray-600" />
+                      <Menu className="h-6 w-6" style={{ color: COLORS.charcoal }} />
                     )}
                   </Button>
                 </div>
@@ -205,8 +279,7 @@ export function NavbarCombined({ banner }: { banner?: React.ReactNode }) {
               <div className="mt-8 flex flex-col gap-4 border-t border-gray-200 pt-6">
                 <Link
                   href="/contacto"
-                  className="w-full text-center px-5 py-3 text-sm font-medium rounded-full transition-colors"
-                  style={{ backgroundColor: '#000000', color: '#ece8e1' }}
+                  className="w-full text-center px-5 py-3 text-sm font-medium uppercase tracking-[0.15em] bg-black text-[#ece8e1] transition-all duration-300 hover:bg-[#1a1a1a]"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Contacto

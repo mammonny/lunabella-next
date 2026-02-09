@@ -27,6 +27,14 @@ export const Dogs: CollectionConfig = {
       label: 'Nombre del Ejemplar',
     },
     {
+      name: 'apodo',
+      type: 'text',
+      label: 'Apodo',
+      admin: {
+        description: 'Nombre cariñoso o apodo del perro (opcional)',
+      },
+    },
+    {
       name: 'breed',
       type: 'relationship',
       relationTo: 'breeds',
@@ -79,7 +87,6 @@ export const Dogs: CollectionConfig = {
             {
               name: 'description',
               type: 'richText',
-              required: true,
               label: 'Descripción',
             },
             {
@@ -114,19 +121,16 @@ export const Dogs: CollectionConfig = {
             {
               name: 'color',
               type: 'text',
-              required: true,
               label: 'Color',
             },
             {
               name: 'weight',
               type: 'number',
-              required: true,
               label: 'Peso (kg)',
             },
             {
               name: 'height',
               type: 'number',
-              required: true,
               label: 'Altura (cm)',
             },
             {

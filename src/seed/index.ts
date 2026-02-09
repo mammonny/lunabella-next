@@ -21,10 +21,12 @@ async function uploadImage(payload: Payload, imagePath: string, altText: string)
 }
 
 export const seed = async (payload: Payload): Promise<void> => {
-  payload.logger.info('Seeding data...')
+  // DESACTIVADO - No ejecutar seed hasta nuevo aviso
+  payload.logger.info('Seed disabled')
+  return
 
   // Buscar o crear la raza Golden Retriever
-  let goldenRetriever = await payload.find({
+  const goldenRetriever = await payload.find({
     collection: 'breeds',
     where: { slug: { equals: 'golden-retriever' } },
     limit: 1,

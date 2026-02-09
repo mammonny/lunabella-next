@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Metadata } from 'next'
-import ContactSection2 from '@/components/ContactSection2/contact'
 import SectionDivider from '@/components/SectionDivider'
 import ScrollProgress from '@/components/ScrollProgress'
 import TestimonialsGrid from '@/components/Testimonials/testimonialsgrid'
@@ -16,21 +15,6 @@ export function generateMetadata(): Metadata {
       'Conoce nuestra filosofía de crianza familiar y responsable del Golden Retriever. Más de 15 años dedicados a criar perros sanos, con excelente carácter y fieles al estándar de raza.',
   }
 }
-
-const pilares = [
-  {
-    name: 'Salud',
-    description: 'criar perros genéticamente testados y sanos',
-  },
-  {
-    name: 'Carácter',
-    description: 'socializar excelentes perros de familia',
-  },
-  {
-    name: 'Belleza',
-    description: 'fieles al estándar oficial de la raza',
-  },
-]
 
 const valores = [
   {
@@ -206,29 +190,6 @@ export default function NosotrosPage() {
                     Cada uno de nuestros perros es cruzado bajo un estudio profundamente realizado
                     para que salgan perros sanos y de alta calidad.
                   </p>
-                </div>
-
-                {/* Pilares con diseño refinado */}
-                <div className="mt-12 space-y-5">
-                  {pilares.map((pilar, index) => (
-                    <div
-                      key={pilar.name}
-                      className="group flex items-start gap-4 p-4 -mx-4 rounded-sm transition-all duration-300 hover:bg-[#faf8f5]"
-                    >
-                      <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center border border-[#a58a1b]/30 rounded-full group-hover:bg-[#a58a1b] group-hover:border-[#a58a1b] transition-all duration-300">
-                        <span className="text-[#a58a1b] text-xs font-semibold group-hover:text-[#ece8e1] transition-colors duration-300">
-                          {String(index + 1).padStart(2, '0')}
-                        </span>
-                      </div>
-                      <div>
-                        <span className="font-heading font-semibold text-lg text-gray-900">
-                          {pilar.name}
-                        </span>
-                        <span className="text-gray-500 mx-2">—</span>
-                        <span className="text-gray-600">{pilar.description}</span>
-                      </div>
-                    </div>
-                  ))}
                 </div>
               </div>
             </div>
@@ -557,8 +518,6 @@ export default function NosotrosPage() {
             </div>
           </div>
         </section>
-
-        <ContactSection2 />
       </main>
     </>
   )

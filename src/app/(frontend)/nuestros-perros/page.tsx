@@ -24,6 +24,7 @@ export default async function Page() {
     select: {
       id: true,
       name: true,
+      apodo: true,
       slug: true,
       breed: true,
       gender: true,
@@ -172,8 +173,7 @@ export default async function Page() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   href="/cachorros"
-                  className="inline-flex items-center justify-center gap-3 px-12 py-5 text-[13px] font-medium uppercase tracking-[0.2em] transition-all duration-300 ease-out hover:shadow-[0_15px_50px_-12px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 active:translate-y-0"
-                  style={{ backgroundColor: '#000000', color: '#ece8e1' }}
+                  className="group btn-lunabella inline-flex items-center justify-center gap-3"
                 >
                   Ver cachorros disponibles
                   <svg

@@ -13,21 +13,6 @@ const GoldenIcon = ({ className }: { className?: string }) => (
   <span className={`golden-silhouette-sm ${className || ''}`} />
 )
 
-const features = [
-  {
-    name: 'Salud',
-    description: 'criar perros genéticamente testados y sanos',
-  },
-  {
-    name: 'Carácter',
-    description: 'socializar excelentes perros de familia',
-  },
-  {
-    name: 'Belleza',
-    description: 'fieles al estándar oficial de la raza',
-  },
-]
-
 const HomePage3 = () => (
   <>
     {/* Scroll Progress Indicator */}
@@ -86,10 +71,10 @@ const HomePage3 = () => (
                 />
                 {/* Badge flotante */}
                 <div
-                  className="absolute -bottom-6 -right-6 xl:-right-12 bg-[#a58a1b] text-[#ece8e1] px-6 py-4 z-10"
+                  className="absolute -bottom-6 -right-6 xl:-right-12 bg-[#faf8f5]/95 backdrop-blur-sm border border-[#a58a1b]/30 px-6 py-4 z-10 shadow-sm"
                 >
-                  <span className="block text-3xl font-heading font-semibold">+15</span>
-                  <span className="text-xs uppercase tracking-[0.2em]">Años</span>
+                  <span className="block text-3xl font-heading font-semibold text-[#a58a1b]">+15</span>
+                  <span className="text-xs uppercase tracking-[0.2em] text-[#8b7419]">Años</span>
                 </div>
               </div>
             </div>
@@ -120,30 +105,7 @@ const HomePage3 = () => (
                 </p>
               </div>
 
-              {/* Features con diseño refinado */}
-              <div className="mt-12 space-y-5">
-                {features.map((feature, index) => (
-                  <div
-                    key={feature.name}
-                    className="group flex items-start gap-4 p-4 -mx-4 rounded-sm transition-all duration-300 hover:bg-[#faf8f5]"
-                  >
-                    <div className="flex-shrink-0 w-8 h-8 flex items-center justify-center border border-[#a58a1b]/30 rounded-full group-hover:bg-[#a58a1b] group-hover:border-[#a58a1b] transition-all duration-300">
-                      <span className="text-[#a58a1b] text-xs font-semibold group-hover:text-[#ece8e1] transition-colors duration-300">
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="font-heading font-semibold text-lg text-gray-900">
-                        {feature.name}
-                      </span>
-                      <span className="text-gray-500 mx-2">—</span>
-                      <span className="text-gray-600">{feature.description}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-14">
+              <div className="mt-10">
                 <Link
                   href="/nosotros"
                   className="group inline-flex items-center gap-4 text-sm font-medium uppercase tracking-[0.2em] text-gray-900 hover:text-[#a58a1b] transition-colors duration-300"

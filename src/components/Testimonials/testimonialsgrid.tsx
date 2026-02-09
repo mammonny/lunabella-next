@@ -3,10 +3,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useMemo, useCallback, memo } from 'react'
 
-// Componente StarRating optimizado
+// Componente StarRating optimizado - usa el dorado de la paleta LunaBella
 const StarRating = memo(({ size = 'h-5 w-5' }: { size?: string }) => {
   return (
-    <div className="flex gap-x-1 text-amber-500">
+    <div className="flex gap-x-1" style={{ color: '#a58a1b' }}>
       {Array.from({ length: 5 }, (_, i) => (
         <Star
           key={i}
@@ -21,13 +21,13 @@ const StarRating = memo(({ size = 'h-5 w-5' }: { size?: string }) => {
 
 StarRating.displayName = 'StarRating'
 
-// Testimonios de LunaBella Golden Retriever (placeholders - actualizar con testimonios reales)
+// Testimonios reales de Google Reviews - LunaBella Golden Retriever
 const featuredTestimonial = {
-  body: 'Desde el primer momento que contactamos con María y Mikel supimos que habíamos encontrado el lugar perfecto para nuestra familia. El cariño con el que crían a sus Golden es evidente, y nuestro Max es el perro más feliz y equilibrado que hemos conocido. La atención post-venta ha sido excepcional.',
+  body: 'Excelente. Si estás buscando un criadero de perros responsable donde no solo amen lo que hacen, sino que lo hagan fantásticamente, tu sitio es este. Totalmente recomendable.',
   author: {
-    name: 'Familia García',
-    handle: 'Madrid',
-    imageUrl: '/fotos/avatares/claudia.png',
+    name: 'Victoria Eugenia del Hoyo Torres',
+    handle: 'Reseña de Google',
+    imageUrl: '/fotos/avatares/victoria-eugenia.png',
   },
 }
 
@@ -35,29 +35,29 @@ const testimonials = [
   [
     [
       {
-        body: 'LunaBella nos entregó a Luna, nuestra Golden, con toda la documentación, vacunas al día y un seguimiento que nos hizo sentir muy tranquilos. Se nota el amor que ponen en cada cachorro.',
+        body: 'Tenemos un txiki suyo y no podríamos haber elegido mejor. Es un sitio maravilloso y María es un encanto. Desde el principio nos acompañó en el proceso y nos resolvió todas las dudas.',
         author: {
-          name: 'Carlos y Ana',
-          handle: 'Barcelona',
-          imageUrl: '/fotos/avatares/cristina.jpg',
+          name: 'Raquel Velasco',
+          handle: 'Reseña de Google',
+          imageUrl: '/fotos/avatares/raquel-velasco.png',
         },
       },
       {
-        body: 'La transparencia y profesionalidad de María y Mikel es admirable. Pudimos conocer a los padres de nuestro cachorro y ver las condiciones en las que se crían. Totalmente recomendable.',
+        body: 'Son gente maravillosa, amable y atienden con muchísimo cariño tanto a los perros, como a sus dueños. Siempre que dejamos a nuestro Golden, nos vamos tranquilos.',
         author: {
-          name: 'Patricia Ruiz',
-          handle: 'Bilbao',
-          imageUrl: '/fotos/avatares/testimonio-debora.jpg',
+          name: 'Carlos Zuñiga',
+          handle: 'Reseña de Google',
+          imageUrl: '/fotos/avatares/carlos-zuniga.png',
         },
       },
     ],
     [
       {
-        body: 'Nuestro Golden de LunaBella tiene un carácter excepcional. Se nota el trabajo de socialización que hacen desde cachorros. Es un perro equilibrado, cariñoso y perfecto con los niños.',
+        body: 'Los dueños son gente EXTRAORDINARIA, amantes de los perros y personas que se convierten en tu familia. Mi pequeñajo, Blues, ha estado súper bien atendido.',
         author: {
-          name: 'David Martínez',
-          handle: 'Valencia',
-          imageUrl: '/fotos/avatares/jaime.png',
+          name: 'Miriam Zuniga',
+          handle: 'Reseña de Google',
+          imageUrl: '/fotos/avatares/miriam-zuniga.png',
         },
       },
     ],
@@ -65,29 +65,29 @@ const testimonials = [
   [
     [
       {
-        body: 'Después de mucho buscar, encontramos LunaBella y fue la mejor decisión. La salud de los reproductores está testada y nos dieron todas las garantías. Nuestro Thor es un campeón.',
+        body: 'Para mí Luna Bella es un sitio de ensueño; los perros disfrutan, se lo pasan genial y además están en muy buenas manos. Los propietarios son personas encantadoras.',
         author: {
-          name: 'Marta López',
-          handle: 'Sevilla',
-          imageUrl: '/fotos/avatares/testimonio-irene.jpg',
+          name: 'Mari Carmen Garcia',
+          handle: 'Reseña de Google',
+          imageUrl: '/fotos/avatares/mari-carmen-garcia.png',
         },
       },
     ],
     [
       {
-        body: 'Lo que más me impresionó fue el seguimiento. Meses después de llevarnos a Nala, siguen preguntando cómo está y nos dan consejos. Se nota que les importa el bienestar de cada cachorro.',
+        body: 'Un criadero de Golden de confianza, tengo uno desde hace 4.5 años. Seleccionan a los dueños de sus cachorros según el carácter del perro.',
         author: {
-          name: 'Roberto Sánchez',
-          handle: 'Zaragoza',
-          imageUrl: '/fotos/avatares/testimonio-ruth.jpg',
+          name: 'MASZP ALTUNA',
+          handle: 'Reseña de Google',
+          imageUrl: '/fotos/avatares/altuna.png',
         },
       },
       {
-        body: 'Criadores de verdad, no un negocio. María y Mikel aman lo que hacen y eso se refleja en la calidad de sus Golden. Nuestro Simba es pura alegría.',
+        body: 'Increíble. Se siente la buena vibración que transmite nada más entrar. Me encanta el lugar y lo bien cuidado que lo tienen todo.',
         author: {
-          name: 'Laura y Miguel',
-          handle: 'San Sebastián',
-          imageUrl: '/fotos/avatares/testimonio-ruxandra.jpg',
+          name: 'Mireia Bravo Fernandez',
+          handle: 'Reseña de Google',
+          imageUrl: '/fotos/avatares/miriam-bravo.png',
         },
       },
     ],
@@ -234,8 +234,7 @@ export default function TestimonialsGrid() {
         <div className="mt-20 flex justify-center">
           <Link
             href="/contacto"
-            className="inline-flex items-center justify-center px-12 py-5 text-[13px] font-medium uppercase tracking-[0.2em] transition-all duration-300 ease-out hover:shadow-[0_15px_50px_-12px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 active:translate-y-0"
-            style={{ backgroundColor: '#000000', color: '#ece8e1' }}
+            className="inline-flex items-center justify-center px-12 py-5 text-[13px] font-medium uppercase tracking-[0.2em] bg-black text-[#ece8e1] transition-all duration-300 ease-out hover:bg-[#1a1a1a]"
           >
             Contactar con LunaBella
           </Link>
