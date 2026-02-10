@@ -1,12 +1,10 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import Image from 'next/image'
 
 import type { Media } from '@/payload-types'
 import { PuppyGallery } from '@/components/PuppyGallery'
 import { OtherDogsCarousel } from '@/components/OtherDogsCarousel'
-import { DogDetailHero } from '@/components/DogDetailHero'
 import { Media as MediaComponent } from '@/components/Media'
 import RichText from '@/components/RichText'
 import configPromise from '@payload-config'
@@ -110,7 +108,6 @@ export default async function Page({ params }: Args) {
 
     // Build specs array
     const specs = [
-      { label: 'Raza', value: breedName },
       { label: 'Sexo', value: genderText },
       { label: 'Edad', value: ageInYears },
       { label: 'Color', value: color },
@@ -122,59 +119,25 @@ export default async function Page({ params }: Args) {
     ].filter(spec => spec.value)
 
     return (
-      <main className="isolate">
-        {/* Hero Section */}
-        <DogDetailHero
-          name={name || 'Ejemplar'}
-          apodo={apodo}
-          breedName={breedName}
-          mainImage={mainImage as Media}
-          gender={gender}
-          breedingStatus={breedingStatus}
-          birthDate={birthDate}
-          pedigreeNumber={pedigreeNumber}
-        />
-
-        {/* Breadcrumbs - Simple editorial style */}
-        <div className="bg-white border-b border-gray-100">
-          <div className="container mx-auto px-6 lg:px-12 py-4">
-            <nav className="flex items-center gap-2 text-sm text-gray-500">
+      <main className="isolate bg-white pt-20">
+        {/* Main Content - Shopify-style product layout */}
+        <section className="pb-16 md:pb-24">
+          <div className="container mx-auto px-6 lg:px-12">
+            {/* Breadcrumbs */}
+            <nav className="flex items-center gap-2 text-sm text-gray-500 py-3 border-b border-gray-100">
               <Link href="/" className="hover:text-[#a58a1b] transition-colors">
                 Inicio
               </Link>
               <span className="text-gray-300">/</span>
-              <Link href="/nuestros-perros" className="hover:text-[#a58a1b] transition-colors">
-                Nuestros Perros
+              <Link href="/nuestros-goldens" className="hover:text-[#a58a1b] transition-colors">
+                Nuestros Goldens
               </Link>
               <span className="text-gray-300">/</span>
               <span className="text-gray-900">{name}</span>
             </nav>
-          </div>
-        </div>
-
-        {/* Main Content */}
-        <section className="bg-white py-16 md:py-24 relative overflow-hidden">
-          {/* Subtle decorative background element */}
-          <div
-            className="absolute -right-20 top-1/4 w-[400px] h-[280px] opacity-[0.015] pointer-events-none hidden xl:block"
-            style={{
-              backgroundImage: `url('/silueta-golden.svg')`,
-              backgroundSize: 'contain',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'center',
-            }}
-          />
-
-          <div className="container mx-auto px-6 lg:px-12 relative">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+            <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 lg:gap-12">
               {/* Left Column - Gallery */}
-              <div className="animate-fade-in-up">
-                <div className="flex items-center gap-3 mb-8">
-                  <span className="w-10 h-px bg-gradient-to-r from-[#a58a1b] to-[#c9a93d]" />
-                  <span className="text-[#a58a1b] text-[11px] font-medium tracking-[0.25em] uppercase">
-                    Galería
-                  </span>
-                </div>
+              <div>
                 <PuppyGallery
                   mainImage={mainImage as Media}
                   gallery={gallery || []}
@@ -182,28 +145,70 @@ export default async function Page({ params }: Args) {
                 />
               </div>
 
-              {/* Right Column - Details */}
-              <div className="animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
-                {/* Section Header */}
-                <div className="flex items-center gap-3 mb-8">
-                  <span className="w-10 h-px bg-gradient-to-r from-[#a58a1b] to-[#c9a93d]" />
-                  <span className="text-[#a58a1b] text-[11px] font-medium tracking-[0.25em] uppercase">
-                    Ficha técnica
+              {/* Right Column - Details (sticky) */}
+              <div className="lg:sticky lg:top-24 lg:self-center">
+                {/* Name & Breed */}
+                <h1 className="font-heading text-3xl md:text-4xl text-gray-900 mb-2">
+                  {name || 'Ejemplar'}
+                </h1>
+                {apodo && (
+                  <p className="italic text-lg font-bold mb-4"><span className="bg-gradient-to-r from-[#8a7316] to-[#d4b94e] bg-clip-text text-transparent">&ldquo;{apodo}&rdquo;</span></p>
+                )}
+
+                {/* Inline meta info */}
+                <div className="flex flex-wrap items-center gap-3 text-sm text-gray-600 mb-6">
+                  <span className="inline-flex items-center gap-1.5">
+                    <span className={`w-2 h-2 rounded-full ${gender === 'male' ? 'bg-[#5b8fc9]' : gender === 'female' ? 'bg-[#d4a5a0]' : 'bg-gray-300'}`} />
+                    {genderText}
                   </span>
+                  {ageInYears && (
+                    <>
+                      <span className="text-gray-300">|</span>
+                      <span>{ageInYears}</span>
+                    </>
+                  )}
+                  {pedigreeNumber && (
+                    <>
+                      <span className="text-gray-300">|</span>
+                      <span className="inline-flex items-center gap-1">
+                        <svg className="w-3.5 h-3.5 text-[#a58a1b]" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                        Pedigree
+                      </span>
+                    </>
+                  )}
                 </div>
 
-                {/* Specs Grid - Premium Editorial Style */}
-                <dl className="grid grid-cols-2 gap-x-10 gap-y-0 mb-12">
+                {/* Breeding status badge */}
+                {breedingStatus && breedingStatus !== 'active' && (
+                  <div className="mb-6">
+                    <span className={`inline-block px-3 py-1 text-xs font-medium uppercase tracking-wider ${
+                      breedingStatus === 'retired'
+                        ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                        : breedingStatus === 'deceased'
+                          ? 'bg-gray-100 text-gray-500 border border-gray-200'
+                          : ''
+                    }`}>
+                      {breedingStatus === 'retired' ? 'Retirado' : breedingStatus === 'deceased' ? 'En Memoria' : ''}
+                    </span>
+                  </div>
+                )}
+
+                {/* Gold divider */}
+                <div className="w-full h-px bg-gradient-to-r from-[#a58a1b] via-[#c9a93d] to-transparent mb-6" />
+
+                {/* Specs Grid */}
+                <dl className="grid grid-cols-2 gap-x-8 gap-y-0 mb-8">
                   {specs.map((spec, idx) => (
                     <div
                       key={idx}
-                      className="py-4 border-b border-gray-100 group"
-                      style={{ animationDelay: `${0.2 + idx * 0.05}s` }}
+                      className="py-3 border-b border-gray-100 group"
                     >
-                      <dt className="text-[10px] text-gray-400 uppercase tracking-[0.15em] mb-1.5 transition-colors duration-300 group-hover:text-[#a58a1b]">
+                      <dt className="text-[10px] text-gray-400 uppercase tracking-[0.15em] mb-1 transition-colors duration-300 group-hover:text-[#a58a1b]">
                         {spec.label}
                       </dt>
-                      <dd className="text-gray-900 font-medium text-[15px]">
+                      <dd className="text-gray-900 font-medium text-sm">
                         {spec.value}
                       </dd>
                     </div>
@@ -212,15 +217,15 @@ export default async function Page({ params }: Args) {
 
                 {/* Special Features */}
                 {specialFeatures && specialFeatures.length > 0 && (
-                  <div className="mb-12">
-                    <h3 className="text-[10px] text-gray-400 uppercase tracking-[0.15em] mb-4">
+                  <div className="mb-8">
+                    <h3 className="text-[10px] text-gray-400 uppercase tracking-[0.15em] mb-3">
                       Características especiales
                     </h3>
                     <div className="flex flex-wrap gap-2">
                       {specialFeatures.map((feature: string, idx: number) => (
                         <span
                           key={idx}
-                          className="px-4 py-2 bg-[#f5f4f2] text-gray-700 text-sm border-l-2 border-[#a58a1b]/30 hover:border-[#a58a1b] transition-colors duration-300"
+                          className="px-3 py-1.5 bg-[#f5f4f2] text-gray-700 text-sm border-l-2 border-[#a58a1b]/30 hover:border-[#a58a1b] transition-colors duration-300"
                         >
                           {feature}
                         </span>
@@ -229,42 +234,42 @@ export default async function Page({ params }: Args) {
                   </div>
                 )}
 
-                {/* CTA Box - Premium with gold accent */}
-                <div className="relative bg-[#f5f4f2] p-8 overflow-hidden group hover:shadow-lg transition-shadow duration-500">
-                  {/* Gold accent line */}
+                {/* Description */}
+                {description && description.root && (
+                  <div className="mb-8">
+                    <h3 className="text-[10px] text-gray-400 uppercase tracking-[0.15em] mb-3">
+                      Sobre {name}
+                    </h3>
+                    <div className="prose prose-sm max-w-none text-gray-600">
+                      <RichText data={description} enableGutter={false} />
+                    </div>
+                  </div>
+                )}
+
+                {/* CTA Box */}
+                <div className="relative bg-[#f5f4f2] p-6 overflow-hidden group hover:shadow-lg transition-shadow duration-500">
                   <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-[#a58a1b] via-[#c9a93d] to-[#a58a1b] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
 
-                  {/* Subtle pattern overlay */}
-                  <div
-                    className="absolute inset-0 opacity-[0.02] pointer-events-none"
-                    style={{
-                      backgroundImage: `url('/silueta-golden.svg')`,
-                      backgroundSize: '80px',
-                      backgroundPosition: 'bottom right',
-                      backgroundRepeat: 'no-repeat',
-                    }}
-                  />
-
                   <div className="relative">
-                    <h3 className="font-heading text-xl text-gray-900 mb-2">
-                      ¿Te interesa <span className="text-[#a58a1b]">{name}</span>?
+                    <h3 className="font-heading text-xl md:text-2xl text-gray-900 mb-3">
+                      ¿Quieres un cachorro de <span className="text-[#a58a1b]">{name}</span>?
                     </h3>
-                    <p className="text-gray-500 text-sm mb-6 leading-relaxed">
-                      Contáctanos para conocer más sobre este ejemplar y nuestro programa de cría.
+                    <p className="text-gray-600 text-[15px] mb-5 leading-relaxed">
+                      Consulta la disponibilidad de cachorros de esta línea o contáctanos para más información.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3">
                       <Link
-                        href="/contacto"
-                        className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] transition-all duration-300 bg-[#000] text-[#ece8e1] hover:bg-[#1a1a1a] hover:shadow-lg hover:-translate-y-0.5"
+                        href="/cachorros"
+                        className="group flex-1 inline-flex items-center justify-center gap-3 px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] bg-[#000] text-[#ece8e1] transition-all duration-300 ease-out hover:bg-[#1a1a1a]"
                       >
-                        <span>Contactar</span>
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <span>Cachorros</span>
+                        <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
                         </svg>
                       </Link>
                       <a
                         href="tel:+34600000000"
-                        className="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] transition-all duration-300 border border-gray-200 text-gray-600 hover:border-[#a58a1b] hover:text-[#a58a1b] hover:bg-[#a58a1b]/5"
+                        className="flex-1 inline-flex items-center justify-center gap-3 px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] border border-gray-300 text-gray-600 transition-all duration-300 ease-out hover:bg-black/5 hover:border-gray-400"
                       >
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
@@ -278,31 +283,6 @@ export default async function Page({ params }: Args) {
             </div>
           </div>
         </section>
-
-        {/* Description Section */}
-        {description && description.root && (
-          <section className="bg-[#faf8f5] py-16 md:py-24">
-            <div className="container mx-auto px-6 lg:px-12">
-              <div className="max-w-3xl mx-auto">
-                <div className="flex items-center justify-center gap-4 mb-8">
-                  <span className="w-12 h-px bg-[#a58a1b]" />
-                  <span className="text-[#a58a1b] text-xs font-medium tracking-[0.2em] uppercase">
-                    Sobre {name}
-                  </span>
-                  <span className="w-12 h-px bg-[#a58a1b]" />
-                </div>
-
-                <h2 className="text-display text-3xl md:text-4xl text-gray-900 text-center mb-8">
-                  Conoce a <span className="text-gradient-gold">{name}</span>
-                </h2>
-
-                <div className="prose prose-lg max-w-none text-gray-600 [&_p]:text-center">
-                  <RichText data={description} enableGutter={false} />
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
 
         {/* Parents Section - if available */}
         {parents && (parents.father || parents.mother) && (
@@ -323,7 +303,7 @@ export default async function Page({ params }: Args) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 {parents.father && typeof parents.father === 'object' && (
                   <Link
-                    href={`/nuestros-perros/${parents.father.slug}`}
+                    href={`/nuestros-goldens/${parents.father.slug}`}
                     className="group block"
                   >
                     <div className="relative aspect-[4/3] bg-[#f5f4f2] overflow-hidden mb-4">
@@ -345,7 +325,7 @@ export default async function Page({ params }: Args) {
 
                 {parents.mother && typeof parents.mother === 'object' && (
                   <Link
-                    href={`/nuestros-perros/${parents.mother.slug}`}
+                    href={`/nuestros-goldens/${parents.mother.slug}`}
                     className="group block"
                   >
                     <div className="relative aspect-[4/3] bg-[#f5f4f2] overflow-hidden mb-4">
@@ -412,10 +392,9 @@ export default async function Page({ params }: Args) {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   href="/cachorros"
-                  className="inline-flex items-center justify-center gap-3 px-12 py-5 text-[13px] font-medium uppercase tracking-[0.2em] transition-all duration-300 ease-out hover:shadow-[0_15px_50px_-12px_rgba(0,0,0,0.35)] hover:-translate-y-0.5 active:translate-y-0"
-                  style={{ backgroundColor: '#000000', color: '#ece8e1' }}
+                  className="group inline-flex items-center justify-center gap-3 px-12 py-5 text-[13px] font-medium uppercase tracking-[0.2em] bg-[#000] text-[#ece8e1] transition-all duration-300 ease-out hover:bg-[#1a1a1a]"
                 >
-                  Ver cachorros disponibles
+                  Ver cachorros
                   <svg
                     className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
                     fill="none"
@@ -428,7 +407,7 @@ export default async function Page({ params }: Args) {
                 </Link>
                 <Link
                   href="/contacto"
-                  className="btn-lunabella-outline"
+                  className="inline-flex items-center justify-center px-12 py-5 text-[13px] font-medium uppercase tracking-[0.2em] border border-gray-300 text-gray-600 transition-all duration-300 ease-out hover:bg-black/5 hover:border-gray-400"
                 >
                   Contactar
                 </Link>

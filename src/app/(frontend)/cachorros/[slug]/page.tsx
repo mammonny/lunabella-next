@@ -209,9 +209,9 @@ export default async function Page({ params }: Args) {
             },
           ]}
         />
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-24">
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 lg:gap-12">
           {/* Imagenes del Cachorro */}
-          <div className="w-full lg:w-1/2">
+          <div>
             <PuppyGallery
               mainImage={mainImage as Media}
               gallery={gallery || []}
@@ -219,7 +219,7 @@ export default async function Page({ params }: Args) {
             />
           </div>
           {/* Informacion del Cachorro */}
-          <div className="w-full lg:w-1/2">
+          <div className="lg:sticky lg:top-24 lg:self-start">
             <div className="flex justify-between items-start">
               <div>
                 <Badge className={`mb-2 ${statusBgColor}`}>{statusText}</Badge>

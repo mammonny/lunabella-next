@@ -22,6 +22,28 @@ const calculateAgeInWeeks = (birthDate: string | null | undefined): string => {
   }
 }
 
+const calculateAgeInYears = (birthDate: string | null | undefined): string => {
+  if (!birthDate) return ''
+  try {
+    const birthDateObj = new Date(birthDate)
+    const today = new Date()
+    if (isNaN(birthDateObj.getTime())) return ''
+    let age = today.getFullYear() - birthDateObj.getFullYear()
+    const monthDiff = today.getMonth() - birthDateObj.getMonth()
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDateObj.getDate())) {
+      age--
+    }
+    if (age < 1) {
+      const diffMonths = Math.floor(Math.abs(today.getTime() - birthDateObj.getTime()) / (1000 * 60 * 60 * 24 * 30))
+      return `${diffMonths} meses`
+    }
+    return `${age} ${age === 1 ? 'año' : 'años'}`
+  } catch (error) {
+    console.error('Error calculating age:', error)
+    return ''
+  }
+}
+
 // --- Component Props Interface ---
 
 interface PuppyCardProps {
@@ -52,10 +74,10 @@ export const PuppyCard: React.FC<PuppyCardProps> = ({
 
   const apodo = (puppy as any).apodo as string | undefined
   const dogStatus = (puppy as any).breedingStatus as 'active' | 'retired' | 'deceased' | undefined
-  const age = calculateAgeInWeeks(birthDate)
+  const age = collectionType === 'dogs' ? calculateAgeInYears(birthDate) : calculateAgeInWeeks(birthDate)
   const genderText = gender === 'male' ? 'Macho' : gender === 'female' ? 'Hembra' : ''
 
-  const basePath = collectionType === 'dogs' ? '/nuestros-perros' : '/cachorros'
+  const basePath = collectionType === 'dogs' ? '/nuestros-goldens' : '/cachorros'
   const puppyUrl = `${basePath}/${slug || id}`
 
   // Status configuration - refined colors that harmonize with LunaBella palette

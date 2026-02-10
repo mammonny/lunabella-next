@@ -21,7 +21,7 @@ const COLORS = {
 // Navigation items
 const NAV_ITEMS = [
   { label: 'Nosotros', href: '/nosotros' },
-  { label: 'Nuestros Perros', href: '/nuestros-perros' },
+  { label: 'Nuestros Goldens', href: '/nuestros-goldens' },
   { label: 'Cachorros', href: '/cachorros' },
   { label: 'Exposiciones', href: '/exposiciones' },
   { label: 'Galería', href: '/galeria' },
@@ -212,11 +212,11 @@ export function NavbarCombined({ banner }: { banner?: React.ReactNode }) {
                   Nosotros
                 </Link>
                 <Link
-                  href="/nuestros-perros"
+                  href="/nuestros-goldens"
                   className="block text-base leading-7 tracking-tight text-gray-800 hover:text-gray-600"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Nuestros Perros
+                  Nuestros Goldens
                 </Link>
                 <Link
                   href="/cachorros"

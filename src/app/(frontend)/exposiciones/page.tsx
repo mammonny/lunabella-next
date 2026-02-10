@@ -432,7 +432,7 @@ export default async function Page() {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  href="/nuestros-perros"
+                  href="/nuestros-goldens"
                   className="group inline-flex items-center justify-center gap-3 px-10 py-4 text-[13px] font-medium uppercase tracking-[0.2em] bg-[#ece8e1] text-black transition-all duration-300 ease-out hover:bg-white"
                 >
                   Ver nuestros perros

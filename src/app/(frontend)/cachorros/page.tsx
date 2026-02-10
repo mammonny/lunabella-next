@@ -95,6 +95,19 @@ export default async function Page() {
           </div>
         </section>
 
+        {/* Breadcrumbs */}
+        <div className="bg-white border-b border-gray-100">
+          <div className="container mx-auto px-6 lg:px-12 py-3">
+            <nav className="flex items-center gap-2 text-sm text-gray-500">
+              <Link href="/" className="hover:text-[#a58a1b] transition-colors">
+                Inicio
+              </Link>
+              <span className="text-gray-300">/</span>
+              <span className="text-gray-900">Cachorros</span>
+            </nav>
+          </div>
+        </div>
+
         {/* Content Sections */}
         <div className="bg-white">
           {/* Seccion: Disponibles */}
@@ -169,10 +182,10 @@ export default async function Page() {
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  href="/nuestros-perros"
-                  className="group btn-lunabella inline-flex items-center justify-center gap-3"
+                  href="/nuestros-goldens"
+                  className="group inline-flex items-center justify-center gap-3 px-12 py-5 text-[13px] font-medium uppercase tracking-[0.2em] bg-[#000] text-[#ece8e1] transition-all duration-300 ease-out hover:bg-[#1a1a1a]"
                 >
-                  Ver nuestros perros
+                  Nuestros Goldens
                   <svg
                     className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
                     fill="none"
@@ -185,7 +198,7 @@ export default async function Page() {
                 </Link>
                 <Link
                   href="/contacto"
-                  className="btn-lunabella-outline"
+                  className="inline-flex items-center justify-center px-12 py-5 text-[13px] font-medium uppercase tracking-[0.2em] border border-gray-300 text-gray-600 transition-all duration-300 ease-out hover:bg-black/5 hover:border-gray-400"
                 >
                   Contactar
                 </Link>

@@ -91,7 +91,7 @@ export function PuppyGallery({
     <div className="w-full">
       {/* Imagen Principal */}
       <div
-        className="relative aspect-square mb-4 bg-muted rounded-2xl overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
+        className="relative aspect-square mb-4 bg-muted overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
         onClick={() => {
           setInitialImageIndex(0)
           setLightboxOpen(true)
@@ -116,7 +116,7 @@ export function PuppyGallery({
           {gallery.slice(0, 4).map((item: any, index: number) => (
             <div
               key={index}
-              className="relative aspect-square bg-muted rounded-2xl overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
+              className="relative aspect-square bg-muted overflow-hidden cursor-pointer hover:opacity-80 transition-opacity"
               onClick={() => {
                 setInitialImageIndex(index + 1) // +1 porque la imagen principal es la primera
                 setLightboxOpen(true)

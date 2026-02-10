@@ -30,7 +30,7 @@ const HomePage3 = () => (
           author: 'María Oruna y Mikel Aldanondo',
         }}
         ctaButtons={{
-          primary: { label: 'Nuestros perros', href: '/nuestros-perros' },
+          primary: { label: 'Nuestros Goldens', href: '/nuestros-goldens' },
           secondary: { label: 'Conócenos', href: '#quiensomos' },
         }}
       />

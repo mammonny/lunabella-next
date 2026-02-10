@@ -31,7 +31,7 @@ const ctaConfigs: Record<CTAType, CTAConfig> = {
     description:
       'Actualmente no disponemos de cachorros o camadas programadas, pero puedes ver nuestros maravillosos ejemplares y apuntarte a la lista de espera.',
     buttonLabel: 'Ver ejemplares',
-    href: '/nuestros-perros',
+    href: '/nuestros-goldens',
   },
 }
 

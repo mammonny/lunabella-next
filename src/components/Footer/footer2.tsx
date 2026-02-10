@@ -9,8 +9,8 @@ const footerLinks = [
     href: '/nosotros',
   },
   {
-    title: 'Nuestros Perros',
-    href: '/nuestros-perros',
+    title: 'Nuestros Goldens',
+    href: '/nuestros-goldens',
   },
   {
     title: 'Cachorros',

@@ -397,7 +397,7 @@ export default async function Page({ params }: Args) {
 
                 <div className="flex flex-col sm:flex-row gap-5 justify-center">
                   <Link
-                    href="/nuestros-perros"
+                    href="/nuestros-goldens"
                     className="group inline-flex items-center justify-center gap-4 px-12 py-5 text-[13px] font-medium uppercase tracking-[0.2em] bg-[#000000] text-[#ece8e1] transition-all duration-500 hover:bg-[#1a1a1a] hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.4)]"
                   >
                     Ver nuestros perros
@@ -523,7 +523,7 @@ function PodiumCard({ award, position }: { award: any; position: 'first' | 'seco
 
   if (dogSlug) {
     return (
-      <Link href={`/nuestros-perros/${dogSlug}`} className="block">
+      <Link href={`/nuestros-goldens/${dogSlug}`} className="block">
         <CardContent />
       </Link>
     )
@@ -571,7 +571,7 @@ function AwardCardCompact({ award }: { award: any }) {
 
   if (dogSlug) {
     return (
-      <Link href={`/nuestros-perros/${dogSlug}`} className="group block">
+      <Link href={`/nuestros-goldens/${dogSlug}`} className="group block">
         <CardContent />
       </Link>
     )

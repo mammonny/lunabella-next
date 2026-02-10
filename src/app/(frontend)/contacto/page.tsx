@@ -438,11 +438,11 @@ export default async function ContactPage() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/nuestros-perros"
+                href="/nuestros-goldens"
                 className="group inline-flex items-center justify-center gap-3 px-10 py-5 text-[13px] font-medium uppercase tracking-[0.2em] transition-all duration-300 ease-out hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 active:translate-y-0"
                 style={{ backgroundColor: '#000000', color: '#ece8e1' }}
               >
-                Nuestros perros
+                Nuestros Goldens
                 <svg
                   className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
                   fill="none"
