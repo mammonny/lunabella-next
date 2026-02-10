@@ -12,7 +12,7 @@ export const Logo = (props: Props) => {
 
   return (
     <Image
-      src="/logo-lunabella-golden.png"
+      src="/logo-lunabella-s.png"
       alt="LunaBella - Criadores de Golden Retriever"
       width={180}
       height={60}

@@ -27,11 +27,11 @@ const ctaConfigs: Record<CTAType, CTAConfig> = {
     href: '/camadas',
   },
   dogs: {
-    title: 'Echa un vistazo a nuestros ejemplares',
+    title: 'Próximamente nuevos cachorros',
     description:
-      'Actualmente no disponemos de cachorros o camadas programadas, pero puedes ver nuestros maravillosos ejemplares y apuntarte a la lista de espera.',
-    buttonLabel: 'Ver ejemplares',
-    href: '/nuestros-goldens',
+      'Estamos preparando nuevas camadas. Contáctanos para apuntarte a la lista de espera y ser de los primeros en conocerlos.',
+    buttonLabel: 'Contactar',
+    href: '/contacto',
   },
 }
 
@@ -124,7 +124,7 @@ export default async function CTAConditional() {
                 <div className="flex items-center gap-3 mb-6">
                   <div className="golden-silhouette-sm opacity-70" />
                   <span className="text-[#a58a1b] text-xs font-medium tracking-[0.25em] uppercase">
-                    Disponible ahora
+                    {ctaType === 'puppies' ? 'Disponible ahora' : ctaType === 'litters' ? 'Próximamente' : 'Lista de espera'}
                   </span>
                 </div>
 
