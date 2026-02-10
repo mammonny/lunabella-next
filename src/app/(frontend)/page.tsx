@@ -1,3 +1,5 @@
+import type { Metadata } from 'next'
+
 import Image from 'next/image'
 import { Hero } from '@/components/Hero/Hero'
 import WhyLunaBella from '@/components/WhyLunaBella'
@@ -12,6 +14,19 @@ import ScrollProgress from '@/components/ScrollProgress'
 const GoldenIcon = ({ className }: { className?: string }) => (
   <span className={`golden-silhouette-sm ${className || ''}`} />
 )
+
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    title: 'Criadero de Golden Retriever LunaBella | Gipuzkoa, Pais Vasco',
+    description:
+      'Criadero familiar de Golden Retriever en Zaldibia, Gipuzkoa. Cachorros con pedigri completo, tests de salud y socializacion desde cachorros. Mas de 15 anos de experiencia.',
+    openGraph: {
+      title: 'Criadero de Golden Retriever LunaBella | Gipuzkoa, Pais Vasco',
+      description:
+        'Criadero familiar de Golden Retriever en Zaldibia, Gipuzkoa. Cachorros con pedigri completo, tests de salud y socializacion desde cachorros. Mas de 15 anos de experiencia.',
+    },
+  }
+}
 
 const HomePage3 = () => (
   <>
@@ -31,7 +46,7 @@ const HomePage3 = () => (
         }}
         ctaButtons={{
           primary: { label: 'Nuestros Goldens', href: '/nuestros-goldens' },
-          secondary: { label: 'Conócenos', href: '#quiensomos' },
+          secondary: { label: 'Conócenos', href: '/nosotros' },
         }}
       />
 

@@ -99,7 +99,7 @@ export default async function ContactPage() {
                 className="flex items-center gap-4 mb-8 animate-fade-in-up"
                 style={{ animationDelay: '100ms' }}
               >
-                <span className="w-12 h-px bg-[#a58a1b]" />
+                <span className="w-12 h-px bg-gradient-to-r from-[#a58a1b] via-[#c9a93d] to-transparent" />
                 <span className="text-[#a58a1b] text-xs font-medium tracking-[0.35em] uppercase">
                   Contacto
                 </span>
@@ -121,7 +121,7 @@ export default async function ContactPage() {
 
               {/* Subtitle */}
               <p
-                className="text-white/60 text-lg lg:text-xl leading-relaxed max-w-md mb-12 animate-fade-in-up"
+                className="text-white/75 text-lg lg:text-xl leading-relaxed max-w-md mb-12 animate-fade-in-up"
                 style={{ animationDelay: '300ms' }}
               >
                 Cada Golden Retriever que criamos merece una familia especial.
@@ -141,22 +141,34 @@ export default async function ContactPage() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-white/40 text-xs tracking-wider uppercase mb-1">Ubicación</p>
+                    <p className="text-white/60 text-xs tracking-wider uppercase mb-1">Ubicación</p>
                     <p className="text-white text-sm">País Vasco, España</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 group">
+                <a href="tel:+34670004089" className="flex items-center gap-4 group">
+                  <div className="w-12 h-12 flex items-center justify-center border border-white/20 group-hover:border-[#a58a1b] group-hover:bg-[#a58a1b]/10 transition-all duration-500">
+                    <svg className="w-5 h-5 text-[#a58a1b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-white/60 text-xs tracking-wider uppercase mb-1">Teléfono</p>
+                    <p className="text-white text-sm">670 004 089</p>
+                  </div>
+                </a>
+
+                <a href="mailto:maria@lunabella.es" className="flex items-center gap-4 group">
                   <div className="w-12 h-12 flex items-center justify-center border border-white/20 group-hover:border-[#a58a1b] group-hover:bg-[#a58a1b]/10 transition-all duration-500">
                     <svg className="w-5 h-5 text-[#a58a1b]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
                     </svg>
                   </div>
                   <div>
-                    <p className="text-white/40 text-xs tracking-wider uppercase mb-1">Email</p>
-                    <p className="text-white text-sm">info@lunabella.es</p>
+                    <p className="text-white/60 text-xs tracking-wider uppercase mb-1">Email</p>
+                    <p className="text-white text-sm">maria@lunabella.es</p>
                   </div>
-                </div>
+                </a>
               </div>
             </div>
 
@@ -225,7 +237,7 @@ export default async function ContactPage() {
                         El formulario no está disponible en este momento.
                       </p>
                       <a
-                        href="mailto:info@lunabella.es"
+                        href="mailto:maria@lunabella.es"
                         className="inline-flex items-center gap-3 text-[#a58a1b] hover:gap-4 transition-all duration-300"
                       >
                         <span className="text-sm font-medium tracking-wider uppercase">
@@ -246,7 +258,7 @@ export default async function ContactPage() {
         {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 lg:left-12 lg:translate-x-0 z-20">
           <div className="flex flex-col items-center gap-3 animate-fade-in-up" style={{ animationDelay: '800ms' }}>
-            <span className="text-white/40 text-[10px] tracking-[0.3em] uppercase rotate-0 lg:-rotate-90 lg:translate-y-8">
+            <span className="text-white/60 text-[10px] tracking-[0.3em] uppercase rotate-0 lg:-rotate-90 lg:translate-y-8">
               Scroll
             </span>
             <div className="w-px h-12 bg-gradient-to-b from-[#a58a1b] to-transparent" />
@@ -257,7 +269,7 @@ export default async function ContactPage() {
       {/* ═══════════════════════════════════════════════════════════════
           ABOUT SECTION - The Breeders Story
           ═══════════════════════════════════════════════════════════════ */}
-      <section className="relative py-28 md:py-40 overflow-hidden bg-[#faf8f5]">
+      <section className="relative py-28 md:py-40 overflow-hidden bg-white">
         {/* Subtle pattern */}
         <div
           className="absolute inset-0 opacity-[0.02]"

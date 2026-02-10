@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import { PageBreadcrumbs } from '@/components/Breadcrumbs'
 import SectionDivider from '@/components/SectionDivider'
 import ScrollProgress from '@/components/ScrollProgress'
 import TestimonialsGrid from '@/components/Testimonials/testimonialsgrid'
@@ -46,7 +47,7 @@ export default function NosotrosPage() {
 
       <main className="isolate">
         {/* Hero Section - Compact Editorial Style (same as nuestros-perros) */}
-        <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
+        <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 min-h-[26rem] md:min-h-[30rem] overflow-hidden">
           {/* Background Image */}
           <div
             className="absolute inset-0"
@@ -73,10 +74,10 @@ export default function NosotrosPage() {
           <div className="relative z-10 container mx-auto px-6 lg:px-12">
             <div className="max-w-2xl">
               {/* Ornamental detail */}
-              <div className="flex items-center gap-3 mb-5 animate-fade-in-up">
-                <span className="w-10 h-[1px] bg-gradient-to-r from-[#c9a93d] to-transparent" />
+              <div className="flex items-center gap-3 mb-5 w-[15rem] animate-fade-in-up">
+                <span className="flex-1 h-[1px] bg-gradient-to-r from-[#c9a93d] to-transparent" />
                 <span className="text-[#c9a93d] text-xs font-medium tracking-[0.3em] uppercase">
-                  Conócenos
+                  Nuestra historia
                 </span>
               </div>
 
@@ -95,18 +96,10 @@ export default function NosotrosPage() {
           </div>
         </section>
 
-        {/* Breadcrumbs */}
-        <div className="bg-white border-b border-gray-100">
-          <div className="container mx-auto px-6 lg:px-12 py-4">
-            <nav className="flex items-center gap-2 text-sm text-gray-500">
-              <Link href="/" className="hover:text-[#a58a1b] transition-colors">
-                Inicio
-              </Link>
-              <span className="text-gray-300">/</span>
-              <span className="text-gray-900">Nosotros</span>
-            </nav>
-          </div>
-        </div>
+        <PageBreadcrumbs items={[
+          { label: 'Inicio', href: '/' },
+          { label: 'Nosotros' },
+        ]} />
 
         {/* Sección Pasión por los Golden Retriever */}
         <section className="relative py-28 md:py-40 bg-white overflow-hidden">

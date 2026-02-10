@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import { PageBreadcrumbs } from '@/components/Breadcrumbs'
 
 import type { Media } from '@/payload-types'
 import { PuppyGallery } from '@/components/PuppyGallery'
@@ -120,21 +121,14 @@ export default async function Page({ params }: Args) {
 
     return (
       <main className="isolate bg-white pt-20">
+        <PageBreadcrumbs items={[
+          { label: 'Inicio', href: '/' },
+          { label: 'Nuestros Goldens', href: '/nuestros-goldens' },
+          { label: name || 'Ejemplar' },
+        ]} />
         {/* Main Content - Shopify-style product layout */}
         <section className="pb-16 md:pb-24">
           <div className="container mx-auto px-6 lg:px-12">
-            {/* Breadcrumbs */}
-            <nav className="flex items-center gap-2 text-sm text-gray-500 py-3 border-b border-gray-100">
-              <Link href="/" className="hover:text-[#a58a1b] transition-colors">
-                Inicio
-              </Link>
-              <span className="text-gray-300">/</span>
-              <Link href="/nuestros-goldens" className="hover:text-[#a58a1b] transition-colors">
-                Nuestros Goldens
-              </Link>
-              <span className="text-gray-300">/</span>
-              <span className="text-gray-900">{name}</span>
-            </nav>
             <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 lg:gap-12">
               {/* Left Column - Gallery */}
               <div>
@@ -268,7 +262,7 @@ export default async function Page({ params }: Args) {
                         </svg>
                       </Link>
                       <a
-                        href="tel:+34600000000"
+                        href="tel:+34670004089"
                         className="flex-1 inline-flex items-center justify-center gap-3 px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] border border-gray-300 text-gray-600 transition-all duration-300 ease-out hover:bg-black/5 hover:border-gray-400"
                       >
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

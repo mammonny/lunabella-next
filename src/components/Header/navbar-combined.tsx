@@ -127,12 +127,10 @@ export function NavbarCombined({ banner }: { banner?: React.ReactNode }) {
               className="flex items-center justify-between"
               style={{ padding: '0.875rem 0' }}
             >
-              {/* Logo with hover effect */}
               <div className="flex items-center gap-6">
                 <Link
                   href="/"
                   title="Home"
-                  className="group transition-transform duration-300 hover:scale-[1.02]"
                 >
                   <Logo />
                 </Link>

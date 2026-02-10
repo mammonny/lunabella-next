@@ -1,5 +1,3 @@
-'use client'
-
 import { HeartHandshake, ShieldCheck, MessagesSquare } from 'lucide-react'
 
 interface WhyChooseUsSectionProps {

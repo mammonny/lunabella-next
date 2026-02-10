@@ -7,6 +7,7 @@ import React from 'react'
 import { cn } from '@/utilities/ui'
 import ScrollProgress from '@/components/ScrollProgress'
 import Link from 'next/link'
+import { PageBreadcrumbs } from '@/components/Breadcrumbs'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -46,7 +47,7 @@ export default async function Page() {
       <ScrollProgress />
       <main className="isolate">
         {/* Hero Section - Compact Editorial Style */}
-        <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
+        <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 min-h-[26rem] md:min-h-[30rem] overflow-hidden">
           {/* Background Image - Decorative */}
           <div
             className="absolute inset-0"
@@ -73,8 +74,8 @@ export default async function Page() {
           <div className="relative z-10 container mx-auto px-6 lg:px-12">
             <div className="max-w-2xl">
               {/* Ornamental detail */}
-              <div className="flex items-center gap-3 mb-5 animate-fade-in-up">
-                <span className="w-10 h-[1px] bg-gradient-to-r from-[#c9a93d] to-transparent" />
+              <div className="flex items-center gap-3 mb-5 w-[15rem] animate-fade-in-up">
+                <span className="flex-1 h-[1px] bg-gradient-to-r from-[#c9a93d] to-transparent" />
                 <span className="text-[#c9a93d] text-xs font-medium tracking-[0.3em] uppercase">
                   Nuevos miembros
                 </span>
@@ -95,18 +96,10 @@ export default async function Page() {
           </div>
         </section>
 
-        {/* Breadcrumbs */}
-        <div className="bg-white border-b border-gray-100">
-          <div className="container mx-auto px-6 lg:px-12 py-3">
-            <nav className="flex items-center gap-2 text-sm text-gray-500">
-              <Link href="/" className="hover:text-[#a58a1b] transition-colors">
-                Inicio
-              </Link>
-              <span className="text-gray-300">/</span>
-              <span className="text-gray-900">Cachorros</span>
-            </nav>
-          </div>
-        </div>
+        <PageBreadcrumbs items={[
+          { label: 'Inicio', href: '/' },
+          { label: 'Cachorros' },
+        ]} />
 
         {/* Content Sections */}
         <div className="bg-white">
@@ -133,24 +126,66 @@ export default async function Page() {
             />
           )}
 
-          {/* Empty State */}
+          {/* Empty State - Lista de espera */}
           {available.length === 0 && reserved.length === 0 && (
             <section className="py-20 md:py-28">
-              <div className="container mx-auto px-6 lg:px-12 text-center">
-                <div className="flex items-center justify-center gap-4 mb-8">
-                  <span className="w-16 h-px bg-[#a58a1b]" />
-                  <span className="text-[#a58a1b] text-sm font-medium tracking-[0.25em] uppercase">
-                    Próximamente
-                  </span>
-                  <span className="w-16 h-px bg-[#a58a1b]" />
+              <div className="container mx-auto px-6 lg:px-12">
+                <div className="max-w-3xl mx-auto">
+                  <div className="relative bg-[#faf8f5] p-10 md:p-16">
+                    {/* Corner decorations */}
+                    <div className="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-[#a58a1b]/30" />
+                    <div className="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-[#a58a1b]/30" />
+
+                    <div className="text-center">
+                      <div className="flex items-center justify-center gap-3 mb-6">
+                        <div className="golden-silhouette-sm opacity-70" />
+                        <span className="text-[#a58a1b] text-xs font-medium tracking-[0.25em] uppercase">
+                          Lista de espera
+                        </span>
+                      </div>
+
+                      <h2 className="text-display text-3xl md:text-4xl text-gray-900 mb-6">
+                        Próximamente nuevos{' '}
+                        <span className="text-gradient-gold">cachorros</span>
+                      </h2>
+
+                      <p className="text-gray-600 text-lg leading-relaxed max-w-xl mx-auto mb-10">
+                        Estamos preparando nuevas camadas. Contáctanos para apuntarte a la lista de
+                        espera y ser de los primeros en conocerlos.
+                      </p>
+
+                      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <Link
+                          href="/contacto"
+                          className="group inline-flex items-center justify-center gap-3 px-10 py-5 text-[13px] font-medium uppercase tracking-[0.2em] bg-black text-[#ece8e1] transition-all duration-300 ease-out hover:bg-[#1a1a1a]"
+                        >
+                          Apuntarme a la lista
+                          <svg
+                            className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                          </svg>
+                        </Link>
+                        <a
+                          href="tel:+34670004089"
+                          className="inline-flex items-center justify-center gap-3 px-10 py-5 text-[13px] font-medium uppercase tracking-[0.2em] border border-gray-300 text-gray-600 transition-all duration-300 ease-out hover:bg-black/5 hover:border-gray-400"
+                        >
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+                          </svg>
+                          Llamar
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* Bottom accent line */}
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#a58a1b]" />
+                  </div>
                 </div>
-                <h2 className="text-display text-3xl md:text-4xl text-gray-900 mb-6">
-                  No hay cachorros disponibles
-                </h2>
-                <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-                  Actualmente no tenemos cachorros disponibles, pero pronto tendremos nuevas camadas.
-                  Contáctanos para ser notificado cuando tengamos nuevos cachorros.
-                </p>
               </div>
             </section>
           )}

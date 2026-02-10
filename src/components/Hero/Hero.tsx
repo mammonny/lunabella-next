@@ -128,12 +128,11 @@ export function Hero({
                   </Button>
                   <Button size="lg" variant="outline" className="gap-4">
                     <Link
-                      href="tel:+34685910377"
+                      href="tel:+34670004089"
                       className="flex items-center gap-2 whitespace-nowrap"
-                      // Optimización SEO: Texto descriptivo para mejor accesibilidad
-                      aria-label="Contactar con Clínica ENIQ"
+                      aria-label="Contactar con LunaBella Golden Retriever"
                     >
-                      +34 619 10 54 89 <PhoneOutgoing className="w-4 h-4" strokeWidth={2} />
+                      670 004 089 <PhoneOutgoing className="w-4 h-4" strokeWidth={2} />
                     </Link>
                   </Button>
                 </div>

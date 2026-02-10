@@ -57,14 +57,14 @@ export const CookieConsentBanner = () => {
             :root {
               --cc-bg: #ffffff !important;
               --cc-text: #3d3630 !important;
-              --cc-btn-primary-bg: #006160 !important;
+              --cc-btn-primary-bg: #a58a1b !important;
               --cc-btn-primary-text: #ffffff !important;
-              --cc-btn-primary-hover-bg: #004b4a !important;
+              --cc-btn-primary-hover-bg: #8a7316 !important;
               --cc-btn-secondary-bg: #e7e5e4 !important; /* Stone-300 de Tailwind */
               --cc-btn-secondary-text: #3d3630 !important; /* Texto oscuro para contraste */
               --cc-btn-secondary-hover-bg: #a8a29e !important; /* Stone-400 de Tailwind */
               --cc-toggle-bg-off: #e7e5e4 !important;
-              --cc-toggle-bg-on: #006160 !important;
+              --cc-toggle-bg-on: #a58a1b !important;
               --cc-toggle-bg-readonly: #e7e5e4 !important;
               --cc-toggle-knob-bg: #fff !important;
               --cc-toggle-knob-icon-color: #fff !important;
@@ -108,7 +108,7 @@ export const CookieConsentBanner = () => {
             }
 
             .cc_div #cm.box.inline {
-              border-top: 3px solid #006160 !important;
+              border-top: 3px solid #a58a1b !important;
               right: 20px !important;
               bottom: 20px !important;
               left: auto !important;
@@ -122,7 +122,7 @@ export const CookieConsentBanner = () => {
             }
 
             .cc_div a {
-              color: #006160 !important;
+              color: #a58a1b !important;
               text-decoration: underline !important;
             }
 

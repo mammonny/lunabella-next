@@ -4,10 +4,10 @@
   --cc-bg: #ffffff;
   --cc-text: #3d3630; /* Color de texto principal más oscuro */
 
-  /* Botón primario - Verde */
-  --cc-btn-primary-bg: #006160 !important; /* Verde Principal */
+  /* Botón primario - Dorado LunaBella */
+  --cc-btn-primary-bg: #a58a1b !important; /* Dorado Principal */
   --cc-btn-primary-text: #ffffff;
-  --cc-btn-primary-hover-bg: #004b4a; /* Verde más oscuro para hover */
+  --cc-btn-primary-hover-bg: #8a7316; /* Dorado más oscuro para hover */
 
   /* Botón secundario - Dorado */
   --cc-btn-secondary-bg: #D99A36; /* Dorado Secundario */
@@ -16,7 +16,7 @@
 
   /* Toggle y otros elementos */
   --cc-toggle-bg-off: #d6d3d1; /* Más claro y menos grisáceo */
-  --cc-toggle-bg-on: #006160; /* Verde Principal */
+  --cc-toggle-bg-on: #a58a1b; /* Dorado Principal */
   --cc-toggle-bg-readonly: #d6d3d1;
   --cc-toggle-knob-bg: #fff;
   --cc-toggle-knob-icon-color: #fff;
@@ -86,7 +86,7 @@
 
 /* Hacer que el banner destaque más */
 .cc_div #cm.box.inline {
-  border-top: 3px solid #006160 !important; /* Borde superior verde */
+  border-top: 3px solid #a58a1b !important; /* Borde superior dorado */
 }
 
 .cc_div #cm.box.inline {
@@ -107,7 +107,7 @@
 
 /* Enlaces */
 .cc_div a {
-  color: #006160 !important; /* Verde Principal */
+  color: #a58a1b !important; /* Dorado Principal */
   text-decoration: underline;
 }
 

@@ -4,22 +4,22 @@
  */
 
 export const companyInfo = {
-  name: 'Goiz Amezt', // Nombre de la empresa
-  address: 'Camino Del Romeral, 15, 26220 Ollauri, La Rioja​', // Dirección de la empresa
-  phone: '+34619105489', // Número de teléfono
-  email: 'elenauribe@goizametz.com', // Email de contacto
+  name: 'Criadero de Golden Retriever LunaBella', // Nombre de la empresa
+  address: 'Barrio Elbarrena 31, 20247 Zaldibia (Gipuzkoa), Espana', // Dirección de la empresa
+  phone: '+34670004089', // Número de teléfono
+  email: 'maria@lunabella.es', // Email de contacto
   metro: '-', // Estaciones de metro cercanas
-  razonSocial: 'Goiz Amezt', // Razón social
-  NIF: 'B75388397', // NIF
-  domicilio: 'Camino Del Romeral, 15, 26220 Ollauri, La Rioja', // Domicilio fiscal
-  web: 'https://goizametz.com/', // URL de la web
+  razonSocial: 'GAMA KALITATE SL', // Razón social
+  NIF: 'B72663669', // NIF
+  domicilio: 'Barrio Elbarrena 31, 20247 Zaldibia (Gipuzkoa), Espana', // Domicilio fiscal
+  web: 'https://lunabella.es/', // URL de la web
 }
 
 /**
  * Configuración de WhatsApp con ofuscación para prevenir spam
  * El número se construye dinámicamente para dificultar el scraping automático
  */
-const whatsappParts = ['3', '4', '6', '1', '9', '1', '0', '5', '4', '8', '9']
+const whatsappParts = ['3', '4', '6', '7', '0', '0', '0', '4', '0', '8', '9']
 
 /**
  * Obtiene el número de WhatsApp construyéndolo dinámicamente

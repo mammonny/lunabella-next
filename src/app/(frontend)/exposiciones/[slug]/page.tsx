@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import { PageBreadcrumbs } from '@/components/Breadcrumbs'
 
 import type { Media, Dog } from '@/payload-types'
 import { PuppyGallery } from '@/components/PuppyGallery'
@@ -87,24 +88,11 @@ export default async function Page({ params }: Args) {
             awardsCount={awards?.length || 0}
           />
 
-          {/* ═══════════════════════════════════════════════════════════════════
-              BREADCRUMBS
-          ═══════════════════════════════════════════════════════════════════ */}
-          <div className="bg-white border-b border-[#ece8e1]">
-            <div className="container mx-auto px-6 lg:px-12 py-4">
-              <nav className="flex items-center gap-2 text-sm text-gray-500">
-                <Link href="/" className="hover:text-[#a58a1b] transition-colors">
-                  Inicio
-                </Link>
-                <span className="text-gray-300">/</span>
-                <Link href="/exposiciones" className="hover:text-[#a58a1b] transition-colors">
-                  Exposiciones
-                </Link>
-                <span className="text-gray-300">/</span>
-                <span className="text-gray-900 font-medium truncate max-w-[200px]">{name}</span>
-              </nav>
-            </div>
-          </div>
+          <PageBreadcrumbs items={[
+            { label: 'Inicio', href: '/' },
+            { label: 'Exposiciones', href: '/exposiciones' },
+            { label: name || 'Exposición' },
+          ]} />
 
           {/* ═══════════════════════════════════════════════════════════════════
               FICHA DEL EVENTO + GALERÍA

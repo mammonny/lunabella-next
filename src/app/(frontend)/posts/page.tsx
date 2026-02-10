@@ -91,7 +91,7 @@ export default async function Page() {
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Payload Website Template - Posts & Dogs`,
+    title: `Blog | LunaBella Golden Retriever`,
   }
 }
 

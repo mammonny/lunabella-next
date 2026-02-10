@@ -2,8 +2,6 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import {
-  Home,
-  Dog,
   Info,
   CalendarDays,
   Syringe,
@@ -16,7 +14,7 @@ import {
 
 import { Media as MediaComponent } from '@/components/Media'
 import type { Media } from '@/payload-types'
-import { Breadcrumbs } from '@/components/ui/breadcrumb'
+import { PageBreadcrumbs } from '@/components/Breadcrumbs'
 import { PuppyGallery } from '@/components/PuppyGallery'
 import { PuppyParentsTab } from '@/components/PuppyParentsTab'
 import RichText from '@/components/RichText'
@@ -189,26 +187,12 @@ export default async function Page({ params }: Args) {
     const puppyId = `GR-${new Date(birthDate || '').getFullYear() || 'YYYY'}-${String(puppy.id).padStart(2, '0') || '00'}`
 
     return (
+      <PageBreadcrumbs items={[
+        { label: 'Inicio', href: '/' },
+        { label: 'Cachorros', href: '/cachorros' },
+        { label: name || 'Cachorro' },
+      ]} />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8 pt-64">
-        {/* Breadcrumbs */}
-        <Breadcrumbs
-          className="mb-6"
-          items={[
-            {
-              label: 'Home',
-              href: '/',
-              icon: <Home className="h-4 w-4" />,
-            },
-            {
-              label: 'Cachorros',
-              href: '/cachorros',
-              icon: <Dog className="h-4 w-4" />,
-            },
-            {
-              label: name || 'Cachorro',
-            },
-          ]}
-        />
         <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 lg:gap-12">
           {/* Imagenes del Cachorro */}
           <div>
@@ -350,4 +334,20 @@ export async function generateMetadata({ params }: Args): Promise<Metadata> {
       description: 'Ha ocurrido un error al cargar la informacion del cachorro',
     }
   }
+}
+
+export async function generateStaticParams() {
+  const payload = await getPayload({ config: configPromise })
+  const puppies = await payload.find({
+    collection: 'puppies',
+    draft: false,
+    limit: 1000,
+    overrideAccess: false,
+    pagination: false,
+    select: {
+      slug: true,
+    },
+  })
+
+  return puppies.docs.map(({ slug }) => ({ slug }))
 }

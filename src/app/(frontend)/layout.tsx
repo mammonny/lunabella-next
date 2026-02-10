@@ -21,7 +21,6 @@ const dmSans = DM_Sans({
 })
 
 import { AdminBar } from '@/components/AdminBar'
-import { Footer } from '@/Footer/Component'
 import { Header } from '@/components/Header/header'
 import Footer2 from '@/components/Footer/footer2'
 import { Providers } from '@/providers'
@@ -31,6 +30,7 @@ import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
 import { NavbarCombined } from '@/components/Header/navbar-combined'
 import { Container } from '@/components/Container/container'
+import { CookieConsentBanner } from '@/components/CookieConsent/CookieConsent'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -71,6 +71,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Footer2 />
           <Toaster richColors position="bottom-right" />
         </Providers>
+        <CookieConsentBanner />
       </body>
     </html>
   )
@@ -81,6 +82,6 @@ export const metadata: Metadata = {
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@payloadcms',
+    creator: '@LunaBellaGR',
   },
 }

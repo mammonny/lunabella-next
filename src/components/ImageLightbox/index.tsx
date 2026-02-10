@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogTitle, DialogClose } from '@/components/ui/dialog'
 import { Media } from '@/components/Media'
+import { X } from 'lucide-react'
 import {
   Carousel,
   CarouselContent,
@@ -66,13 +67,25 @@ export function ImageLightbox({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-screen-lg p-0 border-none bg-transparent">
+      <DialogContent
+        className="max-w-screen-lg p-0 border-none bg-transparent shadow-none"
+        hideCloseButton
+      >
         {/* Título accesible pero visualmente oculto */}
         <DialogTitle className="sr-only">{dialogTitle}</DialogTitle>
 
-        {/* Título visible para todos los usuarios - estilo más sutil */}
-        <div className="text-center p-1.5 bg-background/20 backdrop-blur-sm rounded-md mx-6 mt-2 mb-1">
-          <h2 className="text-base font-medium text-foreground/80">{title}</h2>
+        {/* Header: título visible + botón cerrar */}
+        <div className="flex items-center justify-between px-4 pt-3 pb-1">
+          <h2 className="text-sm font-medium text-white/90 tracking-wide">
+            {title}
+            <span className="ml-2 text-white/50 text-xs font-normal">
+              {currentIndex + 1} / {images.length}
+            </span>
+          </h2>
+          <DialogClose className="flex items-center justify-center w-10 h-10 rounded-full bg-white/15 text-white hover:bg-white/25 backdrop-blur-sm transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/40">
+            <X className="h-5 w-5" />
+            <span className="sr-only">Cerrar</span>
+          </DialogClose>
         </div>
 
         <Carousel
@@ -109,19 +122,21 @@ export function ImageLightbox({
 
                 {/* Leyenda de la imagen - solo se muestra si existe un imageCaption o caption específico */}
                 {(image.imageCaption || image.caption) && (
-                  <div className="text-center p-2 bg-background/80 backdrop-blur-sm rounded-md mx-6 mb-4">
-                    <p className="text-sm text-foreground">{image.imageCaption || image.caption}</p>
+                  <div className="text-center px-6 pb-4">
+                    <p className="text-sm text-white/80 bg-black/30 backdrop-blur-sm inline-block px-4 py-1.5 rounded-full">
+                      {image.imageCaption || image.caption}
+                    </p>
                   </div>
                 )}
               </CarouselItem>
             ))}
           </CarouselContent>
           <CarouselPrevious
-            className="left-4 bg-background/80 backdrop-blur-sm hover:bg-background/90 border-none h-10 w-10"
+            className="left-4 bg-black/60 hover:bg-black/80 border-none h-10 w-10 text-white"
             aria-label="Imagen anterior"
           />
           <CarouselNext
-            className="right-4 bg-background/80 backdrop-blur-sm hover:bg-background/90 border-none h-10 w-10"
+            className="right-4 bg-black/60 hover:bg-black/80 border-none h-10 w-10 text-white"
             aria-label="Imagen siguiente"
           />
         </Carousel>

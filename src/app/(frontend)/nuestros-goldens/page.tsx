@@ -1,6 +1,7 @@
 import type { Metadata } from 'next/types'
 import Image from 'next/image'
 import Link from 'next/link'
+import { PageBreadcrumbs } from '@/components/Breadcrumbs'
 
 import { PuppyCard } from '@/components/PuppyCard'
 import configPromise from '@payload-config'
@@ -48,7 +49,7 @@ export default async function Page() {
       <ScrollProgress />
       <main className="isolate">
         {/* Hero Section - Compact Editorial Style */}
-        <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 overflow-hidden">
+        <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 min-h-[26rem] md:min-h-[30rem] overflow-hidden">
           {/* Background Image - Decorative */}
           <div
             className="absolute inset-0"
@@ -75,8 +76,8 @@ export default async function Page() {
           <div className="relative z-10 container mx-auto px-6 lg:px-12">
             <div className="max-w-2xl">
               {/* Ornamental detail */}
-              <div className="flex items-center gap-3 mb-5 animate-fade-in-up">
-                <span className="w-10 h-[1px] bg-gradient-to-r from-[#c9a93d] to-transparent" />
+              <div className="flex items-center gap-3 mb-5 w-[15rem] animate-fade-in-up">
+                <span className="flex-1 h-[1px] bg-gradient-to-r from-[#c9a93d] to-transparent" />
                 <span className="text-[#c9a93d] text-xs font-medium tracking-[0.3em] uppercase">
                   Te presentamos
                 </span>
@@ -97,18 +98,10 @@ export default async function Page() {
           </div>
         </section>
 
-        {/* Breadcrumbs */}
-        <div className="bg-white border-b border-gray-100">
-          <div className="container mx-auto px-6 lg:px-12 py-3">
-            <nav className="flex items-center gap-2 text-sm text-gray-500">
-              <Link href="/" className="hover:text-[#a58a1b] transition-colors">
-                Inicio
-              </Link>
-              <span className="text-gray-300">/</span>
-              <span className="text-gray-900">Nuestros Goldens</span>
-            </nav>
-          </div>
-        </div>
+        <PageBreadcrumbs items={[
+          { label: 'Inicio', href: '/' },
+          { label: 'Nuestros Goldens' },
+        ]} />
 
         {/* Content Sections */}
         <div className="bg-white">
