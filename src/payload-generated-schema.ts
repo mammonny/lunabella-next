@@ -156,14 +156,23 @@ export const enum__breeds_v_version_status = pgEnum('enum__breeds_v_version_stat
   'draft',
   'published',
 ])
-export const enum_dogs_status = pgEnum('enum_dogs_status', ['active', 'retired', 'deceased'])
+export const enum_dogs_breeding_status = pgEnum('enum_dogs_breeding_status', [
+  'active',
+  'retired',
+  'deceased',
+])
 export const enum_dogs_gender = pgEnum('enum_dogs_gender', ['male', 'female'])
-export const enum__dogs_v_version_status = pgEnum('enum__dogs_v_version_status', [
+export const enum_dogs_status = pgEnum('enum_dogs_status', ['draft', 'published'])
+export const enum__dogs_v_version_breeding_status = pgEnum('enum__dogs_v_version_breeding_status', [
   'active',
   'retired',
   'deceased',
 ])
 export const enum__dogs_v_version_gender = pgEnum('enum__dogs_v_version_gender', ['male', 'female'])
+export const enum__dogs_v_version_status = pgEnum('enum__dogs_v_version_status', [
+  'draft',
+  'published',
+])
 export const enum_puppies_gender = pgEnum('enum_puppies_gender', ['male', 'female'])
 export const enum_puppies_disponibilidad = pgEnum('enum_puppies_disponibilidad', [
   'available',
@@ -180,6 +189,22 @@ export const enum__puppies_v_version_disponibilidad = pgEnum(
   ['available', 'reserved', 'sold'],
 )
 export const enum__puppies_v_version_status = pgEnum('enum__puppies_v_version_status', [
+  'draft',
+  'published',
+])
+export const enum_exhibitions_awards_position = pgEnum('enum_exhibitions_awards_position', [
+  'first',
+  'second',
+  'third',
+  'special',
+  'other',
+])
+export const enum_exhibitions_status = pgEnum('enum_exhibitions_status', ['draft', 'published'])
+export const enum__exhibitions_v_version_awards_position = pgEnum(
+  'enum__exhibitions_v_version_awards_position',
+  ['first', 'second', 'third', 'special', 'other'],
+)
+export const enum__exhibitions_v_version_status = pgEnum('enum__exhibitions_v_version_status', [
   'draft',
   'published',
 ])
@@ -1337,10 +1362,11 @@ export const dogs = pgTable(
   {
     id: serial('id').primaryKey(),
     name: varchar('name'),
+    apodo: varchar('apodo'),
     breed: integer('breed_id').references(() => breeds.id, {
       onDelete: 'set null',
     }),
-    status: enum_dogs_status('status').default('active'),
+    breedingStatus: enum_dogs_breeding_status('breeding_status').default('active'),
     gender: enum_dogs_gender('gender'),
     birthDate: timestamp('birth_date', { mode: 'string', withTimezone: true, precision: 3 }),
     description: jsonb('description'),
@@ -1432,10 +1458,12 @@ export const _dogs_v = pgTable(
       onDelete: 'set null',
     }),
     version_name: varchar('version_name'),
+    version_apodo: varchar('version_apodo'),
     version_breed: integer('version_breed_id').references(() => breeds.id, {
       onDelete: 'set null',
     }),
-    version_status: enum__dogs_v_version_status('version_status').default('active'),
+    version_breedingStatus:
+      enum__dogs_v_version_breeding_status('version_breeding_status').default('active'),
     version_gender: enum__dogs_v_version_gender('version_gender'),
     version_birthDate: timestamp('version_birth_date', {
       mode: 'string',
@@ -1790,6 +1818,202 @@ export const litters = pgTable(
     litters_slug_idx: index('litters_slug_idx').on(columns.slug),
     litters_updated_at_idx: index('litters_updated_at_idx').on(columns.updatedAt),
     litters_created_at_idx: index('litters_created_at_idx').on(columns.createdAt),
+  }),
+)
+
+export const exhibitions_gallery = pgTable(
+  'exhibitions_gallery',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    image: integer('image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+    caption: varchar('caption'),
+  },
+  (columns) => ({
+    _orderIdx: index('exhibitions_gallery_order_idx').on(columns._order),
+    _parentIDIdx: index('exhibitions_gallery_parent_id_idx').on(columns._parentID),
+    exhibitions_gallery_image_idx: index('exhibitions_gallery_image_idx').on(columns.image),
+    _parentIDFk: foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [exhibitions.id],
+      name: 'exhibitions_gallery_parent_id_fk',
+    }).onDelete('cascade'),
+  }),
+)
+
+export const exhibitions_awards = pgTable(
+  'exhibitions_awards',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    dog: integer('dog_id').references(() => dogs.id, {
+      onDelete: 'set null',
+    }),
+    title: varchar('title'),
+    position: enum_exhibitions_awards_position('position'),
+  },
+  (columns) => ({
+    _orderIdx: index('exhibitions_awards_order_idx').on(columns._order),
+    _parentIDIdx: index('exhibitions_awards_parent_id_idx').on(columns._parentID),
+    exhibitions_awards_dog_idx: index('exhibitions_awards_dog_idx').on(columns.dog),
+    _parentIDFk: foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [exhibitions.id],
+      name: 'exhibitions_awards_parent_id_fk',
+    }).onDelete('cascade'),
+  }),
+)
+
+export const exhibitions = pgTable(
+  'exhibitions',
+  {
+    id: serial('id').primaryKey(),
+    name: varchar('name'),
+    date: timestamp('date', { mode: 'string', withTimezone: true, precision: 3 }),
+    mainImage: integer('main_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+    description: jsonb('description'),
+    location: varchar('location'),
+    publishedAt: timestamp('published_at', { mode: 'string', withTimezone: true, precision: 3 }),
+    slug: varchar('slug'),
+    slugLock: boolean('slug_lock').default(true),
+    updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp('created_at', { mode: 'string', withTimezone: true, precision: 3 })
+      .defaultNow()
+      .notNull(),
+    _status: enum_exhibitions_status('_status').default('draft'),
+  },
+  (columns) => ({
+    exhibitions_main_image_idx: index('exhibitions_main_image_idx').on(columns.mainImage),
+    exhibitions_slug_idx: index('exhibitions_slug_idx').on(columns.slug),
+    exhibitions_updated_at_idx: index('exhibitions_updated_at_idx').on(columns.updatedAt),
+    exhibitions_created_at_idx: index('exhibitions_created_at_idx').on(columns.createdAt),
+    exhibitions__status_idx: index('exhibitions__status_idx').on(columns._status),
+  }),
+)
+
+export const _exhibitions_v_version_gallery = pgTable(
+  '_exhibitions_v_version_gallery',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    image: integer('image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+    caption: varchar('caption'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => ({
+    _orderIdx: index('_exhibitions_v_version_gallery_order_idx').on(columns._order),
+    _parentIDIdx: index('_exhibitions_v_version_gallery_parent_id_idx').on(columns._parentID),
+    _exhibitions_v_version_gallery_image_idx: index('_exhibitions_v_version_gallery_image_idx').on(
+      columns.image,
+    ),
+    _parentIDFk: foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_exhibitions_v.id],
+      name: '_exhibitions_v_version_gallery_parent_id_fk',
+    }).onDelete('cascade'),
+  }),
+)
+
+export const _exhibitions_v_version_awards = pgTable(
+  '_exhibitions_v_version_awards',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    dog: integer('dog_id').references(() => dogs.id, {
+      onDelete: 'set null',
+    }),
+    title: varchar('title'),
+    position: enum__exhibitions_v_version_awards_position('position'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => ({
+    _orderIdx: index('_exhibitions_v_version_awards_order_idx').on(columns._order),
+    _parentIDIdx: index('_exhibitions_v_version_awards_parent_id_idx').on(columns._parentID),
+    _exhibitions_v_version_awards_dog_idx: index('_exhibitions_v_version_awards_dog_idx').on(
+      columns.dog,
+    ),
+    _parentIDFk: foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_exhibitions_v.id],
+      name: '_exhibitions_v_version_awards_parent_id_fk',
+    }).onDelete('cascade'),
+  }),
+)
+
+export const _exhibitions_v = pgTable(
+  '_exhibitions_v',
+  {
+    id: serial('id').primaryKey(),
+    parent: integer('parent_id').references(() => exhibitions.id, {
+      onDelete: 'set null',
+    }),
+    version_name: varchar('version_name'),
+    version_date: timestamp('version_date', { mode: 'string', withTimezone: true, precision: 3 }),
+    version_mainImage: integer('version_main_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+    version_description: jsonb('version_description'),
+    version_location: varchar('version_location'),
+    version_publishedAt: timestamp('version_published_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_slug: varchar('version_slug'),
+    version_slugLock: boolean('version_slug_lock').default(true),
+    version_updatedAt: timestamp('version_updated_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_createdAt: timestamp('version_created_at', {
+      mode: 'string',
+      withTimezone: true,
+      precision: 3,
+    }),
+    version__status: enum__exhibitions_v_version_status('version__status').default('draft'),
+    createdAt: timestamp('created_at', { mode: 'string', withTimezone: true, precision: 3 })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
+      .defaultNow()
+      .notNull(),
+    latest: boolean('latest'),
+    autosave: boolean('autosave'),
+  },
+  (columns) => ({
+    _exhibitions_v_parent_idx: index('_exhibitions_v_parent_idx').on(columns.parent),
+    _exhibitions_v_version_version_main_image_idx: index(
+      '_exhibitions_v_version_version_main_image_idx',
+    ).on(columns.version_mainImage),
+    _exhibitions_v_version_version_slug_idx: index('_exhibitions_v_version_version_slug_idx').on(
+      columns.version_slug,
+    ),
+    _exhibitions_v_version_version_updated_at_idx: index(
+      '_exhibitions_v_version_version_updated_at_idx',
+    ).on(columns.version_updatedAt),
+    _exhibitions_v_version_version_created_at_idx: index(
+      '_exhibitions_v_version_version_created_at_idx',
+    ).on(columns.version_createdAt),
+    _exhibitions_v_version_version__status_idx: index(
+      '_exhibitions_v_version_version__status_idx',
+    ).on(columns.version__status),
+    _exhibitions_v_created_at_idx: index('_exhibitions_v_created_at_idx').on(columns.createdAt),
+    _exhibitions_v_updated_at_idx: index('_exhibitions_v_updated_at_idx').on(columns.updatedAt),
+    _exhibitions_v_latest_idx: index('_exhibitions_v_latest_idx').on(columns.latest),
+    _exhibitions_v_autosave_idx: index('_exhibitions_v_autosave_idx').on(columns.autosave),
   }),
 )
 
@@ -2537,6 +2761,7 @@ export const payload_locked_documents_rels = pgTable(
     dogsID: integer('dogs_id'),
     puppiesID: integer('puppies_id'),
     littersID: integer('litters_id'),
+    exhibitionsID: integer('exhibitions_id'),
     mediaID: integer('media_id'),
     categoriesID: integer('categories_id'),
     usersID: integer('users_id'),
@@ -2568,6 +2793,9 @@ export const payload_locked_documents_rels = pgTable(
     payload_locked_documents_rels_litters_id_idx: index(
       'payload_locked_documents_rels_litters_id_idx',
     ).on(columns.littersID),
+    payload_locked_documents_rels_exhibitions_id_idx: index(
+      'payload_locked_documents_rels_exhibitions_id_idx',
+    ).on(columns.exhibitionsID),
     payload_locked_documents_rels_media_id_idx: index(
       'payload_locked_documents_rels_media_id_idx',
     ).on(columns.mediaID),
@@ -2626,6 +2854,11 @@ export const payload_locked_documents_rels = pgTable(
       columns: [columns['littersID']],
       foreignColumns: [litters.id],
       name: 'payload_locked_documents_rels_litters_fk',
+    }).onDelete('cascade'),
+    exhibitionsIdFk: foreignKey({
+      columns: [columns['exhibitionsID']],
+      foreignColumns: [exhibitions.id],
+      name: 'payload_locked_documents_rels_exhibitions_fk',
     }).onDelete('cascade'),
     mediaIdFk: foreignKey({
       columns: [columns['mediaID']],
@@ -2869,6 +3102,18 @@ export const footer_rels = pgTable(
     }).onDelete('cascade'),
   }),
 )
+
+export const site_settings = pgTable('site_settings', {
+  id: serial('id').primaryKey(),
+  instagramAccessToken: varchar('instagram_access_token'),
+  instagramTokenExpiresAt: timestamp('instagram_token_expires_at', {
+    mode: 'string',
+    withTimezone: true,
+    precision: 3,
+  }),
+  updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 }),
+  createdAt: timestamp('created_at', { mode: 'string', withTimezone: true, precision: 3 }),
+})
 
 export const relations_pages_hero_links = relations(pages_hero_links, ({ one }) => ({
   _parentID: one(pages, {
@@ -3585,6 +3830,91 @@ export const relations_litters = relations(litters, ({ one }) => ({
     relationName: 'mother',
   }),
 }))
+export const relations_exhibitions_gallery = relations(exhibitions_gallery, ({ one }) => ({
+  _parentID: one(exhibitions, {
+    fields: [exhibitions_gallery._parentID],
+    references: [exhibitions.id],
+    relationName: 'gallery',
+  }),
+  image: one(media, {
+    fields: [exhibitions_gallery.image],
+    references: [media.id],
+    relationName: 'image',
+  }),
+}))
+export const relations_exhibitions_awards = relations(exhibitions_awards, ({ one }) => ({
+  _parentID: one(exhibitions, {
+    fields: [exhibitions_awards._parentID],
+    references: [exhibitions.id],
+    relationName: 'awards',
+  }),
+  dog: one(dogs, {
+    fields: [exhibitions_awards.dog],
+    references: [dogs.id],
+    relationName: 'dog',
+  }),
+}))
+export const relations_exhibitions = relations(exhibitions, ({ one, many }) => ({
+  mainImage: one(media, {
+    fields: [exhibitions.mainImage],
+    references: [media.id],
+    relationName: 'mainImage',
+  }),
+  gallery: many(exhibitions_gallery, {
+    relationName: 'gallery',
+  }),
+  awards: many(exhibitions_awards, {
+    relationName: 'awards',
+  }),
+}))
+export const relations__exhibitions_v_version_gallery = relations(
+  _exhibitions_v_version_gallery,
+  ({ one }) => ({
+    _parentID: one(_exhibitions_v, {
+      fields: [_exhibitions_v_version_gallery._parentID],
+      references: [_exhibitions_v.id],
+      relationName: 'version_gallery',
+    }),
+    image: one(media, {
+      fields: [_exhibitions_v_version_gallery.image],
+      references: [media.id],
+      relationName: 'image',
+    }),
+  }),
+)
+export const relations__exhibitions_v_version_awards = relations(
+  _exhibitions_v_version_awards,
+  ({ one }) => ({
+    _parentID: one(_exhibitions_v, {
+      fields: [_exhibitions_v_version_awards._parentID],
+      references: [_exhibitions_v.id],
+      relationName: 'version_awards',
+    }),
+    dog: one(dogs, {
+      fields: [_exhibitions_v_version_awards.dog],
+      references: [dogs.id],
+      relationName: 'dog',
+    }),
+  }),
+)
+export const relations__exhibitions_v = relations(_exhibitions_v, ({ one, many }) => ({
+  parent: one(exhibitions, {
+    fields: [_exhibitions_v.parent],
+    references: [exhibitions.id],
+    relationName: 'parent',
+  }),
+  version_mainImage: one(media, {
+    fields: [_exhibitions_v.version_mainImage],
+    references: [media.id],
+    relationName: 'version_mainImage',
+  }),
+  version_gallery: many(_exhibitions_v_version_gallery, {
+    relationName: 'version_gallery',
+  }),
+  version_awards: many(_exhibitions_v_version_awards, {
+    relationName: 'version_awards',
+  }),
+}))
 export const relations_media = relations(media, () => ({}))
 export const relations_categories_breadcrumbs = relations(categories_breadcrumbs, ({ one }) => ({
   _parentID: one(categories, {
@@ -3848,6 +4178,11 @@ export const relations_payload_locked_documents_rels = relations(
       references: [litters.id],
       relationName: 'litters',
     }),
+    exhibitionsID: one(exhibitions, {
+      fields: [payload_locked_documents_rels.exhibitionsID],
+      references: [exhibitions.id],
+      relationName: 'exhibitions',
+    }),
     mediaID: one(media, {
       fields: [payload_locked_documents_rels.mediaID],
       references: [media.id],
@@ -3983,6 +4318,7 @@ export const relations_footer = relations(footer, ({ many }) => ({
     relationName: '_rels',
   }),
 }))
+export const relations_site_settings = relations(site_settings, () => ({}))
 
 type DatabaseSchema = {
   enum_pages_hero_links_link_type: typeof enum_pages_hero_links_link_type
@@ -4017,16 +4353,22 @@ type DatabaseSchema = {
   enum__breeds_v_version_grooming_needs: typeof enum__breeds_v_version_grooming_needs
   enum__breeds_v_version_exercise_needs: typeof enum__breeds_v_version_exercise_needs
   enum__breeds_v_version_status: typeof enum__breeds_v_version_status
-  enum_dogs_status: typeof enum_dogs_status
+  enum_dogs_breeding_status: typeof enum_dogs_breeding_status
   enum_dogs_gender: typeof enum_dogs_gender
-  enum__dogs_v_version_status: typeof enum__dogs_v_version_status
+  enum_dogs_status: typeof enum_dogs_status
+  enum__dogs_v_version_breeding_status: typeof enum__dogs_v_version_breeding_status
   enum__dogs_v_version_gender: typeof enum__dogs_v_version_gender
+  enum__dogs_v_version_status: typeof enum__dogs_v_version_status
   enum_puppies_gender: typeof enum_puppies_gender
   enum_puppies_disponibilidad: typeof enum_puppies_disponibilidad
   enum_puppies_status: typeof enum_puppies_status
   enum__puppies_v_version_gender: typeof enum__puppies_v_version_gender
   enum__puppies_v_version_disponibilidad: typeof enum__puppies_v_version_disponibilidad
   enum__puppies_v_version_status: typeof enum__puppies_v_version_status
+  enum_exhibitions_awards_position: typeof enum_exhibitions_awards_position
+  enum_exhibitions_status: typeof enum_exhibitions_status
+  enum__exhibitions_v_version_awards_position: typeof enum__exhibitions_v_version_awards_position
+  enum__exhibitions_v_version_status: typeof enum__exhibitions_v_version_status
   enum_users_roles: typeof enum_users_roles
   enum_redirects_to_type: typeof enum_redirects_to_type
   enum_forms_confirmation_type: typeof enum_forms_confirmation_type
@@ -4082,6 +4424,12 @@ type DatabaseSchema = {
   _puppies_v_version_special_features: typeof _puppies_v_version_special_features
   _puppies_v: typeof _puppies_v
   litters: typeof litters
+  exhibitions_gallery: typeof exhibitions_gallery
+  exhibitions_awards: typeof exhibitions_awards
+  exhibitions: typeof exhibitions
+  _exhibitions_v_version_gallery: typeof _exhibitions_v_version_gallery
+  _exhibitions_v_version_awards: typeof _exhibitions_v_version_awards
+  _exhibitions_v: typeof _exhibitions_v
   media: typeof media
   categories_breadcrumbs: typeof categories_breadcrumbs
   categories: typeof categories
@@ -4118,6 +4466,7 @@ type DatabaseSchema = {
   footer_nav_items: typeof footer_nav_items
   footer: typeof footer
   footer_rels: typeof footer_rels
+  site_settings: typeof site_settings
   relations_pages_hero_links: typeof relations_pages_hero_links
   relations_pages_blocks_cta_links: typeof relations_pages_blocks_cta_links
   relations_pages_blocks_cta: typeof relations_pages_blocks_cta
@@ -4165,6 +4514,12 @@ type DatabaseSchema = {
   relations__puppies_v_version_special_features: typeof relations__puppies_v_version_special_features
   relations__puppies_v: typeof relations__puppies_v
   relations_litters: typeof relations_litters
+  relations_exhibitions_gallery: typeof relations_exhibitions_gallery
+  relations_exhibitions_awards: typeof relations_exhibitions_awards
+  relations_exhibitions: typeof relations_exhibitions
+  relations__exhibitions_v_version_gallery: typeof relations__exhibitions_v_version_gallery
+  relations__exhibitions_v_version_awards: typeof relations__exhibitions_v_version_awards
+  relations__exhibitions_v: typeof relations__exhibitions_v
   relations_media: typeof relations_media
   relations_categories_breadcrumbs: typeof relations_categories_breadcrumbs
   relations_categories: typeof relations_categories
@@ -4201,6 +4556,7 @@ type DatabaseSchema = {
   relations_footer_nav_items: typeof relations_footer_nav_items
   relations_footer_rels: typeof relations_footer_rels
   relations_footer: typeof relations_footer
+  relations_site_settings: typeof relations_site_settings
 }
 
 declare module '@payloadcms/db-vercel-postgres/types' {

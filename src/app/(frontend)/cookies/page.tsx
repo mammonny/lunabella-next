@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { PageBreadcrumbs } from '@/components/Breadcrumbs'
 
 export const dynamic = 'force-static'

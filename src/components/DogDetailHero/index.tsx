@@ -131,7 +131,7 @@ export const DogDetailHero: React.FC<DogDetailHeroProps> = ({
               className="text-xl md:text-2xl text-white/60 italic mt-2 mb-8 animate-fade-in-up"
               style={{ animationDelay: '0.15s' }}
             >
-              "{apodo}"
+              &ldquo;{apodo}&rdquo;
             </p>
           )}
           {!apodo && <div className="mb-8" />}

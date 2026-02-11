@@ -49,15 +49,24 @@ export const seed = async (payload: Payload): Promise<void> => {
       data: {
         name: 'Golden Retriever',
         slug: 'golden-retriever',
-        origin: 'Escocia',
         mainImage: breedImageId,
         description: {
           root: {
             type: 'root',
+            version: 1,
+            direction: 'ltr' as const,
+            format: '' as const,
+            indent: 0,
             children: [
               {
                 type: 'paragraph',
-                children: [{ type: 'text', text: 'El Golden Retriever es una raza de perro amigable, inteligente y leal.' }],
+                version: 1,
+                direction: 'ltr' as const,
+                format: '' as const,
+                indent: 0,
+                textFormat: 0,
+                textStyle: '',
+                children: [{ type: 'text', version: 1, format: 0, style: '', detail: 0, mode: 'normal' as const, text: 'El Golden Retriever es una raza de perro amigable, inteligente y leal.' }],
               },
             ],
           },
@@ -70,7 +79,7 @@ export const seed = async (payload: Payload): Promise<void> => {
     })
     breedId = newBreed.id
   } else {
-    breedId = goldenRetriever.docs[0].id
+    breedId = goldenRetriever.docs[0]!.id
   }
 
   // Upload dog placeholder image
@@ -219,7 +228,8 @@ export const seed = async (payload: Payload): Promise<void> => {
     })
 
     if (existingDog.docs.length === 0) {
-      await payload.create({ collection: 'dogs', data: dogData })
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await payload.create({ collection: 'dogs', data: dogData as any })
       payload.logger.info(`Created dog: ${dogData.name}`)
     } else {
       payload.logger.info(`Dog already exists, skipping: ${dogData.name}`)

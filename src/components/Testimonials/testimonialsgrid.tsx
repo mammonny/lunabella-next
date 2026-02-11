@@ -159,7 +159,7 @@ export default function TestimonialsGrid() {
           {/* Featured testimonial */}
           <figure className="group col-span-2 hidden sm:block bg-[#faf8f5] p-10 xl:col-start-2 xl:row-end-1 transition-all duration-500 hover:shadow-[0_20px_60px_-15px_rgba(165,138,27,0.12)] quote-watermark">
             {/* Quote mark */}
-            <div className="mb-6 text-5xl font-heading text-[#a58a1b]/20 relative z-10">"</div>
+            <div className="mb-6 text-5xl font-heading text-[#a58a1b]/20 relative z-10">&ldquo;</div>
             <blockquote className="text-xl font-medium leading-relaxed text-gray-900 relative z-10">
               <p>{memoizedFeaturedTestimonial.body}</p>
             </blockquote>

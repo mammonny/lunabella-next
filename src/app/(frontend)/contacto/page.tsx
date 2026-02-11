@@ -313,7 +313,7 @@ export default async function ContactPage() {
                   className="absolute -top-4 -left-4 text-8xl font-heading text-[#a58a1b] opacity-10 select-none"
                   aria-hidden="true"
                 >
-                  "
+                  &ldquo;
                 </div>
 
                 <blockquote className="relative pl-8 border-l-2 border-[#a58a1b]/40">

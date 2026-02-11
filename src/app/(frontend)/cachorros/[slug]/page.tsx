@@ -187,6 +187,7 @@ export default async function Page({ params }: Args) {
     const puppyId = `GR-${new Date(birthDate || '').getFullYear() || 'YYYY'}-${String(puppy.id).padStart(2, '0') || '00'}`
 
     return (
+      <>
       <PageBreadcrumbs items={[
         { label: 'Inicio', href: '/' },
         { label: 'Cachorros', href: '/cachorros' },
@@ -294,6 +295,7 @@ export default async function Page({ params }: Args) {
           </div>
         </div>
       </div>
+      </>
     )
   } catch (error) {
     console.error('Error fetching puppy:', error)

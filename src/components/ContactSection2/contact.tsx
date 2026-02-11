@@ -81,9 +81,9 @@ export default async function ContactSection2() {
             <figure className="relative pl-8 border-l-2 border-[#a58a1b]/30">
               <blockquote className="text-xl font-heading italic text-gray-800 leading-relaxed">
                 <p>
-                  "Cada cachorro que criamos es parte de nuestra familia. Nos dedicamos con
+                  &ldquo;Cada cachorro que criamos es parte de nuestra familia. Nos dedicamos con
                   pasión a criar Golden Retriever sanos, equilibrados y felices que se convertirán
-                  en compañeros leales para toda la vida."
+                  en compañeros leales para toda la vida.&rdquo;
                 </p>
               </blockquote>
               <figcaption className="mt-10 flex gap-x-5 items-center">

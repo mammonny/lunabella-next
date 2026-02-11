@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server'
+import { getPayload } from 'payload'
+import config from '@payload-config'
 
 export interface InstagramPost {
   id: string
@@ -25,9 +27,24 @@ interface InstagramAPIResponse {
 let cachedData: { posts: InstagramPost[]; timestamp: number } | null = null
 const CACHE_DURATION = 60 * 60 * 1000 // 1 hour in milliseconds
 
+const INSTAGRAM_ACCOUNT_ID = '17841401820808513'
+
+async function getAccessToken(): Promise<string | null> {
+  try {
+    const payload = await getPayload({ config })
+    const settings = await payload.findGlobal({ slug: 'site-settings' })
+    if (settings.instagramAccessToken) {
+      return settings.instagramAccessToken
+    }
+  } catch (e) {
+    console.error('Failed to read token from DB, falling back to env:', e)
+  }
+  return process.env.INSTAGRAM_ACCESS_TOKEN || null
+}
+
 export async function GET() {
   try {
-    const accessToken = process.env.INSTAGRAM_ACCESS_TOKEN
+    const accessToken = await getAccessToken()
 
     if (!accessToken) {
       return NextResponse.json(
@@ -41,13 +58,13 @@ export async function GET() {
       return NextResponse.json({ posts: cachedData.posts, cached: true })
     }
 
-    // Fetch from Instagram Graph API
+    // Fetch media from Instagram Graph API
     const fields = 'id,caption,media_type,media_url,thumbnail_url,permalink,timestamp'
     const limit = 12
 
     const response = await fetch(
-      `https://graph.instagram.com/me/media?fields=${fields}&limit=${limit}&access_token=${accessToken}`,
-      { next: { revalidate: 3600 } }, // Revalidate every hour
+      `https://graph.facebook.com/v24.0/${INSTAGRAM_ACCOUNT_ID}/media?fields=${fields}&limit=${limit}&access_token=${accessToken}`,
+      { next: { revalidate: 3600 } },
     )
 
     if (!response.ok) {

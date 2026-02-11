@@ -153,7 +153,7 @@ export const PuppyCard: React.FC<PuppyCardProps> = ({
             {name}
           </h3>
           {apodo && (
-            <p className="text-sm text-[#6b6560] italic mb-2.5">"{apodo}"</p>
+            <p className="text-sm text-[#6b6560] italic mb-2.5">&ldquo;{apodo}&rdquo;</p>
           )}
           {!apodo && <div className="mb-2.5" />}
 
