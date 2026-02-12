@@ -4,8 +4,8 @@ import type { Form as FormType } from '@payloadcms/plugin-form-builder/types'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React from 'react'
-import Link from 'next/link'
 import Image from 'next/image'
+import CTASection from '@/components/CTASection'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -307,21 +307,26 @@ export default async function ContactPage() {
               </h2>
 
               {/* Elegant quote */}
-              <figure className="relative mb-12">
-                {/* Large quote mark */}
-                <div
-                  className="absolute -top-4 -left-4 text-8xl font-heading text-[#a58a1b] opacity-10 select-none"
-                  aria-hidden="true"
-                >
-                  &ldquo;
-                </div>
+              <figure className="relative mb-14">
+                <blockquote className="relative">
+                  {/* Opening quote mark - large, decorative, above text */}
+                  <svg
+                    className="w-10 h-8 mb-5 text-[#a58a1b] opacity-40"
+                    viewBox="0 0 40 32"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M0 20.42C0 27.18 3.7 32 9.82 32c4.62 0 7.94-3.54 7.94-7.86 0-4.14-2.94-7.18-6.82-7.18-1.16 0-2.34.3-2.84.68 1.02-5.36 5.26-10.54 10.4-13.12L15.4 0C6.16 4.5 0 12.38 0 20.42Zm22.24 0C22.24 27.18 25.94 32 32.06 32 36.68 32 40 28.46 40 24.14c0-4.14-2.94-7.18-6.82-7.18-1.16 0-2.34.3-2.84.68 1.02-5.36 5.26-10.54 10.4-13.12L37.64 0c-9.24 4.5-15.4 12.38-15.4 20.42Z" />
+                  </svg>
 
-                <blockquote className="relative pl-8 border-l-2 border-[#a58a1b]/40">
                   <p className="text-xl md:text-2xl font-heading italic text-gray-800 leading-relaxed mb-8">
                     Cada cachorro que criamos es parte de nuestra familia.
                     Nos dedicamos con pasión a criar Golden Retriever sanos,
                     equilibrados y felices.
                   </p>
+
+                  {/* Thin gold separator */}
+                  <div className="w-16 h-px bg-gradient-to-r from-[#a58a1b] to-transparent mb-6" />
 
                   <figcaption className="flex items-center gap-5">
                     <div
@@ -342,34 +347,43 @@ export default async function ContactPage() {
                 </blockquote>
               </figure>
 
-              {/* Values */}
-              <div className="grid grid-cols-2 gap-6">
-                <div className="group">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 flex items-center justify-center bg-[#a58a1b]/10 group-hover:bg-[#a58a1b] transition-colors duration-500">
-                      <svg className="w-4 h-4 text-[#a58a1b] group-hover:text-white transition-colors duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                      </svg>
-                    </div>
-                    <span className="text-xs tracking-wider uppercase text-gray-500">Salud</span>
+              {/* Values - editorial inline style */}
+              <div className="flex items-start gap-10 pt-2">
+                {/* Salud */}
+                <div className="flex items-start gap-4">
+                  <span
+                    className="font-heading text-[2.5rem] leading-none font-medium select-none -mt-1"
+                    style={{ color: '#a58a1b', opacity: 0.25 }}
+                    aria-hidden="true"
+                  >
+                    01
+                  </span>
+                  <div>
+                    <span className="text-xs font-medium tracking-[0.2em] uppercase text-[#a58a1b] block mb-1">Salud</span>
+                    <p className="text-sm text-gray-600 leading-relaxed max-w-[11rem]">
+                      Tests genéticos completos y certificaciones oficiales
+                    </p>
                   </div>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    Tests genéticos completos y certificaciones oficiales
-                  </p>
                 </div>
 
-                <div className="group">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 flex items-center justify-center bg-[#a58a1b]/10 group-hover:bg-[#a58a1b] transition-colors duration-500">
-                      <svg className="w-4 h-4 text-[#a58a1b] group-hover:text-white transition-colors duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                      </svg>
-                    </div>
-                    <span className="text-xs tracking-wider uppercase text-gray-500">Amor</span>
+                {/* Divider */}
+                <div className="w-px self-stretch bg-gradient-to-b from-transparent via-[#a58a1b]/30 to-transparent" />
+
+                {/* Amor */}
+                <div className="flex items-start gap-4">
+                  <span
+                    className="font-heading text-[2.5rem] leading-none font-medium select-none -mt-1"
+                    style={{ color: '#a58a1b', opacity: 0.25 }}
+                    aria-hidden="true"
+                  >
+                    02
+                  </span>
+                  <div>
+                    <span className="text-xs font-medium tracking-[0.2em] uppercase text-[#a58a1b] block mb-1">Amor</span>
+                    <p className="text-sm text-gray-600 leading-relaxed max-w-[11rem]">
+                      Criados en familia, socializados desde el primer día
+                    </p>
                   </div>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    Criados en familia, socializados desde el primer día
-                  </p>
                 </div>
               </div>
             </div>
@@ -422,60 +436,15 @@ export default async function ContactPage() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════════════════════
-          CTA SECTION - Explore More
-          ═══════════════════════════════════════════════════════════════ */}
-      <section className="relative py-28 md:py-36 overflow-hidden bg-lunabella-diagonal">
-        <div className="relative z-10 container mx-auto px-6 lg:px-12">
-          <div className="max-w-4xl mx-auto text-center">
-            {/* Section label */}
-            <div className="flex items-center justify-center gap-4 mb-8">
-              <span className="w-16 h-px bg-[#a58a1b]" />
-              <span className="text-[#a58a1b] text-sm font-medium tracking-[0.25em] uppercase">
-                Mientras esperas
-              </span>
-              <span className="w-16 h-px bg-[#a58a1b]" />
-            </div>
-
-            <h2 className="text-display text-4xl md:text-5xl lg:text-6xl text-gray-900 mb-8">
-              Conoce nuestra{' '}
-              <span className="text-gradient-gold">familia</span>
-            </h2>
-
-            <p className="text-gray-600 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-14">
-              Te invitamos a conocer a nuestros Golden Retriever y los cachorros disponibles
-              mientras esperamos tu mensaje.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/nuestros-goldens"
-                className="group inline-flex items-center justify-center gap-3 px-10 py-5 text-[13px] font-medium uppercase tracking-[0.2em] transition-all duration-300 ease-out hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] hover:-translate-y-1 active:translate-y-0"
-                style={{ backgroundColor: '#000000', color: '#ece8e1' }}
-              >
-                Nuestros Goldens
-                <svg
-                  className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-                </svg>
-              </Link>
-
-              <Link
-                href="/cachorros"
-                className="btn-lunabella-outline"
-              >
-                Ver cachorros
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CTASection
+        label="Mientras esperas"
+        title={<>Conoce nuestra <span className="text-gradient-gold">familia</span></>}
+        description="Te invitamos a conocer a nuestros Golden Retriever y los cachorros disponibles mientras esperamos tu mensaje."
+        primaryLabel="Nuestros Goldens"
+        primaryHref="/nuestros-goldens"
+        secondaryLabel="Ver cachorros"
+        secondaryHref="/cachorros"
+      />
     </main>
   )
 }
