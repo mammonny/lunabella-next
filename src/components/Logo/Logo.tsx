@@ -16,7 +16,7 @@ export const Logo = (props: Props) => {
       alt="LunaBella - Criadores de Golden Retriever"
       width={180}
       height={60}
-      className={clsx('h-auto w-auto max-h-12 md:max-h-10', className)}
+      className={clsx('h-10 w-auto shrink-0', className)}
       loading={loading}
       priority={priority === 'high'}
     />

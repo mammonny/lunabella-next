@@ -35,7 +35,7 @@ function NavLink({ href, children, isActive }: { href: string; children: React.R
       className="group relative px-5 py-2"
     >
       <span
-        className={`relative z-10 text-[13px] font-medium uppercase tracking-[0.12em] transition-colors duration-300 ${
+        className={`relative z-10 text-[14px] font-medium capitalize tracking-[0.06em] transition-colors duration-300 ${
           isActive ? '' : 'group-hover:text-[#a58a1b]'
         }`}
         style={{ color: isActive ? COLORS.gold : COLORS.charcoal }}
@@ -74,32 +74,20 @@ function ContactButton() {
   )
 }
 
-function DesktopNav() {
+function DesktopNavLinks() {
   const pathname = usePathname()
 
   return (
-    <nav className="relative hidden lg:flex items-center">
-      {/* Nav links */}
-      <div className="flex items-center">
-        {NAV_ITEMS.map((item) => (
-          <NavLink
-            key={item.href}
-            href={item.href}
-            isActive={pathname === item.href}
-          >
-            {item.label}
-          </NavLink>
-        ))}
-      </div>
-
-      {/* Separator */}
-      <div
-        className="mx-4 h-5 w-px"
-        style={{ backgroundColor: COLORS.creamDark }}
-      />
-
-      {/* Contact button */}
-      <ContactButton />
+    <nav className="hidden lg:flex items-center justify-center">
+      {NAV_ITEMS.map((item) => (
+        <NavLink
+          key={item.href}
+          href={item.href}
+          isActive={pathname === item.href}
+        >
+          {item.label}
+        </NavLink>
+      ))}
     </nav>
   )
 }
@@ -127,7 +115,8 @@ export function NavbarCombined({ banner }: { banner?: React.ReactNode }) {
               className="flex items-center justify-between"
               style={{ padding: '0.875rem 0' }}
             >
-              <div className="flex items-center gap-6">
+              {/* Left: Logo */}
+              <div className="flex flex-1 items-center gap-6">
                 <Link
                   href="/"
                   title="Home"
@@ -139,27 +128,39 @@ export function NavbarCombined({ banner }: { banner?: React.ReactNode }) {
                 )}
               </div>
 
-              {/* Desktop Navigation */}
-              <DesktopNav />
+              {/* Center: Desktop Navigation */}
+              <DesktopNavLinks />
 
-              {/* Mobile Menu Button */}
-              {isClient && (
-                <div className="flex items-center lg:hidden">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    aria-label="Toggle site navigation"
-                    className="relative z-[70] transition-colors duration-300 hover:bg-transparent"
-                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  >
-                    {isMobileMenuOpen ? (
-                      <X className="h-6 w-6" style={{ color: COLORS.charcoal }} />
-                    ) : (
-                      <Menu className="h-6 w-6" style={{ color: COLORS.charcoal }} />
-                    )}
-                  </Button>
+              {/* Right: Contact button + Mobile menu */}
+              <div className="flex flex-1 items-center justify-end">
+                <div className="hidden lg:flex items-center">
+                  {/* Separator */}
+                  <div
+                    className="mx-4 h-5 w-px"
+                    style={{ backgroundColor: COLORS.creamDark }}
+                  />
+                  <ContactButton />
                 </div>
-              )}
+
+                {/* Mobile Menu Button */}
+                {isClient && (
+                  <div className="flex items-center lg:hidden">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      aria-label="Toggle site navigation"
+                      className="relative z-[70] transition-colors duration-300 hover:bg-transparent"
+                      onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    >
+                      {isMobileMenuOpen ? (
+                        <X className="h-6 w-6" style={{ color: COLORS.charcoal }} />
+                      ) : (
+                        <Menu className="h-6 w-6" style={{ color: COLORS.charcoal }} />
+                      )}
+                    </Button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
