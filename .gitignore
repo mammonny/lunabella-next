@@ -12,3 +12,9 @@ public/media/
 public/robots.txt
 public/sitemap*.xml
 nul
+
+# Playwright MCP artifacts
+.playwright-mcp/
+
+# Misc
+*.deb
