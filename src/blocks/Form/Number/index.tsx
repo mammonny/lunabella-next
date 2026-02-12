@@ -27,7 +27,7 @@ export const Number: React.FC<
       <Input
         defaultValue={defaultValue}
         id={name}
-        type="number"
+        type="tel"
         {...register(name, { required })}
       />
       {errors[name] && <Error name={name} />}
