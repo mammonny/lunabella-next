@@ -8,6 +8,7 @@ import { cn } from '@/utilities/ui'
 import ScrollProgress from '@/components/ScrollProgress'
 import Link from 'next/link'
 import { PageBreadcrumbs } from '@/components/Breadcrumbs'
+import CTASection from '@/components/CTASection'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -191,56 +192,15 @@ export default async function Page() {
           )}
         </div>
 
-        {/* CTA Section - Same style as WhyLunaBella */}
-        <section className="relative py-28 md:py-40 overflow-hidden bg-lunabella-diagonal">
-          <div className="relative container mx-auto px-6 lg:px-12">
-            {/* Header */}
-            <div className="max-w-4xl mx-auto text-center">
-              <div className="flex items-center justify-center gap-4 mb-8">
-                <span className="w-16 h-px bg-[#a58a1b]" />
-                <span className="text-[#a58a1b] text-sm font-medium tracking-[0.25em] uppercase">
-                  ¿Te interesa?
-                </span>
-                <span className="w-16 h-px bg-[#a58a1b]" />
-              </div>
-
-              <h2 className="text-display text-4xl md:text-5xl lg:text-6xl text-gray-900 mb-8">
-                ¿Quieres conocer a{' '}
-                <span className="text-gradient-gold">nuestros padres</span>?
-              </h2>
-
-              <p className="text-gray-600 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-12">
-                Conoce a los padres de nuestros cachorros. Todos nuestros ejemplares tienen pedigrí completo,
-                certificaciones de salud y un carácter excepcional.
-              </p>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href="/nuestros-goldens"
-                  className="group inline-flex items-center justify-center gap-3 px-12 py-5 text-[13px] font-medium uppercase tracking-[0.2em] bg-[#000] text-[#ece8e1] transition-all duration-300 ease-out hover:bg-[#1a1a1a]"
-                >
-                  Nuestros Goldens
-                  <svg
-                    className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-                  </svg>
-                </Link>
-                <Link
-                  href="/contacto"
-                  className="inline-flex items-center justify-center px-12 py-5 text-[13px] font-medium uppercase tracking-[0.2em] border border-gray-300 text-gray-600 transition-all duration-300 ease-out hover:bg-black/5 hover:border-gray-400"
-                >
-                  Contactar
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
+        <CTASection
+          label="¿Te interesa?"
+          title={<>¿Quieres conocer a <span className="text-gradient-gold">nuestros padres</span>?</>}
+          description="Conoce a los padres de nuestros cachorros. Todos nuestros ejemplares tienen pedigrí completo, certificaciones de salud y un carácter excepcional."
+          primaryLabel="Nuestros Goldens"
+          primaryHref="/nuestros-goldens"
+          secondaryLabel="Contactar"
+          secondaryHref="/contacto"
+        />
       </main>
     </>
   )

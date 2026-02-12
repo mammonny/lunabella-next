@@ -193,7 +193,7 @@ html[data-theme='light'] {
 
   /* Botón outline dorado */
   .btn-lunabella-outline {
-    @apply px-10 py-4 font-medium text-center uppercase tracking-[0.15em] text-[13px] border;
+    @apply inline-flex items-center justify-center px-12 py-5 font-medium text-center uppercase tracking-[0.2em] text-[13px] border;
     border-color: #a58a1b;
     color: #a58a1b;
     background-color: transparent;
