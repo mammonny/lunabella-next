@@ -94,7 +94,7 @@ export const PuppyCard: React.FC<{
       ref={card.ref}
     >
       {/* Imagen */}
-      <div className="relative w-full aspect-[4/5] overflow-hidden">
+      <div className="relative w-full aspect-[4/3] overflow-hidden">
         {!mainImage && (
           <div className="absolute inset-0 bg-gradient-to-br from-[#faf8f5] to-[#ece8e1] flex items-center justify-center">
             <div className="golden-silhouette opacity-20" />

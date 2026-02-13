@@ -1,17 +1,16 @@
 import type { CollectionConfig } from 'payload'
 import { slugField } from '@/fields/slug'
-import { anyone } from '../access/anyone'
 import { authenticatedOrPublished } from '../access/authenticatedOrPublished'
-import { isAdminOrEditor } from '../access/isAdminOrEditor'
+import { adminOnly } from '../access/adminOnly'
 import { collectionAccess } from '../access/hideFromEditor'
 
 export const Breeds: CollectionConfig = {
   slug: 'breeds',
   access: {
-    create: isAdminOrEditor,
-    delete: isAdminOrEditor,
+    create: adminOnly,
+    delete: adminOnly,
     read: authenticatedOrPublished,
-    update: isAdminOrEditor,
+    update: adminOnly,
   },
   admin: {
     useAsTitle: 'name',

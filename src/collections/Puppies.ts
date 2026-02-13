@@ -1,8 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { slugField } from '@/fields/slug'
-import { anyone } from '../access/anyone'
 import { authenticatedOrPublished } from '../access/authenticatedOrPublished'
-import { editorAccess, showForEditors } from '../access/editorAccess'
 import { isAdminOrEditor } from '../access/isAdminOrEditor'
 import { collectionAccess } from '../access/hideFromEditor'
 

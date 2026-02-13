@@ -387,7 +387,7 @@ export interface User {
   id: number;
   name?: string | null;
   /**
-   * Selecciona el rol del usuario. Los editores solo pueden acceder a Dogs y Breeds.
+   * Selecciona el rol del usuario. Los editores solo pueden acceder a Dogs y Exhibitions.
    */
   roles?: ('admin' | 'editor') | null;
   updatedAt: string;

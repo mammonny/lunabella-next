@@ -7,6 +7,10 @@ export const Footer: GlobalConfig = {
   slug: 'footer',
   access: {
     read: () => true,
+    update: ({ req: { user } }) => (user as any)?.roles === 'admin',
+  },
+  admin: {
+    hidden: ({ user }) => (user as any)?.roles !== 'admin',
   },
   fields: [
     {

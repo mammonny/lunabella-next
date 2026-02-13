@@ -1,19 +1,21 @@
 import type { CollectionConfig } from 'payload'
 
 import { authenticated } from '../../access/authenticated'
+import { adminOnly } from '../../access/adminOnly'
 
 export const Users: CollectionConfig = {
   slug: 'users',
   access: {
     admin: authenticated,
-    create: authenticated,
-    delete: authenticated,
+    create: adminOnly,
+    delete: adminOnly,
     read: authenticated,
     update: authenticated,
   },
   admin: {
     defaultColumns: ['name', 'email', 'roles'],
     useAsTitle: 'name',
+    hidden: ({ user }) => (user as any)?.roles !== 'admin',
   },
   auth: true,
   fields: [
@@ -38,7 +40,7 @@ export const Users: CollectionConfig = {
       ],
       admin: {
         description:
-          'Selecciona el rol del usuario. Los editores solo pueden acceder a Dogs y Breeds.',
+          'Selecciona el rol del usuario. Los editores solo pueden acceder a Dogs y Exhibitions.',
         position: 'sidebar',
       },
       access: {

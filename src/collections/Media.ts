@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url'
 
 import { anyone } from '../access/anyone'
 import { adminOnly } from '../access/adminOnly'
+import { isAdminOrEditor } from '../access/isAdminOrEditor'
 import { collectionAccess } from '../access/hideFromEditor'
 
 const filename = fileURLToPath(import.meta.url)
@@ -21,10 +22,10 @@ export const Media: CollectionConfig = {
     hidden: ({ user }) => !collectionAccess('media')({ user }),
   },
   access: {
-    create: adminOnly,
+    create: isAdminOrEditor,
     delete: adminOnly,
     read: anyone,
-    update: adminOnly,
+    update: isAdminOrEditor,
   },
   fields: [
     {

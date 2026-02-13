@@ -1,21 +1,21 @@
 import type { CollectionConfig } from 'payload'
 import { slugField } from '@/fields/slug' // Asumiendo que tienes un slugField reutilizable
-import { isAdminOrEditor } from '../access/isAdminOrEditor' // Asumiendo acceso similar a otras colecciones
-import { authenticatedOrPublished } from '../access/authenticatedOrPublished' // O el acceso de lectura que prefieras
-import { collectionAccess } from '../access/hideFromEditor' // Para ocultar si es necesario
+import { adminOnly } from '../access/adminOnly'
+import { authenticatedOrPublished } from '../access/authenticatedOrPublished'
+import { collectionAccess } from '../access/hideFromEditor'
 
 export const Litters: CollectionConfig = {
   slug: 'litters',
   access: {
-    create: isAdminOrEditor,
-    delete: isAdminOrEditor,
-    read: authenticatedOrPublished, // O simplemente 'anyone' si las camadas son públicas
-    update: isAdminOrEditor,
+    create: adminOnly,
+    delete: adminOnly,
+    read: authenticatedOrPublished,
+    update: adminOnly,
   },
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'father', 'mother', 'birthDate', 'updatedAt'],
-    // hidden: ({ user }) => !collectionAccess('litters')({ user }), // Descomentar si necesitas ocultar por rol
+    hidden: ({ user }) => !collectionAccess('litters')({ user }),
     description: 'Colección para gestionar las camadas de cachorros.',
   },
   fields: [

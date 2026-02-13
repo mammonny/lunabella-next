@@ -5,6 +5,10 @@ export const SiteSettings: GlobalConfig = {
   label: 'Site Settings',
   access: {
     read: () => true,
+    update: ({ req: { user } }) => (user as any)?.roles === 'admin',
+  },
+  admin: {
+    hidden: ({ user }) => (user as any)?.roles !== 'admin',
   },
   fields: [
     {

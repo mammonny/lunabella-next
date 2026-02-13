@@ -105,7 +105,7 @@ export const PuppyCard: React.FC<PuppyCardProps> = ({
         {/* Image Container */}
         <div className="relative overflow-hidden mb-5">
           {/* Aspect ratio container */}
-          <div className="relative aspect-[4/5] bg-[#f5f4f2]">
+          <div className="relative aspect-[4/3] bg-[#f5f4f2]">
             {typeof mainImage === 'object' && mainImage !== null && 'url' in mainImage ? (
               <Media
                 resource={mainImage}

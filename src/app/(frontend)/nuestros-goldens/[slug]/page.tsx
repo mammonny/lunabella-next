@@ -121,7 +121,7 @@ export default async function Page({ params }: Args) {
     ].filter(spec => spec.value)
 
     return (
-      <main className="isolate bg-white pt-20">
+      <main className="isolate bg-white pt-16">
         <PageBreadcrumbs items={[
           { label: 'Inicio', href: '/' },
           { label: 'Nuestros Goldens', href: '/nuestros-goldens' },

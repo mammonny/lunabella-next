@@ -4,7 +4,7 @@ import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { searchPlugin } from '@payloadcms/plugin-search'
-import { Plugin } from 'payload'
+import { Access, Plugin } from 'payload'
 import { revalidateRedirects } from '@/hooks/revalidateRedirects'
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
@@ -13,6 +13,9 @@ import { beforeSyncWithSearch } from '@/search/beforeSync'
 
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
+
+const isAdmin: Access = ({ req: { user } }) => (user as any)?.roles === 'admin'
+const hideFromEditor = ({ user }: { user: any }) => user?.roles !== 'admin'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
   return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
@@ -28,6 +31,15 @@ export const plugins: Plugin[] = [
   redirectsPlugin({
     collections: ['pages', 'posts'],
     overrides: {
+      access: {
+        create: isAdmin,
+        delete: isAdmin,
+        read: isAdmin,
+        update: isAdmin,
+      },
+      admin: {
+        hidden: hideFromEditor,
+      },
       // @ts-expect-error - This is a valid override, mapped fields don't resolve to the same type
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
@@ -60,6 +72,15 @@ export const plugins: Plugin[] = [
       payment: false,
     },
     formOverrides: {
+      access: {
+        create: isAdmin,
+        delete: isAdmin,
+        read: isAdmin,
+        update: isAdmin,
+      },
+      admin: {
+        hidden: hideFromEditor,
+      },
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
           if ('name' in field && field.name === 'confirmationMessage') {
@@ -80,11 +101,31 @@ export const plugins: Plugin[] = [
         })
       },
     },
+    formSubmissionOverrides: {
+      access: {
+        create: () => true,
+        delete: isAdmin,
+        read: isAdmin,
+        update: isAdmin,
+      },
+      admin: {
+        hidden: hideFromEditor,
+      },
+    },
   }),
   searchPlugin({
     collections: ['posts'],
     beforeSync: beforeSyncWithSearch,
     searchOverrides: {
+      access: {
+        create: isAdmin,
+        delete: isAdmin,
+        read: isAdmin,
+        update: isAdmin,
+      },
+      admin: {
+        hidden: hideFromEditor,
+      },
       fields: ({ defaultFields }) => {
         return [...defaultFields, ...searchFields]
       },

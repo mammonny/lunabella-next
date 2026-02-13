@@ -25,9 +25,9 @@ export const collectionAccess = (collection: string) => {
     // Si el usuario es admin, mostrar todo
     if (user.roles === 'admin') return true
 
-    // Si el usuario es editor, mostrar Dogs, Breeds y Exhibitions
+    // Si el usuario es editor, mostrar Dogs, Puppies, Exhibitions y Media
     if (user.roles === 'editor') {
-      return collection === 'dogs' || collection === 'breeds' || collection === 'exhibitions'
+      return collection === 'dogs' || collection === 'puppies' || collection === 'exhibitions' || collection === 'media'
     }
 
     // Para otros usuarios, ocultar todo
