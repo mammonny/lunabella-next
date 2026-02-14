@@ -4,7 +4,7 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { revalidatePath } from 'next/cache'
 import type { CollectionSlug } from 'payload' // Importar CollectionSlug
-import type { Puppy } from '@/payload-types' // Importar el tipo Puppy generado
+import type { Cachorro } from '@/payload-types' // Importar el tipo Cachorro generado
 
 export async function likePuppy(
   puppyId: string,
@@ -18,7 +18,7 @@ export async function likePuppy(
 
     // Obtener el documento sin especificar tipo genérico aquí
     const doc = await payload.findByID({
-      collection: 'puppies' as CollectionSlug,
+      collection: 'cachorros' as CollectionSlug,
       id: puppyId,
       depth: 0, // Solo necesitamos likes y slug
     })
@@ -28,8 +28,8 @@ export async function likePuppy(
       return { success: false, error: 'Puppy not found' }
     }
 
-    // ASEVERAR el tipo a Puppy aquí, después de confirmar que existe
-    const currentPuppy = doc as Puppy
+    // ASEVERAR el tipo a Cachorro aquí, después de confirmar que existe
+    const currentPuppy = doc as Cachorro
 
     // Ahora TypeScript debería permitir acceder a .likes y .slug
     const currentLikes = typeof currentPuppy.likes === 'number' ? currentPuppy.likes : 0
@@ -37,7 +37,7 @@ export async function likePuppy(
 
     // Actualizar el cachorro con el nuevo contador de likes
     await payload.update({
-      collection: 'puppies' as CollectionSlug,
+      collection: 'cachorros' as CollectionSlug,
       id: puppyId,
       data: {
         likes: newLikes,
@@ -46,10 +46,10 @@ export async function likePuppy(
 
     // Revalidar la ruta específica del cachorro usando el slug
     if (currentPuppy.slug) {
-      revalidatePath(`/puppies/${currentPuppy.slug}`)
+      revalidatePath(`/cachorros/${currentPuppy.slug}`)
     }
     // Considerar también revalidar la página de listado si muestra los likes
-    revalidatePath('/puppies')
+    revalidatePath('/cachorros')
 
     return { success: true, newLikes: newLikes }
   } catch (error) {

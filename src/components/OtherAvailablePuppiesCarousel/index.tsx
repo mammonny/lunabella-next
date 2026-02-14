@@ -1,7 +1,7 @@
 import React from 'react'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import type { Puppy } from '@/payload-types'
+import type { Cachorro } from '@/payload-types'
 import { Button } from '@/components/ui/button' // Importar Button
 import { ArrowLeft, ArrowRight } from 'lucide-react' // Importar iconos
 import {
@@ -26,11 +26,11 @@ export const OtherAvailablePuppiesCarousel: React.FC<OtherAvailablePuppiesCarous
   title = 'Otros cachorros disponibles', // Título por defecto
 }) => {
   const payload = await getPayload({ config: configPromise })
-  let otherPuppies: Puppy[] = []
+  let otherPuppies: Cachorro[] = []
 
   try {
     const result = await payload.find({
-      collection: 'puppies',
+      collection: 'cachorros',
       where: {
         and: [
           {
@@ -50,7 +50,7 @@ export const OtherAvailablePuppiesCarousel: React.FC<OtherAvailablePuppiesCarous
       sort: '-birthDate', // Mostrar los más recientes primero
     })
     // Asegurarse de que docs es un array antes de asignarlo
-    otherPuppies = Array.isArray(result.docs) ? (result.docs as Puppy[]) : []
+    otherPuppies = Array.isArray(result.docs) ? (result.docs as Cachorro[]) : []
   } catch (error) {
     console.error('Error fetching other available puppies:', error)
     // Devolver null o un mensaje de error si falla la carga

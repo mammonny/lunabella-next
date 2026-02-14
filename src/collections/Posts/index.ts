@@ -27,8 +27,12 @@ import {
 } from '@payloadcms/plugin-seo/fields'
 import { slugField } from '@/fields/slug'
 
-export const Posts: CollectionConfig<'posts'> = {
-  slug: 'posts',
+export const Posts: CollectionConfig<'publicaciones'> = {
+  slug: 'publicaciones',
+  labels: {
+    singular: 'Publicación',
+    plural: 'Publicaciones',
+  },
   access: {
     create: adminOnly,
     delete: adminOnly,
@@ -49,12 +53,12 @@ export const Posts: CollectionConfig<'posts'> = {
   },
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
-    hidden: ({ user }) => !collectionAccess('posts')({ user }),
+    hidden: ({ user }) => !collectionAccess('publicaciones')({ user }),
     livePreview: {
       url: ({ data, req }) => {
         const path = generatePreviewPath({
           slug: typeof data?.slug === 'string' ? data.slug : '',
-          collection: 'posts',
+          collection: 'publicaciones',
           req,
         })
 
@@ -64,7 +68,7 @@ export const Posts: CollectionConfig<'posts'> = {
     preview: (data, { req }) =>
       generatePreviewPath({
         slug: typeof data?.slug === 'string' ? data.slug : '',
-        collection: 'posts',
+        collection: 'publicaciones',
         req,
       }),
     useAsTitle: 'title',
@@ -122,7 +126,7 @@ export const Posts: CollectionConfig<'posts'> = {
                 }
               },
               hasMany: true,
-              relationTo: 'posts',
+              relationTo: 'publicaciones',
             },
             {
               name: 'categories',
@@ -131,7 +135,7 @@ export const Posts: CollectionConfig<'posts'> = {
                 position: 'sidebar',
               },
               hasMany: true,
-              relationTo: 'categories',
+              relationTo: 'categorias',
             },
           ],
           label: 'Meta',
@@ -192,7 +196,7 @@ export const Posts: CollectionConfig<'posts'> = {
         position: 'sidebar',
       },
       hasMany: true,
-      relationTo: 'users',
+      relationTo: 'usuarios',
     },
     // This field is only used to populate the user data via the `populateAuthors` hook
     // This is because the `user` collection has access control locked to protect user privacy

@@ -18,7 +18,7 @@ export default async function Page() {
 
   // Obtener todos los Dogs
   const dogs = await payload.find({
-    collection: 'dogs',
+    collection: 'ejemplares',
     depth: 2,
     limit: 100,
     overrideAccess: false,
@@ -260,7 +260,7 @@ function DogsSection({ title, subtitle, dogs, accentColor, index, isRetired, isM
             >
               <PuppyCard
                 puppy={dog}
-                collectionType="dogs"
+                collectionType="ejemplares"
                 className={cn(
                   'h-full',
                   isMemorial && 'grayscale opacity-75 hover:grayscale-0 hover:opacity-100 transition-all duration-500'

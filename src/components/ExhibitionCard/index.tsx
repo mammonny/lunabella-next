@@ -2,12 +2,12 @@
 
 import React from 'react'
 import Link from 'next/link'
-import type { Exhibition, Media as MediaType } from '@/payload-types'
+import type { Exposicione, Media as MediaType } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { cn } from '@/utilities/ui'
 
 interface ExhibitionCardProps {
-  exhibition: Exhibition | null | undefined
+  exhibition: Exposicione | null | undefined
   className?: string
   variant?: 'default' | 'premium' | 'compact'
 }

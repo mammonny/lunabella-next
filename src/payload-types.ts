@@ -63,20 +63,20 @@ export type SupportedTimezones =
 
 export interface Config {
   auth: {
-    users: UserAuthOperations;
+    usuarios: UsuarioAuthOperations;
   };
   blocks: {};
   collections: {
-    pages: Page;
-    posts: Post;
-    breeds: Breed;
-    dogs: Dog;
-    puppies: Puppy;
-    litters: Litter;
-    exhibitions: Exhibition;
+    paginas: Pagina;
+    publicaciones: Publicacione;
+    razas: Raza;
+    ejemplares: Ejemplare;
+    cachorros: Cachorro;
+    camadas: Camada;
+    exposiciones: Exposicione;
     media: Media;
-    categories: Category;
-    users: User;
+    categorias: Categoria;
+    usuarios: Usuario;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -88,16 +88,16 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    pages: PagesSelect<false> | PagesSelect<true>;
-    posts: PostsSelect<false> | PostsSelect<true>;
-    breeds: BreedsSelect<false> | BreedsSelect<true>;
-    dogs: DogsSelect<false> | DogsSelect<true>;
-    puppies: PuppiesSelect<false> | PuppiesSelect<true>;
-    litters: LittersSelect<false> | LittersSelect<true>;
-    exhibitions: ExhibitionsSelect<false> | ExhibitionsSelect<true>;
+    paginas: PaginasSelect<false> | PaginasSelect<true>;
+    publicaciones: PublicacionesSelect<false> | PublicacionesSelect<true>;
+    razas: RazasSelect<false> | RazasSelect<true>;
+    ejemplares: EjemplaresSelect<false> | EjemplaresSelect<true>;
+    cachorros: CachorrosSelect<false> | CachorrosSelect<true>;
+    camadas: CamadasSelect<false> | CamadasSelect<true>;
+    exposiciones: ExposicionesSelect<false> | ExposicionesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
-    categories: CategoriesSelect<false> | CategoriesSelect<true>;
-    users: UsersSelect<false> | UsersSelect<true>;
+    categorias: CategoriasSelect<false> | CategoriasSelect<true>;
+    usuarios: UsuariosSelect<false> | UsuariosSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -121,8 +121,8 @@ export interface Config {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: null;
-  user: User & {
-    collection: 'users';
+  user: Usuario & {
+    collection: 'usuarios';
   };
   jobs: {
     tasks: {
@@ -135,7 +135,7 @@ export interface Config {
     workflows: unknown;
   };
 }
-export interface UserAuthOperations {
+export interface UsuarioAuthOperations {
   forgotPassword: {
     email: string;
     password: string;
@@ -155,9 +155,9 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages".
+ * via the `definition` "paginas".
  */
-export interface Page {
+export interface Pagina {
   id: number;
   title: string;
   hero: {
@@ -184,12 +184,12 @@ export interface Page {
             newTab?: boolean | null;
             reference?:
               | ({
-                  relationTo: 'pages';
-                  value: number | Page;
+                  relationTo: 'paginas';
+                  value: number | Pagina;
                 } | null)
               | ({
-                  relationTo: 'posts';
-                  value: number | Post;
+                  relationTo: 'publicaciones';
+                  value: number | Publicacione;
                 } | null);
             url?: string | null;
             label: string;
@@ -221,9 +221,9 @@ export interface Page {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
+ * via the `definition` "publicaciones".
  */
-export interface Post {
+export interface Publicacione {
   id: number;
   title: string;
   heroImage?: (number | null) | Media;
@@ -242,8 +242,8 @@ export interface Post {
     };
     [k: string]: unknown;
   };
-  relatedPosts?: (number | Post)[] | null;
-  categories?: (number | Category)[] | null;
+  relatedPosts?: (number | Publicacione)[] | null;
+  categories?: (number | Categoria)[] | null;
   meta?: {
     title?: string | null;
     /**
@@ -253,7 +253,7 @@ export interface Post {
     description?: string | null;
   };
   publishedAt?: string | null;
-  authors?: (number | User)[] | null;
+  authors?: (number | Usuario)[] | null;
   populatedAuthors?:
     | {
         id?: string | null;
@@ -360,17 +360,17 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories".
+ * via the `definition` "categorias".
  */
-export interface Category {
+export interface Categoria {
   id: number;
   title: string;
   slug?: string | null;
   slugLock?: boolean | null;
-  parent?: (number | null) | Category;
+  parent?: (number | null) | Categoria;
   breadcrumbs?:
     | {
-        doc?: (number | null) | Category;
+        doc?: (number | null) | Categoria;
         url?: string | null;
         label?: string | null;
         id?: string | null;
@@ -381,9 +381,9 @@ export interface Category {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users".
+ * via the `definition` "usuarios".
  */
-export interface User {
+export interface Usuario {
   id: number;
   name?: string | null;
   /**
@@ -428,12 +428,12 @@ export interface CallToActionBlock {
           newTab?: boolean | null;
           reference?:
             | ({
-                relationTo: 'pages';
-                value: number | Page;
+                relationTo: 'paginas';
+                value: number | Pagina;
               } | null)
             | ({
-                relationTo: 'posts';
-                value: number | Post;
+                relationTo: 'publicaciones';
+                value: number | Publicacione;
               } | null);
           url?: string | null;
           label: string;
@@ -478,12 +478,12 @@ export interface ContentBlock {
           newTab?: boolean | null;
           reference?:
             | ({
-                relationTo: 'pages';
-                value: number | Page;
+                relationTo: 'paginas';
+                value: number | Pagina;
               } | null)
             | ({
-                relationTo: 'posts';
-                value: number | Post;
+                relationTo: 'publicaciones';
+                value: number | Publicacione;
               } | null);
           url?: string | null;
           label: string;
@@ -530,13 +530,13 @@ export interface ArchiveBlock {
     [k: string]: unknown;
   } | null;
   populateBy?: ('collection' | 'selection') | null;
-  relationTo?: 'posts' | null;
-  categories?: (number | Category)[] | null;
+  relationTo?: 'publicaciones' | null;
+  categories?: (number | Categoria)[] | null;
   limit?: number | null;
   selectedDocs?:
     | {
-        relationTo: 'posts';
-        value: number | Post;
+        relationTo: 'publicaciones';
+        value: number | Publicacione;
       }[]
     | null;
   id?: string | null;
@@ -745,9 +745,9 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "breeds".
+ * via the `definition` "razas".
  */
-export interface Breed {
+export interface Raza {
   id: number;
   name: string;
   description: {
@@ -842,16 +842,16 @@ export interface Breed {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "dogs".
+ * via the `definition` "ejemplares".
  */
-export interface Dog {
+export interface Ejemplare {
   id: number;
   name: string;
   /**
    * Nombre cariñoso o apodo del perro (opcional)
    */
   apodo?: string | null;
-  breed: number | Breed;
+  breed: number | Raza;
   breedingStatus: 'active' | 'retired' | 'deceased';
   gender: 'male' | 'female';
   birthDate: string;
@@ -904,24 +904,24 @@ export interface Dog {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "puppies".
+ * via the `definition` "cachorros".
  */
-export interface Puppy {
+export interface Cachorro {
   id: number;
   name: string;
-  breed: number | Breed;
+  breed: number | Raza;
   gender: 'male' | 'female';
   price: number;
   disponibilidad: 'available' | 'reserved' | 'sold';
   likes?: number | null;
   parents?: {
-    father?: (number | null) | Dog;
-    mother?: (number | null) | Dog;
+    father?: (number | null) | Ejemplare;
+    mother?: (number | null) | Ejemplare;
   };
   /**
    * Selecciona la camada a la que pertenece este cachorro (opcional).
    */
-  litter?: (number | null) | Litter;
+  litter?: (number | null) | Camada;
   birthDate: string;
   description: {
     root: {
@@ -966,9 +966,9 @@ export interface Puppy {
  * Colección para gestionar las camadas de cachorros.
  *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "litters".
+ * via the `definition` "camadas".
  */
-export interface Litter {
+export interface Camada {
   id: number;
   /**
    * Ejemplo: Camada Pastor Alemán 2025-08
@@ -977,11 +977,11 @@ export interface Litter {
   /**
    * Selecciona el perro macho padre de la camada.
    */
-  father: number | Dog;
+  father: number | Ejemplare;
   /**
    * Selecciona la perra hembra madre de la camada.
    */
-  mother: number | Dog;
+  mother: number | Ejemplare;
   birthDate?: string | null;
   description?: {
     root: {
@@ -1005,9 +1005,9 @@ export interface Litter {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "exhibitions".
+ * via the `definition` "exposiciones".
  */
-export interface Exhibition {
+export interface Exposicione {
   id: number;
   name: string;
   date: string;
@@ -1037,7 +1037,7 @@ export interface Exhibition {
     | null;
   awards?:
     | {
-        dog: number | Dog;
+        dog: number | Ejemplare;
         /**
          * Ej: Mejor de Raza, CAC, CACIB, etc.
          */
@@ -1067,12 +1067,12 @@ export interface Redirect {
     type?: ('reference' | 'custom') | null;
     reference?:
       | ({
-          relationTo: 'pages';
-          value: number | Page;
+          relationTo: 'paginas';
+          value: number | Pagina;
         } | null)
       | ({
-          relationTo: 'posts';
-          value: number | Post;
+          relationTo: 'publicaciones';
+          value: number | Publicacione;
         } | null);
     url?: string | null;
   };
@@ -1107,8 +1107,8 @@ export interface Search {
   title?: string | null;
   priority?: number | null;
   doc: {
-    relationTo: 'posts';
-    value: number | Post;
+    relationTo: 'publicaciones';
+    value: number | Publicacione;
   };
   slug?: string | null;
   meta?: {
@@ -1226,44 +1226,44 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'pages';
-        value: number | Page;
+        relationTo: 'paginas';
+        value: number | Pagina;
       } | null)
     | ({
-        relationTo: 'posts';
-        value: number | Post;
+        relationTo: 'publicaciones';
+        value: number | Publicacione;
       } | null)
     | ({
-        relationTo: 'breeds';
-        value: number | Breed;
+        relationTo: 'razas';
+        value: number | Raza;
       } | null)
     | ({
-        relationTo: 'dogs';
-        value: number | Dog;
+        relationTo: 'ejemplares';
+        value: number | Ejemplare;
       } | null)
     | ({
-        relationTo: 'puppies';
-        value: number | Puppy;
+        relationTo: 'cachorros';
+        value: number | Cachorro;
       } | null)
     | ({
-        relationTo: 'litters';
-        value: number | Litter;
+        relationTo: 'camadas';
+        value: number | Camada;
       } | null)
     | ({
-        relationTo: 'exhibitions';
-        value: number | Exhibition;
+        relationTo: 'exposiciones';
+        value: number | Exposicione;
       } | null)
     | ({
         relationTo: 'media';
         value: number | Media;
       } | null)
     | ({
-        relationTo: 'categories';
-        value: number | Category;
+        relationTo: 'categorias';
+        value: number | Categoria;
       } | null)
     | ({
-        relationTo: 'users';
-        value: number | User;
+        relationTo: 'usuarios';
+        value: number | Usuario;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1287,8 +1287,8 @@ export interface PayloadLockedDocument {
       } | null);
   globalSlug?: string | null;
   user: {
-    relationTo: 'users';
-    value: number | User;
+    relationTo: 'usuarios';
+    value: number | Usuario;
   };
   updatedAt: string;
   createdAt: string;
@@ -1300,8 +1300,8 @@ export interface PayloadLockedDocument {
 export interface PayloadPreference {
   id: number;
   user: {
-    relationTo: 'users';
-    value: number | User;
+    relationTo: 'usuarios';
+    value: number | Usuario;
   };
   key?: string | null;
   value?:
@@ -1329,9 +1329,9 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages_select".
+ * via the `definition` "paginas_select".
  */
-export interface PagesSelect<T extends boolean = true> {
+export interface PaginasSelect<T extends boolean = true> {
   title?: T;
   hero?:
     | T
@@ -1464,9 +1464,9 @@ export interface FormBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts_select".
+ * via the `definition` "publicaciones_select".
  */
-export interface PostsSelect<T extends boolean = true> {
+export interface PublicacionesSelect<T extends boolean = true> {
   title?: T;
   heroImage?: T;
   content?: T;
@@ -1495,9 +1495,9 @@ export interface PostsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "breeds_select".
+ * via the `definition` "razas_select".
  */
-export interface BreedsSelect<T extends boolean = true> {
+export interface RazasSelect<T extends boolean = true> {
   name?: T;
   description?: T;
   mainImage?: T;
@@ -1555,9 +1555,9 @@ export interface BreedsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "dogs_select".
+ * via the `definition` "ejemplares_select".
  */
-export interface DogsSelect<T extends boolean = true> {
+export interface EjemplaresSelect<T extends boolean = true> {
   name?: T;
   apodo?: T;
   breed?: T;
@@ -1601,9 +1601,9 @@ export interface DogsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "puppies_select".
+ * via the `definition` "cachorros_select".
  */
-export interface PuppiesSelect<T extends boolean = true> {
+export interface CachorrosSelect<T extends boolean = true> {
   name?: T;
   breed?: T;
   gender?: T;
@@ -1645,9 +1645,9 @@ export interface PuppiesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "litters_select".
+ * via the `definition` "camadas_select".
  */
-export interface LittersSelect<T extends boolean = true> {
+export interface CamadasSelect<T extends boolean = true> {
   name?: T;
   father?: T;
   mother?: T;
@@ -1660,9 +1660,9 @@ export interface LittersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "exhibitions_select".
+ * via the `definition` "exposiciones_select".
  */
-export interface ExhibitionsSelect<T extends boolean = true> {
+export interface ExposicionesSelect<T extends boolean = true> {
   name?: T;
   date?: T;
   mainImage?: T;
@@ -1785,9 +1785,9 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "categories_select".
+ * via the `definition` "categorias_select".
  */
-export interface CategoriesSelect<T extends boolean = true> {
+export interface CategoriasSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
   slugLock?: T;
@@ -1805,9 +1805,9 @@ export interface CategoriesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "users_select".
+ * via the `definition` "usuarios_select".
  */
-export interface UsersSelect<T extends boolean = true> {
+export interface UsuariosSelect<T extends boolean = true> {
   name?: T;
   roles?: T;
   updatedAt?: T;
@@ -2087,12 +2087,12 @@ export interface Header {
           newTab?: boolean | null;
           reference?:
             | ({
-                relationTo: 'pages';
-                value: number | Page;
+                relationTo: 'paginas';
+                value: number | Pagina;
               } | null)
             | ({
-                relationTo: 'posts';
-                value: number | Post;
+                relationTo: 'publicaciones';
+                value: number | Publicacione;
               } | null);
           url?: string | null;
           label: string;
@@ -2116,12 +2116,12 @@ export interface Footer {
           newTab?: boolean | null;
           reference?:
             | ({
-                relationTo: 'pages';
-                value: number | Page;
+                relationTo: 'paginas';
+                value: number | Pagina;
               } | null)
             | ({
-                relationTo: 'posts';
-                value: number | Post;
+                relationTo: 'publicaciones';
+                value: number | Publicacione;
               } | null);
           url?: string | null;
           label: string;
@@ -2216,15 +2216,15 @@ export interface TaskSchedulePublish {
     locale?: string | null;
     doc?:
       | ({
-          relationTo: 'pages';
-          value: number | Page;
+          relationTo: 'paginas';
+          value: number | Pagina;
         } | null)
       | ({
-          relationTo: 'posts';
-          value: number | Post;
+          relationTo: 'publicaciones';
+          value: number | Publicacione;
         } | null);
     global?: string | null;
-    user?: (number | null) | User;
+    user?: (number | null) | Usuario;
   };
   output?: unknown;
 }

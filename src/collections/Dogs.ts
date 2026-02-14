@@ -7,7 +7,11 @@ import { isAdminOrEditor } from '../access/isAdminOrEditor'
 import { collectionAccess } from '../access/hideFromEditor'
 
 export const Dogs: CollectionConfig = {
-  slug: 'dogs',
+  slug: 'ejemplares',
+  labels: {
+    singular: 'Ejemplar',
+    plural: 'Ejemplares',
+  },
   access: {
     create: isAdminOrEditor,
     delete: isAdminOrEditor,
@@ -17,7 +21,7 @@ export const Dogs: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'gender', 'breedingStatus', 'updatedAt'],
-    hidden: ({ user }) => !collectionAccess('dogs')({ user }),
+    hidden: ({ user }) => !collectionAccess('ejemplares')({ user }),
   },
   fields: [
     {
@@ -37,7 +41,7 @@ export const Dogs: CollectionConfig = {
     {
       name: 'breed',
       type: 'relationship',
-      relationTo: 'breeds',
+      relationTo: 'razas',
       required: true,
       label: 'Raza',
       admin: {
@@ -206,7 +210,7 @@ export const Dogs: CollectionConfig = {
         // Auto-asignar Golden Retriever si no hay breed
         if (!data.breed) {
           const goldenRetriever = await req.payload.find({
-            collection: 'breeds',
+            collection: 'razas',
             where: { slug: { equals: 'golden-retriever' } },
             limit: 1,
           })

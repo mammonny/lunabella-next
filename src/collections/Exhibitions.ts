@@ -5,7 +5,11 @@ import { isAdminOrEditor } from '../access/isAdminOrEditor'
 import { collectionAccess } from '../access/hideFromEditor'
 
 export const Exhibitions: CollectionConfig = {
-  slug: 'exhibitions',
+  slug: 'exposiciones',
+  labels: {
+    singular: 'Exposición',
+    plural: 'Exposiciones',
+  },
   access: {
     create: isAdminOrEditor,
     delete: isAdminOrEditor,
@@ -15,7 +19,7 @@ export const Exhibitions: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'date', 'updatedAt'],
-    hidden: ({ user }) => !collectionAccess('exhibitions')({ user }),
+    hidden: ({ user }) => !collectionAccess('exposiciones')({ user }),
   },
   fields: [
     {
@@ -90,7 +94,7 @@ export const Exhibitions: CollectionConfig = {
                 {
                   name: 'dog',
                   type: 'relationship',
-                  relationTo: 'dogs',
+                  relationTo: 'ejemplares',
                   required: true,
                   label: 'Ejemplar',
                 },

@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import type { Puppy } from '@/payload-types'
+import type { Cachorro } from '@/payload-types'
 import { Media } from '@/components/Media'
 
 // --- Helper Functions ---
@@ -47,9 +47,9 @@ const calculateAgeInYears = (birthDate: string | null | undefined): string => {
 // --- Component Props Interface ---
 
 interface PuppyCardProps {
-  puppy: Puppy | null | undefined
+  puppy: Cachorro | null | undefined
   className?: string
-  collectionType?: 'puppies' | 'dogs'
+  collectionType?: 'cachorros' | 'ejemplares'
 }
 
 // --- PuppyCard Component - LunaBella Editorial Style ---
@@ -57,7 +57,7 @@ interface PuppyCardProps {
 export const PuppyCard: React.FC<PuppyCardProps> = ({
   puppy,
   className,
-  collectionType = 'puppies',
+  collectionType = 'cachorros',
 }) => {
   if (!puppy) return null
 
@@ -74,15 +74,15 @@ export const PuppyCard: React.FC<PuppyCardProps> = ({
 
   const apodo = (puppy as any).apodo as string | undefined
   const dogStatus = (puppy as any).breedingStatus as 'active' | 'retired' | 'deceased' | undefined
-  const age = collectionType === 'dogs' ? calculateAgeInYears(birthDate) : calculateAgeInWeeks(birthDate)
+  const age = collectionType === 'ejemplares' ? calculateAgeInYears(birthDate) : calculateAgeInWeeks(birthDate)
   const genderText = gender === 'male' ? 'Macho' : gender === 'female' ? 'Hembra' : ''
 
-  const basePath = collectionType === 'dogs' ? '/nuestros-goldens' : '/cachorros'
+  const basePath = collectionType === 'ejemplares' ? '/nuestros-goldens' : '/cachorros'
   const puppyUrl = `${basePath}/${slug || id}`
 
   // Status configuration - refined colors that harmonize with LunaBella palette
   const getStatusConfig = () => {
-    if (collectionType === 'dogs') {
+    if (collectionType === 'ejemplares') {
       if (dogStatus === 'retired') return { label: 'Retirado', bg: '#6b6560', color: '#ece8e1' }
       if (dogStatus === 'deceased') return { label: 'En Memoria', bg: '#3d3a37', color: '#ece8e1' }
       return null
@@ -173,7 +173,7 @@ export const PuppyCard: React.FC<PuppyCardProps> = ({
           </div>
 
           {/* Price - only for puppies, highlighted with gold */}
-          {collectionType === 'puppies' && typeof price === 'number' && (
+          {collectionType === 'cachorros' && typeof price === 'number' && (
             <div className="mt-3.5">
               <span className="text-[15px] font-medium text-[#a58a1b]">
                 {price.toLocaleString('es-ES')} €

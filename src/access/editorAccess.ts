@@ -1,5 +1,5 @@
 import { Access } from 'payload'
-import { User } from '../payload-types'
+import { Usuario } from '../payload-types'
 
 // Tipo específico para el admin UI de Payload
 type PayloadAdminUIProps = {

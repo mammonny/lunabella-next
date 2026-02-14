@@ -1,5 +1,6 @@
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
+import { es } from '@payloadcms/translations/languages/es'
 
 import sharp from 'sharp' // sharp-import
 import path from 'path'
@@ -28,6 +29,10 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  i18n: {
+    supportedLanguages: { es },
+    fallbackLanguage: 'es',
+  },
   onInit: async (payload) => {
     if (process.env.PAYLOAD_SEED === 'true') {
       await seed(payload)

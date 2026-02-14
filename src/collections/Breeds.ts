@@ -5,7 +5,11 @@ import { adminOnly } from '../access/adminOnly'
 import { collectionAccess } from '../access/hideFromEditor'
 
 export const Breeds: CollectionConfig = {
-  slug: 'breeds',
+  slug: 'razas',
+  labels: {
+    singular: 'Raza',
+    plural: 'Razas',
+  },
   access: {
     create: adminOnly,
     delete: adminOnly,
@@ -15,7 +19,7 @@ export const Breeds: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'slug', 'updatedAt'],
-    hidden: ({ user }) => !collectionAccess('breeds')({ user }),
+    hidden: ({ user }) => !collectionAccess('razas')({ user }),
   },
   fields: [
     {
@@ -254,7 +258,7 @@ export const Breeds: CollectionConfig = {
         position: 'sidebar',
       },
     },
-    ...slugField(),
+    ...slugField('name'),
   ],
   hooks: {
     beforeChange: [

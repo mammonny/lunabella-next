@@ -1,5 +1,5 @@
 import { Access } from 'payload'
-import { User } from '../payload-types'
+import { Usuario } from '../payload-types'
 
 // Esta función verifica si el usuario es admin o editor
 export const isAdminOrEditor: Access = ({ req }) => {

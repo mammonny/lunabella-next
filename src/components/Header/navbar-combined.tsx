@@ -107,6 +107,7 @@ export function NavbarCombined({ banner }: { banner?: React.ReactNode }) {
         className="fixed top-0 left-0 right-0 z-[61]"
         style={{
           backgroundColor: COLORS.cream,
+          paddingRight: 'var(--removed-body-scroll-bar-size, 0px)',
         }}
       >
         <div className="px-6 lg:px-12">

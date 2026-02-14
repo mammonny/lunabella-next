@@ -26,7 +26,7 @@ export const beforeSyncWithSearch: BeforeSync = async ({ originalDoc, searchDoc 
         const { id, title } = category
 
         return {
-          relationTo: 'categories',
+          relationTo: 'categorias',
           id,
           title,
         }

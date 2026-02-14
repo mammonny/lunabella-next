@@ -18,7 +18,7 @@ export const DogsArchive: React.FC<Props> = (props) => {
           {dogs?.map((result, index) => {
             if (typeof result === 'object' && result !== null) {
               return (
-                <PuppyCard key={index} puppy={result} collectionType="dogs" className="h-full" />
+                <PuppyCard key={index} puppy={result} collectionType="ejemplares" className="h-full" />
               )
             }
 

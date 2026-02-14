@@ -2,7 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
-  label: 'Site Settings',
+  label: 'Configuración del Sitio',
   access: {
     read: () => true,
     update: ({ req: { user } }) => (user as any)?.roles === 'admin',

@@ -5,6 +5,7 @@ import { revalidateHeader } from './hooks/revalidateHeader'
 
 export const Header: GlobalConfig = {
   slug: 'header',
+  label: 'Encabezado',
   access: {
     read: () => true,
     update: ({ req: { user } }) => (user as any)?.roles === 'admin',

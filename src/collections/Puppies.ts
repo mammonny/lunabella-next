@@ -5,7 +5,11 @@ import { isAdminOrEditor } from '../access/isAdminOrEditor'
 import { collectionAccess } from '../access/hideFromEditor'
 
 export const Puppies: CollectionConfig = {
-  slug: 'puppies',
+  slug: 'cachorros',
+  labels: {
+    singular: 'Cachorro',
+    plural: 'Cachorros',
+  },
   access: {
     create: isAdminOrEditor,
     delete: isAdminOrEditor,
@@ -15,7 +19,7 @@ export const Puppies: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'gender', 'price', 'disponibilidad', 'updatedAt'],
-    hidden: ({ user }) => !collectionAccess('puppies')({ user }),
+    hidden: ({ user }) => !collectionAccess('cachorros')({ user }),
   },
   fields: [
     {
@@ -27,7 +31,7 @@ export const Puppies: CollectionConfig = {
     {
       name: 'breed',
       type: 'relationship',
-      relationTo: 'breeds',
+      relationTo: 'razas',
       required: true,
       label: 'Raza',
       admin: {
@@ -94,7 +98,7 @@ export const Puppies: CollectionConfig = {
         {
           name: 'father',
           type: 'relationship',
-          relationTo: 'dogs',
+          relationTo: 'ejemplares',
           label: 'Padre',
           filterOptions: {
             gender: {
@@ -105,7 +109,7 @@ export const Puppies: CollectionConfig = {
         {
           name: 'mother',
           type: 'relationship',
-          relationTo: 'dogs',
+          relationTo: 'ejemplares',
           label: 'Madre',
           filterOptions: {
             gender: {
@@ -118,7 +122,7 @@ export const Puppies: CollectionConfig = {
     {
       name: 'litter',
       type: 'relationship',
-      relationTo: 'litters',
+      relationTo: 'camadas',
       required: false, // Opcional, como se definió en el plan
       label: 'Camada',
       admin: {
@@ -219,7 +223,7 @@ export const Puppies: CollectionConfig = {
         // Auto-asignar Golden Retriever si no hay breed
         if (!data.breed) {
           const goldenRetriever = await req.payload.find({
-            collection: 'breeds',
+            collection: 'razas',
             where: { slug: { equals: 'golden-retriever' } },
             limit: 1,
           })

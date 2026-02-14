@@ -16,7 +16,7 @@ export default async function Page() {
 
   // Obtener Posts
   const posts = await payload.find({
-    collection: 'posts',
+    collection: 'publicaciones',
     depth: 1,
     limit: 12,
     overrideAccess: false,
@@ -30,7 +30,7 @@ export default async function Page() {
 
   // Obtener Dogs
   const dogs = await payload.find({
-    collection: 'dogs',
+    collection: 'ejemplares',
     depth: 2, // Aumentamos la profundidad para acceder a las relaciones anidadas
     limit: 8, // Ajusta el número de perros que quieres mostrar
     overrideAccess: false,
@@ -54,7 +54,7 @@ export default async function Page() {
 
       <div className="container mb-8">
         <PageRange
-          collection="posts"
+          collection="publicaciones"
           currentPage={posts.page}
           limit={12}
           totalDocs={posts.totalDocs}

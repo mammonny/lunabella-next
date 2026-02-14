@@ -5,7 +5,11 @@ import { authenticatedOrPublished } from '../access/authenticatedOrPublished'
 import { collectionAccess } from '../access/hideFromEditor'
 
 export const Litters: CollectionConfig = {
-  slug: 'litters',
+  slug: 'camadas',
+  labels: {
+    singular: 'Camada',
+    plural: 'Camadas',
+  },
   access: {
     create: adminOnly,
     delete: adminOnly,
@@ -15,7 +19,7 @@ export const Litters: CollectionConfig = {
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'father', 'mother', 'birthDate', 'updatedAt'],
-    hidden: ({ user }) => !collectionAccess('litters')({ user }),
+    hidden: ({ user }) => !collectionAccess('camadas')({ user }),
     description: 'Colección para gestionar las camadas de cachorros.',
   },
   fields: [
@@ -31,7 +35,7 @@ export const Litters: CollectionConfig = {
     {
       name: 'father',
       type: 'relationship',
-      relationTo: 'dogs',
+      relationTo: 'ejemplares',
       required: true,
       label: 'Padre (Macho)',
       filterOptions: {
@@ -47,7 +51,7 @@ export const Litters: CollectionConfig = {
     {
       name: 'mother',
       type: 'relationship',
-      relationTo: 'dogs',
+      relationTo: 'ejemplares',
       required: true,
       label: 'Madre (Hembra)',
       filterOptions: {

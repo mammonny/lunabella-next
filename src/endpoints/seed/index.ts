@@ -11,10 +11,10 @@ import { post2 } from './post-2'
 import { post3 } from './post-3'
 
 const collections: CollectionSlug[] = [
-  'categories',
+  'categorias',
   'media',
-  'pages',
-  'posts',
+  'paginas',
+  'publicaciones',
   'forms',
   'form-submissions',
   'search',
@@ -69,7 +69,7 @@ export const seed = async ({
   payload.logger.info(`— Seeding demo author and user...`)
 
   await payload.delete({
-    collection: 'users',
+    collection: 'usuarios',
     depth: 0,
     where: {
       email: {
@@ -97,7 +97,7 @@ export const seed = async ({
 
   const [demoAuthor, image1Doc, image2Doc, image3Doc, imageHomeDoc] = await Promise.all([
     payload.create({
-      collection: 'users',
+      collection: 'usuarios',
       data: {
         name: 'Demo Author',
         email: 'demo-author@example.com',
@@ -126,7 +126,7 @@ export const seed = async ({
     }),
 
     payload.create({
-      collection: 'categories',
+      collection: 'categorias',
       data: {
         title: 'Technology',
         breadcrumbs: [
@@ -139,7 +139,7 @@ export const seed = async ({
     }),
 
     payload.create({
-      collection: 'categories',
+      collection: 'categorias',
       data: {
         title: 'News',
         breadcrumbs: [
@@ -152,7 +152,7 @@ export const seed = async ({
     }),
 
     payload.create({
-      collection: 'categories',
+      collection: 'categorias',
       data: {
         title: 'Finance',
         breadcrumbs: [
@@ -164,7 +164,7 @@ export const seed = async ({
       },
     }),
     payload.create({
-      collection: 'categories',
+      collection: 'categorias',
       data: {
         title: 'Design',
         breadcrumbs: [
@@ -177,7 +177,7 @@ export const seed = async ({
     }),
 
     payload.create({
-      collection: 'categories',
+      collection: 'categorias',
       data: {
         title: 'Software',
         breadcrumbs: [
@@ -190,7 +190,7 @@ export const seed = async ({
     }),
 
     payload.create({
-      collection: 'categories',
+      collection: 'categorias',
       data: {
         title: 'Engineering',
         breadcrumbs: [
@@ -208,7 +208,7 @@ export const seed = async ({
   // Do not create posts with `Promise.all` because we want the posts to be created in order
   // This way we can sort them by `createdAt` or `publishedAt` and they will be in the expected order
   const post1Doc = await payload.create({
-    collection: 'posts',
+    collection: 'publicaciones',
     depth: 0,
     context: {
       disableRevalidate: true,
@@ -217,7 +217,7 @@ export const seed = async ({
   })
 
   const post2Doc = await payload.create({
-    collection: 'posts',
+    collection: 'publicaciones',
     depth: 0,
     context: {
       disableRevalidate: true,
@@ -226,7 +226,7 @@ export const seed = async ({
   })
 
   const post3Doc = await payload.create({
-    collection: 'posts',
+    collection: 'publicaciones',
     depth: 0,
     context: {
       disableRevalidate: true,
@@ -237,21 +237,21 @@ export const seed = async ({
   // update each post with related posts
   await payload.update({
     id: post1Doc.id,
-    collection: 'posts',
+    collection: 'publicaciones',
     data: {
       relatedPosts: [post2Doc.id, post3Doc.id],
     },
   })
   await payload.update({
     id: post2Doc.id,
-    collection: 'posts',
+    collection: 'publicaciones',
     data: {
       relatedPosts: [post1Doc.id, post3Doc.id],
     },
   })
   await payload.update({
     id: post3Doc.id,
-    collection: 'posts',
+    collection: 'publicaciones',
     data: {
       relatedPosts: [post1Doc.id, post2Doc.id],
     },
@@ -269,12 +269,12 @@ export const seed = async ({
 
   const [_, contactPage] = await Promise.all([
     payload.create({
-      collection: 'pages',
+      collection: 'paginas',
       depth: 0,
       data: home({ heroImage: imageHomeDoc, metaImage: image2Doc }),
     }),
     payload.create({
-      collection: 'pages',
+      collection: 'paginas',
       depth: 0,
       data: contactPageData({ contactForm: contactForm }),
     }),
@@ -291,7 +291,7 @@ export const seed = async ({
             link: {
               type: 'custom',
               label: 'Posts',
-              url: '/posts',
+              url: '/publicaciones',
             },
           },
           {
@@ -299,7 +299,7 @@ export const seed = async ({
               type: 'reference',
               label: 'Contact',
               reference: {
-                relationTo: 'pages',
+                relationTo: 'paginas',
                 value: contactPage.id,
               },
             },

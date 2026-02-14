@@ -24,7 +24,7 @@ const queryDogBySlug = cache(async ({ slug }: { slug: string }) => {
   const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({
-    collection: 'dogs',
+    collection: 'ejemplares',
     depth: 2,
     limit: 1,
     pagination: false,
@@ -241,39 +241,75 @@ export default async function Page({ params }: Args) {
                   </div>
                 )}
 
-                {/* CTA Box */}
-                <div className="relative bg-[#f5f4f2] p-6 overflow-hidden group hover:shadow-lg transition-shadow duration-500">
-                  <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-[#a58a1b] via-[#c9a93d] to-[#a58a1b] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-
-                  <div className="relative">
-                    <h3 className="font-heading text-xl md:text-2xl text-gray-900 mb-3">
-                      ¿Quieres un cachorro de <span className="text-[#a58a1b]">{name}</span>?
-                    </h3>
-                    <p className="text-gray-600 text-[15px] mb-5 leading-relaxed">
-                      Consulta la disponibilidad de cachorros de esta línea o contáctanos para más información.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-3">
-                      <Link
-                        href="/cachorros"
-                        className="group flex-1 inline-flex items-center justify-center gap-3 px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] bg-[#000] text-[#ece8e1] transition-all duration-300 ease-out hover:bg-[#1a1a1a]"
-                      >
-                        <span>Cachorros</span>
-                        <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                {/* CTA Box - conditional based on breeding status */}
+                {breedingStatus === 'deceased' ? (
+                  <div className="relative bg-[#f9f8f6] p-6 border border-gray-200/60">
+                    <div className="flex items-start gap-4">
+                      <span className="mt-0.5 text-[#c9a93d] shrink-0">
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                         </svg>
-                      </Link>
-                      <a
-                        href="tel:+34670004089"
-                        className="flex-1 inline-flex items-center justify-center gap-3 px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] border border-gray-300 text-gray-600 transition-all duration-300 ease-out hover:bg-black/5 hover:border-gray-400"
-                      >
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
-                        </svg>
-                        <span>Llamar</span>
-                      </a>
+                      </span>
+                      <div>
+                        <p className="text-gray-700 text-[15px] leading-relaxed mb-1">
+                          {name} siempre será parte de nuestra familia. Su legado vive en cada una de las generaciones que nos dejó.
+                        </p>
+                        <Link
+                          href="/nuestros-goldens"
+                          className="text-[#a58a1b] text-sm hover:underline underline-offset-4"
+                        >
+                          Conoce a nuestros ejemplares
+                        </Link>
+                      </div>
                     </div>
                   </div>
-                </div>
+                ) : (
+                  <div className="relative bg-[#f5f4f2] p-6 overflow-hidden group hover:shadow-lg transition-shadow duration-500">
+                    <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-[#a58a1b] via-[#c9a93d] to-[#a58a1b] transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+
+                    <div className="relative">
+                      {breedingStatus === 'retired' ? (
+                        <>
+                          <h3 className="font-heading text-xl md:text-2xl text-gray-900 mb-3">
+                            Conoce a nuestros <span className="text-[#a58a1b]">ejemplares</span>
+                          </h3>
+                          <p className="text-gray-600 text-[15px] mb-5 leading-relaxed">
+                            {name} está retirado de la cría. Descubre nuestros ejemplares activos o contáctanos para más información.
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <h3 className="font-heading text-xl md:text-2xl text-gray-900 mb-3">
+                            ¿Quieres un cachorro de <span className="text-[#a58a1b]">{name}</span>?
+                          </h3>
+                          <p className="text-gray-600 text-[15px] mb-5 leading-relaxed">
+                            Consulta la disponibilidad de cachorros de esta línea o contáctanos para más información.
+                          </p>
+                        </>
+                      )}
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <Link
+                          href={breedingStatus === 'retired' ? '/nuestros-goldens' : '/cachorros'}
+                          className="group flex-1 inline-flex items-center justify-center gap-3 px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] bg-[#000] text-[#ece8e1] transition-all duration-300 ease-out hover:bg-[#1a1a1a]"
+                        >
+                          <span>{breedingStatus === 'retired' ? 'Ejemplares' : 'Cachorros'}</span>
+                          <svg className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+                          </svg>
+                        </Link>
+                        <a
+                          href="tel:+34670004089"
+                          className="flex-1 inline-flex items-center justify-center gap-3 px-6 py-3.5 text-[11px] font-medium uppercase tracking-[0.2em] border border-gray-300 text-gray-600 transition-all duration-300 ease-out hover:bg-black/5 hover:border-gray-400"
+                        >
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+                          </svg>
+                          <span>Llamar</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -424,7 +460,7 @@ export async function generateMetadata({ params }: Args): Promise<Metadata> {
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const dogs = await payload.find({
-    collection: 'dogs',
+    collection: 'ejemplares',
     draft: false,
     limit: 1000,
     overrideAccess: false,

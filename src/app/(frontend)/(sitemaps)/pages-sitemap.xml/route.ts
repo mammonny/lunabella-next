@@ -12,7 +12,7 @@ const getPagesSitemap = unstable_cache(
       'https://example.com'
 
     const results = await payload.find({
-      collection: 'pages',
+      collection: 'paginas',
       overrideAccess: false,
       draft: false,
       depth: 0,
@@ -37,7 +37,7 @@ const getPagesSitemap = unstable_cache(
         lastmod: dateFallback,
       },
       {
-        loc: `${SITE_URL}/posts`,
+        loc: `${SITE_URL}/publicaciones`,
         lastmod: dateFallback,
       },
     ]

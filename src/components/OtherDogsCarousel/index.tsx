@@ -1,7 +1,7 @@
 import React from 'react'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
-import type { Dog } from '@/payload-types'
+import type { Ejemplare } from '@/payload-types'
 import {
   Carousel,
   CarouselContent,
@@ -25,11 +25,11 @@ export const OtherDogsCarousel: React.FC<OtherDogsCarouselProps> = async ({
   showTitle = true,
 }) => {
   const payload = await getPayload({ config: configPromise })
-  let otherDogs: Dog[] = []
+  let otherDogs: Ejemplare[] = []
 
   try {
     const result = await payload.find({
-      collection: 'dogs',
+      collection: 'ejemplares',
       where: {
         and: [
           {
@@ -48,7 +48,7 @@ export const OtherDogsCarousel: React.FC<OtherDogsCarouselProps> = async ({
       depth: 1,
       sort: '-birthDate',
     })
-    otherDogs = Array.isArray(result.docs) ? (result.docs as Dog[]) : []
+    otherDogs = Array.isArray(result.docs) ? (result.docs as Ejemplare[]) : []
   } catch (error) {
     console.error('Error fetching other dogs:', error)
     return (
@@ -78,7 +78,7 @@ export const OtherDogsCarousel: React.FC<OtherDogsCarouselProps> = async ({
 
       {otherDogs.length === 1 && (
         <div className="max-w-xs sm:max-w-none sm:w-1/2 md:w-1/3 lg:w-1/4">
-          <PuppyCard puppy={otherDogs[0] as any} collectionType="dogs" />
+          <PuppyCard puppy={otherDogs[0] as any} collectionType="ejemplares" />
         </div>
       )}
 
@@ -94,7 +94,7 @@ export const OtherDogsCarousel: React.FC<OtherDogsCarouselProps> = async ({
             {otherDogs.map((dog) => (
               <CarouselItem key={dog.id} className="pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
                 <div className="p-1 h-full">
-                  <PuppyCard puppy={dog as any} collectionType="dogs" />
+                  <PuppyCard puppy={dog as any} collectionType="ejemplares" />
                 </div>
               </CarouselItem>
             ))}

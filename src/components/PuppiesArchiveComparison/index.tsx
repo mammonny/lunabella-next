@@ -21,7 +21,7 @@ export const PuppiesArchiveComparison: React.FC<Props> = (props) => {
             if (typeof result === 'object' && result !== null) {
               return (
                 <div className="col-span-4" key={`original-${index}`}>
-                  <PuppyCard className="h-full" doc={result} relationTo="puppies" showBreed />
+                  <PuppyCard className="h-full" doc={result} relationTo="cachorros" showBreed />
                 </div>
               )
             }
@@ -38,7 +38,7 @@ export const PuppiesArchiveComparison: React.FC<Props> = (props) => {
             if (typeof result === 'object' && result !== null) {
               return (
                 <div className="col-span-4" key={`shadcn-${index}`}>
-                  <PuppyCardShadcn className="h-full" doc={result} relationTo="puppies" showBreed />
+                  <PuppyCardShadcn className="h-full" doc={result} relationTo="cachorros" showBreed />
                 </div>
               )
             }

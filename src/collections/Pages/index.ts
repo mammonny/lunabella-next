@@ -22,8 +22,12 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 
-export const Pages: CollectionConfig<'pages'> = {
-  slug: 'pages',
+export const Pages: CollectionConfig<'paginas'> = {
+  slug: 'paginas',
+  labels: {
+    singular: 'Página',
+    plural: 'Páginas',
+  },
   access: {
     create: adminOnly,
     delete: adminOnly,
@@ -39,12 +43,12 @@ export const Pages: CollectionConfig<'pages'> = {
   },
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
-    hidden: ({ user }) => !collectionAccess('pages')({ user }),
+    hidden: ({ user }) => !collectionAccess('paginas')({ user }),
     livePreview: {
       url: ({ data, req }) => {
         const path = generatePreviewPath({
           slug: typeof data?.slug === 'string' ? data.slug : '',
-          collection: 'pages',
+          collection: 'paginas',
           req,
         })
 
@@ -54,7 +58,7 @@ export const Pages: CollectionConfig<'pages'> = {
     preview: (data, { req }) =>
       generatePreviewPath({
         slug: typeof data?.slug === 'string' ? data.slug : '',
-        collection: 'pages',
+        collection: 'paginas',
         req,
       }),
     useAsTitle: 'title',

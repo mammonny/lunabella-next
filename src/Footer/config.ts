@@ -5,6 +5,7 @@ import { revalidateFooter } from './hooks/revalidateFooter'
 
 export const Footer: GlobalConfig = {
   slug: 'footer',
+  label: 'Pie de Página',
   access: {
     read: () => true,
     update: ({ req: { user } }) => (user as any)?.roles === 'admin',

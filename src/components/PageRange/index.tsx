@@ -6,15 +6,15 @@ const defaultLabels = {
 }
 
 const defaultCollectionLabels = {
-  posts: {
-    plural: 'Posts',
-    singular: 'Post',
+  publicaciones: {
+    plural: 'Publicaciones',
+    singular: 'Publicación',
   },
-  dogs: {
+  ejemplares: {
     plural: 'Ejemplares',
     singular: 'Ejemplar',
   },
-  puppies: {
+  cachorros: {
     plural: 'Cachorros',
     singular: 'Cachorro',
   },

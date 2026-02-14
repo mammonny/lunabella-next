@@ -1,5 +1,5 @@
-import { User } from '../payload-types'
+import { Usuario } from '../payload-types'
 
-export const isEditor = (user?: User): boolean => {
+export const isEditor = (user?: Usuario): boolean => {
   return Boolean(user && (user as any).roles === 'editor')
 }

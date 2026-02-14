@@ -18,6 +18,10 @@ const dirname = path.dirname(filename)
 
 export const Media: CollectionConfig = {
   slug: 'media',
+  labels: {
+    singular: 'Archivo',
+    plural: 'Archivos',
+  },
   admin: {
     hidden: ({ user }) => !collectionAccess('media')({ user }),
   },

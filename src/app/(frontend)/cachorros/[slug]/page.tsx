@@ -24,7 +24,7 @@ const queryPuppyBySlug = cache(async ({ slug }: { slug: string }) => {
   const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({
-    collection: 'puppies',
+    collection: 'cachorros',
     depth: 2,
     limit: 1,
     pagination: false,
@@ -86,7 +86,7 @@ export default async function Page({ params }: Args) {
     if (litterId) {
       try {
         const siblingsResult = await payload.find({
-          collection: 'puppies',
+          collection: 'cachorros',
           depth: 1,
           pagination: false,
           where: {
@@ -114,7 +114,7 @@ export default async function Page({ params }: Args) {
     let hasOtherPuppies = false
     try {
       const otherResult = await payload.find({
-        collection: 'puppies',
+        collection: 'cachorros',
         limit: 1,
         pagination: false,
         where: {
@@ -542,7 +542,7 @@ export async function generateMetadata({ params }: Args): Promise<Metadata> {
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const puppies = await payload.find({
-    collection: 'puppies',
+    collection: 'cachorros',
     draft: false,
     limit: 1000,
     overrideAccess: false,

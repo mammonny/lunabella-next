@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { PageBreadcrumbs } from '@/components/Breadcrumbs'
 
-import type { Media, Dog } from '@/payload-types'
+import type { Media, Ejemplare } from '@/payload-types'
 import { PuppyGallery } from '@/components/PuppyGallery'
 import { ExhibitionDetailHero } from '@/components/ExhibitionDetailHero'
 import { Media as MediaComponent } from '@/components/Media'
@@ -24,7 +24,7 @@ const queryExhibitionBySlug = cache(async ({ slug }: { slug: string }) => {
   const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({
-    collection: 'exhibitions',
+    collection: 'exposiciones',
     depth: 2,
     limit: 1,
     pagination: false,
@@ -414,7 +414,7 @@ export default async function Page({ params }: Args) {
 
 // Podium Card - Dark theme for awards section
 function PodiumCard({ award, position }: { award: any; position: 'first' | 'second' | 'third' }) {
-  const dog = award.dog as Dog | null
+  const dog = award.dog as Ejemplare | null
   const dogSlug = dog && typeof dog === 'object' ? dog.slug : null
   const dogName = dog && typeof dog === 'object' ? dog.name : 'Ejemplar'
   const dogImage = dog && typeof dog === 'object' ? dog.mainImage : null
@@ -522,7 +522,7 @@ function PodiumCard({ award, position }: { award: any; position: 'first' | 'seco
 
 // Compact Award Card - Dark theme
 function AwardCardCompact({ award }: { award: any }) {
-  const dog = award.dog as Dog | null
+  const dog = award.dog as Ejemplare | null
   const dogSlug = dog && typeof dog === 'object' ? dog.slug : null
   const dogName = dog && typeof dog === 'object' ? dog.name : 'Ejemplar'
   const dogImage = dog && typeof dog === 'object' ? dog.mainImage : null
@@ -606,7 +606,7 @@ export async function generateMetadata({ params }: Args): Promise<Metadata> {
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const exhibitions = await payload.find({
-    collection: 'exhibitions',
+    collection: 'exposiciones',
     draft: false,
     limit: 1000,
     overrideAccess: false,

@@ -23,7 +23,7 @@ export type CardPuppyData = {
 export const PuppyCardShadcn: React.FC<{
   className?: string
   doc?: CardPuppyData
-  relationTo?: 'puppies'
+  relationTo?: 'cachorros'
   showBreed?: boolean
 }> = (props) => {
   const { card, link } = useClickableCard<HTMLDivElement>({})

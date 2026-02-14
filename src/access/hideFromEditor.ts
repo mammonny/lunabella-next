@@ -1,5 +1,5 @@
 import { Access } from 'payload'
-import { User } from '../payload-types'
+import { Usuario } from '../payload-types'
 
 // Tipo específico para el admin UI de Payload
 type PayloadAdminUIProps = {
@@ -27,7 +27,7 @@ export const collectionAccess = (collection: string) => {
 
     // Si el usuario es editor, mostrar Dogs, Puppies, Exhibitions y Media
     if (user.roles === 'editor') {
-      return collection === 'dogs' || collection === 'puppies' || collection === 'exhibitions' || collection === 'media'
+      return collection === 'ejemplares' || collection === 'cachorros' || collection === 'exposiciones' || collection === 'media'
     }
 
     // Para otros usuarios, ocultar todo

@@ -98,3 +98,44 @@ html[data-theme='dark'] {
     }
   }
 }
+
+// Accessibility: contrast fixes for secondary text (WCAG AA 4.5:1 min)
+// elevation-400 (#a19480) was 2.80:1 → elevation-600 (#716044) is ~5:1
+.nav-group__toggle {
+  color: var(--theme-elevation-600);
+}
+
+.field-description {
+  color: var(--theme-elevation-600);
+}
+
+.status__label {
+  color: var(--theme-elevation-600);
+}
+
+.btn--style-icon-label {
+  color: var(--theme-elevation-600);
+}
+
+// Fix: date picker month/year select text not visible
+.date-time-picker .react-datepicker {
+  .react-datepicker__month-select,
+  .react-datepicker__year-select {
+    color: var(--theme-elevation-1000);
+
+    option {
+      color: var(--theme-elevation-1000);
+      background-color: var(--theme-elevation-0);
+    }
+  }
+
+  .react-datepicker__header__dropdown {
+    color: var(--theme-elevation-1000);
+  }
+
+  .react-datepicker__year-dropdown,
+  .react-datepicker__month-dropdown {
+    color: var(--theme-elevation-1000);
+    background-color: var(--theme-elevation-0);
+  }
+}

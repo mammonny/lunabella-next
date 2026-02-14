@@ -6,7 +6,11 @@ import { slugField } from '@/fields/slug'
 import { collectionAccess } from '../access/hideFromEditor'
 
 export const Categories: CollectionConfig = {
-  slug: 'categories',
+  slug: 'categorias',
+  labels: {
+    singular: 'Categoría',
+    plural: 'Categorías',
+  },
   access: {
     create: adminOnly,
     delete: adminOnly,
@@ -15,7 +19,7 @@ export const Categories: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
-    hidden: ({ user }) => !collectionAccess('categories')({ user }),
+    hidden: ({ user }) => !collectionAccess('categorias')({ user }),
   },
   fields: [
     {

@@ -27,7 +27,7 @@ export const seed = async (payload: Payload): Promise<void> => {
 
   // Buscar o crear la raza Golden Retriever
   const goldenRetriever = await payload.find({
-    collection: 'breeds',
+    collection: 'razas',
     where: { slug: { equals: 'golden-retriever' } },
     limit: 1,
   })
@@ -45,7 +45,7 @@ export const seed = async (payload: Payload): Promise<void> => {
     )
 
     const newBreed = await payload.create({
-      collection: 'breeds',
+      collection: 'razas',
       data: {
         name: 'Golden Retriever',
         slug: 'golden-retriever',
@@ -222,14 +222,14 @@ export const seed = async (payload: Payload): Promise<void> => {
   for (const dogData of sampleDogs) {
     // Verificar si el perro ya existe por nombre
     const existingDog = await payload.find({
-      collection: 'dogs',
+      collection: 'ejemplares',
       where: { name: { equals: dogData.name } },
       limit: 1,
     })
 
     if (existingDog.docs.length === 0) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      await payload.create({ collection: 'dogs', data: dogData as any })
+      await payload.create({ collection: 'ejemplares', data: dogData as any })
       payload.logger.info(`Created dog: ${dogData.name}`)
     } else {
       payload.logger.info(`Dog already exists, skipping: ${dogData.name}`)

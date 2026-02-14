@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 
-type CTAType = 'puppies' | 'litters' | 'dogs'
+type CTAType = 'cachorros' | 'camadas' | 'ejemplares'
 
 interface CTAConfig {
   title: string
@@ -12,21 +12,21 @@ interface CTAConfig {
 }
 
 const ctaConfigs: Record<CTAType, CTAConfig> = {
-  puppies: {
+  cachorros: {
     title: 'Echa un vistazo a nuestros cachorros disponibles',
     description:
       'Actualmente tenemos cachorros disponibles, échales un vistazo, te enamorarán.',
     buttonLabel: 'Ver cachorros',
     href: '/cachorros',
   },
-  litters: {
+  camadas: {
     title: 'Echa un vistazo a nuestras camadas programadas',
     description:
       'Actualmente no disponemos de cachorros, pero puedes solicitar información a alguna de nuestras camadas programadas.',
     buttonLabel: 'Ver camadas',
     href: '/camadas',
   },
-  dogs: {
+  ejemplares: {
     title: 'Próximamente nuevos cachorros',
     description:
       'Estamos preparando nuevas camadas. Contáctanos para apuntarte a la lista de espera y ser de los primeros en conocerlos.',
@@ -41,7 +41,7 @@ async function getCTAType(): Promise<CTAType> {
 
     // Verificar si hay cachorros disponibles
     const puppiesResult = await payload.find({
-      collection: 'puppies',
+      collection: 'cachorros',
       where: {
         disponibilidad: {
           equals: 'available',
@@ -54,24 +54,24 @@ async function getCTAType(): Promise<CTAType> {
     })
 
     if (puppiesResult.totalDocs > 0) {
-      return 'puppies'
+      return 'cachorros'
     }
 
     // Verificar si hay camadas
     const littersResult = await payload.find({
-      collection: 'litters',
+      collection: 'camadas',
       limit: 1,
     })
 
     if (littersResult.totalDocs > 0) {
-      return 'litters'
+      return 'camadas'
     }
 
     // Por defecto mostrar perros
-    return 'dogs'
+    return 'ejemplares'
   } catch (error) {
     console.error('Error fetching CTA type:', error)
-    return 'dogs'
+    return 'ejemplares'
   }
 }
 
@@ -124,7 +124,7 @@ export default async function CTAConditional() {
                 <div className="flex items-center gap-3 mb-6">
                   <div className="golden-silhouette-sm opacity-70" />
                   <span className="text-[#a58a1b] text-xs font-medium tracking-[0.25em] uppercase">
-                    {ctaType === 'puppies' ? 'Disponible ahora' : ctaType === 'litters' ? 'Próximamente' : 'Lista de espera'}
+                    {ctaType === 'cachorros' ? 'Disponible ahora' : ctaType === 'camadas' ? 'Próximamente' : 'Lista de espera'}
                   </span>
                 </div>
 

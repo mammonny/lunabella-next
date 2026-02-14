@@ -17,7 +17,7 @@ export default async function Page() {
 
   // Get all exhibitions, sorted by date descending (most recent first)
   const exhibitions = await payload.find({
-    collection: 'exhibitions',
+    collection: 'exposiciones',
     depth: 2,
     limit: 100,
     overrideAccess: false,
