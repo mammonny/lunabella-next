@@ -23,7 +23,7 @@ export default function GaleriaPage() {
   return (
     <main className="isolate">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 min-h-[26rem] md:min-h-[30rem] overflow-hidden">
+      <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 min-h-[18rem] md:min-h-[28rem] overflow-hidden">
         {/* Background Image */}
         <div
           className="absolute inset-0"

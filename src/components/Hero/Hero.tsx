@@ -197,7 +197,7 @@ export function Hero({
       <section className="relative min-h-[85vh] flex flex-col justify-center py-24 overflow-hidden">
         {/* Background Image with cinematic gradient */}
         <div
-          className="absolute inset-0 animate-image-reveal bg-cover bg-[position:85%_top] md:bg-[position:center_top]"
+          className="absolute inset-0 animate-image-reveal [background-size:auto_115%] [background-position:85%_-30%] md:bg-cover md:[background-position:center_top]"
           style={{
             backgroundImage: `url(${imageSrc})`,
           }}
@@ -320,7 +320,7 @@ export function Hero({
         {/* Scroll indicator - clickeable, mismo destino que Conócenos */}
         <Link
           href={ctaButtons?.secondary?.href || '#quiensomos'}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in-up delay-500 cursor-pointer group"
+          className="absolute bottom-8 inset-x-0 mx-auto w-fit flex flex-col items-center gap-2 animate-fade-in-up delay-500 cursor-pointer group"
         >
           <span className="text-white/50 text-[10px] uppercase tracking-[0.3em] group-hover:text-white/70 transition-colors">Scroll</span>
           <div className="w-[1px] h-8 bg-gradient-to-b from-white/50 to-transparent animate-pulse group-hover:from-white/70" />
