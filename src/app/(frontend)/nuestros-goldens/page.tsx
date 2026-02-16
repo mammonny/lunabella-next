@@ -283,6 +283,6 @@ export function generateMetadata(): Metadata {
   return {
     title: 'Nuestros Golden Retriever | LunaBella',
     description:
-      'Conoce a nuestra familia de Golden Retrievers. Ejemplares con pedigri completo, certificaciones de salud y un carácter excepcional.',
+      'Conoce a nuestra familia de Golden Retrievers. Ejemplares con pedigrí completo, certificaciones de salud y un carácter excepcional.',
   }
 }

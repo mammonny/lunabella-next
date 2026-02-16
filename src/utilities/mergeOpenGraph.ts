@@ -4,7 +4,7 @@ import { getServerSideURL } from './getURL'
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
   description:
-    'Criadero familiar de Golden Retriever en Gipuzkoa. Cachorros con pedigri, tests de salud y socializacion.',
+    'Criadero familiar de Golden Retriever en Gipuzkoa. Cachorros con pedigrí, tests de salud y socialización.',
   images: [
     {
       url: `${getServerSideURL()}/website-template-OG.webp`,

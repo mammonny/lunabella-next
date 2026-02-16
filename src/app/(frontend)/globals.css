@@ -160,10 +160,10 @@ html[data-theme='light'] {
     color: #a58a1b;
   }
 
-  /* Texto con gradiente dorado estilo LunaBella */
+  /* Texto con gradiente dorado estilo LunaBella - metallic shimmer */
   .text-gradient-gold {
     @apply inline-block bg-clip-text text-transparent;
-    background-image: linear-gradient(90deg, #8a7316, #a58a1b);
+    background-image: linear-gradient(90deg, #c49a30, #dbb845, #c49a30);
   }
 
   /* Línea de acento gruesa - dorado brandbook */

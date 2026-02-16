@@ -112,9 +112,9 @@ export default async function ContactPage() {
               >
                 Hablemos de
                 <br />
-                <span className="text-gradient-gold">tu futuro</span>
+                tu futuro
                 <br />
-                <span className="text-white/80 text-[0.65em] font-heading italic">
+                <span className="text-gradient-gold text-[0.65em] font-heading italic">
                   compañero
                 </span>
               </h1>

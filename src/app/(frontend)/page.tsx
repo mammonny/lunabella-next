@@ -17,13 +17,13 @@ const GoldenIcon = ({ className }: { className?: string }) => (
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: 'Criadero de Golden Retriever LunaBella | Gipuzkoa, Pais Vasco',
+    title: 'Criadero de Golden Retriever LunaBella | Gipuzkoa, País Vasco',
     description:
-      'Criadero familiar de Golden Retriever en Zaldibia, Gipuzkoa. Cachorros con pedigri completo, tests de salud y socializacion desde cachorros. Mas de 15 anos de experiencia.',
+      'Criadero familiar de Golden Retriever en Zaldibia, Gipuzkoa. Cachorros con pedigrí completo, tests de salud y socialización desde cachorros. Más de 15 años de experiencia.',
     openGraph: {
-      title: 'Criadero de Golden Retriever LunaBella | Gipuzkoa, Pais Vasco',
+      title: 'Criadero de Golden Retriever LunaBella | Gipuzkoa, País Vasco',
       description:
-        'Criadero familiar de Golden Retriever en Zaldibia, Gipuzkoa. Cachorros con pedigri completo, tests de salud y socializacion desde cachorros. Mas de 15 anos de experiencia.',
+        'Criadero familiar de Golden Retriever en Zaldibia, Gipuzkoa. Cachorros con pedigrí completo, tests de salud y socialización desde cachorros. Más de 15 años de experiencia.',
     },
   }
 }
@@ -36,7 +36,7 @@ const HomePage3 = () => (
     <main className="isolate">
       <Hero
         variant="lunabella"
-        title={<>Cría familiar, responsable y exclusiva de <span className="bg-gradient-to-r from-[#c9a93d] to-[#a58a1b] bg-clip-text text-transparent">Golden Retriever</span></>}
+        title={<>Cría familiar, responsable y exclusiva de <span className="bg-gradient-to-r from-[#d4af37] via-[#f2e088] to-[#c49a30] bg-clip-text text-transparent">Golden Retriever</span></>}
         description=""
         imageSrc="/images/lunabella/hero-bg.jpg"
         imageAlt="Golden Retriever en LunaBella"

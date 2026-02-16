@@ -132,8 +132,8 @@ export default async function CTAConditional() {
                   {config.title.split(' ').map((word, i) => {
                     if (['cachorros', 'camadas', 'ejemplares'].includes(word.toLowerCase())) {
                       return (
-                        <span key={i} className="text-gradient-gold">
-                          {word}{' '}
+                        <span key={i}>
+                          <span className="text-gradient-gold">{word}</span>{' '}
                         </span>
                       )
                     }

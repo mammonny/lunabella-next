@@ -149,7 +149,7 @@ export default async function Page() {
               >
                 Exposiciones
                 <br />
-                <span className="text-gradient-gold drop-shadow-lg">&amp; Premios</span>
+                <span className="text-gradient-gold">&amp; Premios</span>
               </h1>
 
               {/* Línea decorativa animada */}
