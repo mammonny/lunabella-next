@@ -122,7 +122,7 @@ export default async function Page({ params }: Args) {
               {/* Section Header */}
               <div className="flex items-center gap-4 mb-14">
                 <span className="w-14 h-[2px] bg-gradient-to-r from-[#a58a1b] to-[#c9a93d]" />
-                <span className="text-[#a58a1b] text-[11px] font-medium tracking-[0.3em] uppercase">
+                <span className="text-[#7a6210] text-[11px] font-medium tracking-[0.3em] uppercase">
                   Ficha del Evento
                 </span>
               </div>
@@ -153,7 +153,7 @@ export default async function Page({ params }: Args) {
                       {formattedDate && (
                         <div className="flex items-start gap-4">
                           <div className="w-12 h-12 bg-[#a58a1b]/10 flex items-center justify-center flex-shrink-0">
-                            <svg className="w-5 h-5 text-[#a58a1b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5 text-[#7a6210]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                           </div>
@@ -167,7 +167,7 @@ export default async function Page({ params }: Args) {
                       {location && (
                         <div className="flex items-start gap-4">
                           <div className="w-12 h-12 bg-[#a58a1b]/10 flex items-center justify-center flex-shrink-0">
-                            <svg className="w-5 h-5 text-[#a58a1b]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5 text-[#7a6210]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
@@ -182,7 +182,7 @@ export default async function Page({ params }: Args) {
                       {awards && awards.length > 0 && (
                         <div className="flex items-start gap-4">
                           <div className="w-12 h-12 bg-[#a58a1b]/10 flex items-center justify-center flex-shrink-0">
-                            <svg className="w-5 h-5 text-[#a58a1b]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+                            <svg className="w-5 h-5 text-[#7a6210]" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                               <circle cx="12" cy="8" r="5" />
                               <path d="M8 12.5V20l4-2 4 2v-7.5" />
                             </svg>
@@ -369,7 +369,7 @@ export default async function Page({ params }: Args) {
               <div className="max-w-3xl mx-auto text-center">
                 <div className="flex items-center justify-center gap-6 mb-8">
                   <span className="w-20 h-[1px] bg-gradient-to-r from-transparent to-[#a58a1b]" />
-                  <span className="text-[#a58a1b] text-[11px] font-medium tracking-[0.3em] uppercase">
+                  <span className="text-[#7a6210] text-[11px] font-medium tracking-[0.3em] uppercase">
                     Descubre más
                   </span>
                   <span className="w-20 h-[1px] bg-gradient-to-l from-transparent to-[#a58a1b]" />
@@ -395,7 +395,7 @@ export default async function Page({ params }: Args) {
                   </Link>
                   <Link
                     href="/exposiciones"
-                    className="inline-flex items-center justify-center gap-3 px-12 py-5 text-[13px] font-medium uppercase tracking-[0.2em] border border-[#a58a1b] text-[#a58a1b] transition-all duration-500 hover:bg-[#a58a1b] hover:text-white"
+                    className="inline-flex items-center justify-center gap-3 px-12 py-5 text-[13px] font-medium uppercase tracking-[0.2em] border border-[#a58a1b] text-[#7a6210] transition-all duration-500 hover:bg-[#a58a1b] hover:text-white"
                   >
                     Más exposiciones
                   </Link>
@@ -540,7 +540,7 @@ function AwardCardCompact({ award }: { award: any }) {
       )}
       <div className="flex-1 min-w-0 flex flex-col justify-center">
         <div className="flex items-center gap-2 mb-1">
-          <svg className="w-3.5 h-3.5 text-[#a58a1b] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <svg className="w-3.5 h-3.5 text-[#7a6210] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <circle cx="12" cy="8" r="5" />
             <path d="M8 12.5V20l4-2 4 2v-7.5" />
           </svg>

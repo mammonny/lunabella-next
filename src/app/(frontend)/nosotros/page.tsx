@@ -162,7 +162,7 @@ export default function NosotrosPage() {
                 {/* Ornamento superior */}
                 <div className="flex items-center gap-4 mb-8">
                   <span className="w-16 h-px bg-[#a58a1b]" />
-                  <span className="text-[#a58a1b] text-sm font-medium tracking-[0.25em] uppercase">
+                  <span className="text-[#7a6210] text-sm font-medium tracking-[0.25em] uppercase">
                     Nuestra esencia
                   </span>
                 </div>
@@ -219,7 +219,7 @@ export default function NosotrosPage() {
               {/* Ornament */}
               <div className="flex items-center justify-center gap-4 mb-8">
                 <span className="w-16 h-px bg-[#a58a1b]" />
-                <span className="text-[#a58a1b] text-sm font-medium tracking-[0.25em] uppercase">
+                <span className="text-[#7a6210] text-sm font-medium tracking-[0.25em] uppercase">
                   Nuestro hogar
                 </span>
                 <span className="w-16 h-px bg-[#a58a1b]" />
@@ -244,7 +244,7 @@ export default function NosotrosPage() {
             <div className="max-w-4xl mb-20">
               <div className="flex items-center gap-4 mb-8">
                 <span className="w-16 h-px bg-[#a58a1b]" />
-                <span className="text-[#a58a1b] text-sm font-medium tracking-[0.25em] uppercase">
+                <span className="text-[#7a6210] text-sm font-medium tracking-[0.25em] uppercase">
                   Nuestro compromiso
                 </span>
               </div>
@@ -301,7 +301,7 @@ export default function NosotrosPage() {
               {/* Ornamento superior */}
               <div className="flex items-center justify-center gap-4 mb-12">
                 <span className="w-16 h-px bg-[#a58a1b]" />
-                <span className="text-[#a58a1b] text-sm font-medium tracking-[0.25em] uppercase">
+                <span className="text-[#7a6210] text-sm font-medium tracking-[0.25em] uppercase">
                   Nuestra historia
                 </span>
                 <span className="w-16 h-px bg-[#a58a1b]" />
@@ -417,7 +417,7 @@ export default function NosotrosPage() {
               {/* Ornamento superior */}
               <div className="flex items-center gap-4 mb-12">
                 <span className="w-16 h-px bg-[#a58a1b]" />
-                <span className="text-[#a58a1b] text-sm font-medium tracking-[0.25em] uppercase">
+                <span className="text-[#7a6210] text-sm font-medium tracking-[0.25em] uppercase">
                   Nuestros orígenes
                 </span>
               </div>

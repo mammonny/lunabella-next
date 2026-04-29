@@ -123,7 +123,7 @@ export default async function CTAConditional() {
               <div className="lg:col-span-7">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="golden-silhouette-sm opacity-70" />
-                  <span className="text-[#a58a1b] text-xs font-medium tracking-[0.25em] uppercase">
+                  <span className="text-[#7a6210] text-xs font-medium tracking-[0.25em] uppercase">
                     {ctaType === 'cachorros' ? 'Disponible ahora' : ctaType === 'camadas' ? 'Próximamente' : 'Lista de espera'}
                   </span>
                 </div>

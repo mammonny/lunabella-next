@@ -31,7 +31,7 @@ export default function WhyLunaBella() {
         <div className="max-w-4xl mb-20">
           <div className="flex items-center gap-4 mb-8">
             <span className="w-16 h-px bg-[#a58a1b]" />
-            <span className="text-[#a58a1b] text-sm font-medium tracking-[0.25em] uppercase">
+            <span className="text-[#7a6210] text-sm font-medium tracking-[0.25em] uppercase">
               Nuestro compromiso
             </span>
           </div>

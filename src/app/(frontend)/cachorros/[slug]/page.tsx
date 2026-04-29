@@ -252,7 +252,7 @@ export default async function Page({ params }: Args) {
                       key={idx}
                       className="py-3 border-b border-gray-100 group"
                     >
-                      <dt className="text-[10px] text-gray-400 uppercase tracking-[0.15em] mb-1 transition-colors duration-300 group-hover:text-[#a58a1b]">
+                      <dt className="text-[10px] text-gray-400 uppercase tracking-[0.15em] mb-1 transition-colors duration-300 group-hover:text-[#7a6210]">
                         {spec.label}
                       </dt>
                       <dd className="text-gray-900 font-medium text-sm">
@@ -299,7 +299,7 @@ export default async function Page({ params }: Args) {
 
                   <div className="relative">
                     <h3 className="font-heading text-xl md:text-2xl text-gray-900 mb-3">
-                      ¿Te interesa <span className="text-[#a58a1b]">{name}</span>?
+                      ¿Te interesa <span className="text-[#7a6210]">{name}</span>?
                     </h3>
                     <p className="text-gray-600 text-[15px] mb-5 leading-relaxed">
                       Incluye kit de iniciación, primeras vacunas, microchip y asesoramiento continuo.
@@ -337,7 +337,7 @@ export default async function Page({ params }: Args) {
             <div className="container mx-auto px-6 lg:px-12">
               <div className="flex items-center justify-center gap-4 mb-12">
                 <span className="w-12 h-px bg-[#a58a1b]" />
-                <span className="text-[#a58a1b] text-xs font-medium tracking-[0.2em] uppercase">
+                <span className="text-[#7a6210] text-xs font-medium tracking-[0.2em] uppercase">
                   Línea sanguínea
                 </span>
                 <span className="w-12 h-px bg-[#a58a1b]" />
@@ -364,7 +364,7 @@ export default async function Page({ params }: Args) {
                       <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#5b8fc9] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                     </div>
                     <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">Padre</p>
-                    <h3 className="font-heading text-xl text-gray-900 group-hover:text-[#a58a1b] transition-colors">
+                    <h3 className="font-heading text-xl text-gray-900 group-hover:text-[#7a6210] transition-colors">
                       {parents.father.name}
                     </h3>
                   </Link>
@@ -413,7 +413,7 @@ export default async function Page({ params }: Args) {
                       <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#d4a5a0] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                     </div>
                     <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">Madre</p>
-                    <h3 className="font-heading text-xl text-gray-900 group-hover:text-[#a58a1b] transition-colors">
+                    <h3 className="font-heading text-xl text-gray-900 group-hover:text-[#7a6210] transition-colors">
                       {parents.mother.name}
                     </h3>
                   </Link>
@@ -429,7 +429,7 @@ export default async function Page({ params }: Args) {
             <div className="container mx-auto px-6 lg:px-12">
               <div className="flex items-center justify-center gap-4 mb-12">
                 <span className="w-12 h-px bg-[#a58a1b]" />
-                <span className="text-[#a58a1b] text-xs font-medium tracking-[0.2em] uppercase">
+                <span className="text-[#7a6210] text-xs font-medium tracking-[0.2em] uppercase">
                   Su camada
                 </span>
                 <span className="w-12 h-px bg-[#a58a1b]" />
@@ -456,7 +456,7 @@ export default async function Page({ params }: Args) {
                       )}
                       <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#a58a1b] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                     </div>
-                    <h3 className="font-heading text-base text-gray-900 group-hover:text-[#a58a1b] transition-colors text-center">
+                    <h3 className="font-heading text-base text-gray-900 group-hover:text-[#7a6210] transition-colors text-center">
                       {sibling.name || 'Cachorro'}
                     </h3>
                   </Link>
@@ -472,7 +472,7 @@ export default async function Page({ params }: Args) {
             <div className="container mx-auto px-6 lg:px-12">
               <div className="flex items-center justify-center gap-4 mb-12">
                 <span className="w-12 h-px bg-[#a58a1b]" />
-                <span className="text-[#a58a1b] text-xs font-medium tracking-[0.2em] uppercase">
+                <span className="text-[#7a6210] text-xs font-medium tracking-[0.2em] uppercase">
                   Descubre más
                 </span>
                 <span className="w-12 h-px bg-[#a58a1b]" />

@@ -88,7 +88,7 @@ const HomePage3 = () => (
                 <div
                   className="absolute -bottom-6 -right-6 xl:-right-12 bg-[#faf8f5]/95 backdrop-blur-sm border border-[#a58a1b]/30 px-6 py-4 z-10 shadow-sm"
                 >
-                  <span className="block text-3xl font-heading font-semibold text-[#a58a1b]">+15</span>
+                  <span className="block text-3xl font-heading font-semibold text-[#7a6210]">+15</span>
                   <span className="text-xs uppercase tracking-[0.2em] text-[#8b7419]">Años</span>
                 </div>
               </div>
@@ -99,7 +99,7 @@ const HomePage3 = () => (
               {/* Ornamento superior */}
               <div className="flex items-center gap-4 mb-8">
                 <span className="w-16 h-px bg-[#a58a1b]" />
-                <span className="text-[#a58a1b] text-sm font-medium tracking-[0.25em] uppercase">
+                <span className="text-[#7a6210] text-sm font-medium tracking-[0.25em] uppercase">
                   Nuestra esencia
                 </span>
               </div>
@@ -123,7 +123,7 @@ const HomePage3 = () => (
               <div className="mt-10">
                 <Link
                   href="/nosotros"
-                  className="group inline-flex items-center gap-4 text-sm font-medium uppercase tracking-[0.2em] text-gray-900 hover:text-[#a58a1b] transition-colors duration-300"
+                  className="group inline-flex items-center gap-4 text-sm font-medium uppercase tracking-[0.2em] text-gray-900 hover:text-[#7a6210] transition-colors duration-300"
                 >
                   <span>Conoce nuestra historia</span>
                   <span className="w-12 h-px bg-current transition-all duration-300 group-hover:w-16" />

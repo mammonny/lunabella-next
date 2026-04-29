@@ -140,7 +140,7 @@ export default async function Page() {
                     <div className="text-center">
                       <div className="flex items-center justify-center gap-3 mb-6">
                         <div className="golden-silhouette-sm opacity-70" />
-                        <span className="text-[#a58a1b] text-xs font-medium tracking-[0.25em] uppercase">
+                        <span className="text-[#7a6210] text-xs font-medium tracking-[0.25em] uppercase">
                           Lista de espera
                         </span>
                       </div>

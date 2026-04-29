@@ -21,7 +21,7 @@ export default function PoliticaPrivacidadPage() {
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-5">
               <span className="w-10 h-[1px] bg-gradient-to-r from-[#c9a93d] to-transparent" />
-              <span className="text-[#a58a1b] text-xs font-medium tracking-[0.3em] uppercase">
+              <span className="text-[#7a6210] text-xs font-medium tracking-[0.3em] uppercase">
                 Legal
               </span>
             </div>
@@ -58,13 +58,13 @@ export default function PoliticaPrivacidadPage() {
                 </p>
                 <p>
                   <strong>Email de contacto:</strong>{' '}
-                  <a href="mailto:maria@lunabella.es" className="text-[#a58a1b] hover:underline">
+                  <a href="mailto:maria@lunabella.es" className="text-[#7a6210] hover:underline">
                     maria@lunabella.es
                   </a>
                 </p>
                 <p>
                   <strong>Telefono:</strong>{' '}
-                  <a href="tel:+34670004089" className="text-[#a58a1b] hover:underline">
+                  <a href="tel:+34670004089" className="text-[#7a6210] hover:underline">
                     670 004 089
                   </a>
                 </p>
@@ -167,7 +167,7 @@ export default function PoliticaPrivacidadPage() {
                 <p>
                   Para ejercer cualquiera de estos derechos, puede dirigirse a nosotros enviando un
                   correo electronico a{' '}
-                  <a href="mailto:maria@lunabella.es" className="text-[#a58a1b] hover:underline">
+                  <a href="mailto:maria@lunabella.es" className="text-[#7a6210] hover:underline">
                     maria@lunabella.es
                   </a>
                   , indicando el derecho que desea ejercer y acompanando una copia de su documento de
@@ -191,7 +191,7 @@ export default function PoliticaPrivacidadPage() {
                     href="https://www.aepd.es"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[#a58a1b] hover:underline"
+                    className="text-[#7a6210] hover:underline"
                   >
                     www.aepd.es
                   </a>

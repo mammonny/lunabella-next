@@ -83,7 +83,7 @@ export default function GaleriaPage() {
           <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-12 mb-16">
             <div className="flex items-center gap-4">
               <svg
-                className="w-12 h-12 md:w-16 md:h-16 text-[#a58a1b]/20"
+                className="w-12 h-12 md:w-16 md:h-16 text-[#7a6210]/20"
                 fill="currentColor"
                 viewBox="0 0 24 24"
               >

@@ -23,7 +23,7 @@ export function PageBreadcrumbs({ items }: { items: BreadcrumbItem[] }) {
                 ) : (
                   <Link
                     href={item.href}
-                    className="hover:text-[#a58a1b] transition-colors"
+                    className="hover:text-[#7a6210] transition-colors"
                   >
                     {item.label}
                   </Link>

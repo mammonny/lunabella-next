@@ -79,7 +79,7 @@ function EmptyState() {
   return (
     <div className="text-center py-16">
       <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-[#a58a1b]/10 flex items-center justify-center">
-        <InstagramIcon className="w-8 h-8 text-[#a58a1b]" />
+        <InstagramIcon className="w-8 h-8 text-[#7a6210]" />
       </div>
       <h3 className="text-lg font-medium text-gray-900 mb-2">Configura tu feed de Instagram</h3>
       <p className="text-gray-500 max-w-md mx-auto">

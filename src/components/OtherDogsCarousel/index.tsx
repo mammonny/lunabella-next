@@ -102,10 +102,10 @@ export const OtherDogsCarousel: React.FC<OtherDogsCarouselProps> = async ({
           {otherDogs.length > 1 && (
             <div className="absolute -top-12 right-0 flex gap-3">
               <CarouselPrevious
-                className="hidden sm:inline-flex !relative !top-auto !left-auto !right-auto !h-10 !w-10 !rounded-none !border-[#a58a1b]/30 !bg-transparent hover:!bg-[#a58a1b]/5 hover:!border-[#a58a1b] !text-[#a58a1b] transition-all duration-300"
+                className="hidden sm:inline-flex !relative !top-auto !left-auto !right-auto !h-10 !w-10 !rounded-none !border-[#a58a1b]/30 !bg-transparent hover:!bg-[#a58a1b]/5 hover:!border-[#a58a1b] !text-[#7a6210] transition-all duration-300"
               />
               <CarouselNext
-                className="hidden sm:inline-flex !relative !top-auto !left-auto !right-auto !h-10 !w-10 !rounded-none !border-[#a58a1b]/30 !bg-transparent hover:!bg-[#a58a1b]/5 hover:!border-[#a58a1b] !text-[#a58a1b] transition-all duration-300"
+                className="hidden sm:inline-flex !relative !top-auto !left-auto !right-auto !h-10 !w-10 !rounded-none !border-[#a58a1b]/30 !bg-transparent hover:!bg-[#a58a1b]/5 hover:!border-[#a58a1b] !text-[#7a6210] transition-all duration-300"
               />
             </div>
           )}

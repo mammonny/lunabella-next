@@ -22,7 +22,7 @@ export default function CookiesPage() {
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-5">
               <span className="w-10 h-[1px] bg-gradient-to-r from-[#c9a93d] to-transparent" />
-              <span className="text-[#a58a1b] text-xs font-medium tracking-[0.3em] uppercase">
+              <span className="text-[#7a6210] text-xs font-medium tracking-[0.3em] uppercase">
                 Legal
               </span>
             </div>
@@ -143,7 +143,7 @@ export default function CookiesPage() {
                 </p>
                 <p>
                   <strong>Email de contacto:</strong>{' '}
-                  <a href="mailto:maria@lunabella.es" className="text-[#a58a1b] hover:underline">
+                  <a href="mailto:maria@lunabella.es" className="text-[#7a6210] hover:underline">
                     maria@lunabella.es
                   </a>
                 </p>
@@ -161,12 +161,12 @@ export default function CookiesPage() {
                   nuestra{' '}
                   <Link
                     href="/politica-privacidad"
-                    className="text-[#a58a1b] hover:underline"
+                    className="text-[#7a6210] hover:underline"
                   >
                     Politica de Privacidad
                   </Link>
                   . Si tiene alguna duda o consulta, puede contactarnos en{' '}
-                  <a href="mailto:maria@lunabella.es" className="text-[#a58a1b] hover:underline">
+                  <a href="mailto:maria@lunabella.es" className="text-[#7a6210] hover:underline">
                     maria@lunabella.es
                   </a>
                   .

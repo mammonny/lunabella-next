@@ -213,7 +213,7 @@ export default async function ContactPage() {
                   <div className="mb-10">
                     <div className="flex items-center gap-3 mb-4">
                       <div className="golden-silhouette-sm opacity-60" />
-                      <span className="text-[#a58a1b] text-xs font-medium tracking-[0.3em] uppercase">
+                      <span className="text-[#7a6210] text-xs font-medium tracking-[0.3em] uppercase">
                         Formulario
                       </span>
                     </div>
@@ -238,7 +238,7 @@ export default async function ContactPage() {
                       </p>
                       <a
                         href="mailto:maria@lunabella.es"
-                        className="inline-flex items-center gap-3 text-[#a58a1b] hover:gap-4 transition-all duration-300"
+                        className="inline-flex items-center gap-3 text-[#7a6210] hover:gap-4 transition-all duration-300"
                       >
                         <span className="text-sm font-medium tracking-wider uppercase">
                           Escríbenos directamente
@@ -296,7 +296,7 @@ export default async function ContactPage() {
               {/* Section label */}
               <div className="flex items-center gap-4 mb-8">
                 <span className="w-12 h-px bg-[#a58a1b]" />
-                <span className="text-[#a58a1b] text-xs font-medium tracking-[0.3em] uppercase">
+                <span className="text-[#7a6210] text-xs font-medium tracking-[0.3em] uppercase">
                   Quiénes somos
                 </span>
               </div>
@@ -311,7 +311,7 @@ export default async function ContactPage() {
                 <blockquote className="relative">
                   {/* Opening quote mark - large, decorative, above text */}
                   <svg
-                    className="w-10 h-8 mb-5 text-[#a58a1b] opacity-40"
+                    className="w-10 h-8 mb-5 text-[#7a6210] opacity-40"
                     viewBox="0 0 40 32"
                     fill="currentColor"
                     aria-hidden="true"
@@ -359,7 +359,7 @@ export default async function ContactPage() {
                     01
                   </span>
                   <div>
-                    <span className="text-xs font-medium tracking-[0.2em] uppercase text-[#a58a1b] block mb-1">Salud</span>
+                    <span className="text-xs font-medium tracking-[0.2em] uppercase text-[#7a6210] block mb-1">Salud</span>
                     <p className="text-sm text-gray-600 leading-relaxed max-w-[11rem]">
                       Tests genéticos completos y certificaciones oficiales
                     </p>
@@ -379,7 +379,7 @@ export default async function ContactPage() {
                     02
                   </span>
                   <div>
-                    <span className="text-xs font-medium tracking-[0.2em] uppercase text-[#a58a1b] block mb-1">Amor</span>
+                    <span className="text-xs font-medium tracking-[0.2em] uppercase text-[#7a6210] block mb-1">Amor</span>
                     <p className="text-sm text-gray-600 leading-relaxed max-w-[11rem]">
                       Criados en familia, socializados desde el primer día
                     </p>
@@ -425,7 +425,7 @@ export default async function ContactPage() {
 
                   {/* Overlay text */}
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
-                    <span className="text-[#a58a1b] text-xs tracking-[0.4em] uppercase mb-4">Desde</span>
+                    <span className="text-[#7a6210] text-xs tracking-[0.4em] uppercase mb-4">Desde</span>
                     <span className="text-display text-6xl md:text-7xl text-gray-900 mb-2">2015</span>
                     <span className="text-gray-500 text-sm tracking-wider">criando con pasión</span>
                   </div>

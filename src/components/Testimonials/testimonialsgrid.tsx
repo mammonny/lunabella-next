@@ -140,7 +140,7 @@ export default function TestimonialsGrid() {
         <div className="max-w-4xl mb-20">
           <div className="flex items-center gap-4 mb-8">
             <span className="w-16 h-px bg-[#a58a1b]" />
-            <span className="text-[#a58a1b] text-sm font-medium tracking-[0.25em] uppercase">
+            <span className="text-[#7a6210] text-sm font-medium tracking-[0.25em] uppercase">
               Testimonios
             </span>
           </div>
@@ -159,7 +159,7 @@ export default function TestimonialsGrid() {
           {/* Featured testimonial */}
           <figure className="group col-span-2 hidden sm:block bg-[#faf8f5] p-10 xl:col-start-2 xl:row-end-1 transition-all duration-500 hover:shadow-[0_20px_60px_-15px_rgba(165,138,27,0.12)] quote-watermark">
             {/* Quote mark */}
-            <div className="mb-6 text-5xl font-heading text-[#a58a1b]/20 relative z-10">&ldquo;</div>
+            <div className="mb-6 text-5xl font-heading text-[#7a6210]/20 relative z-10">&ldquo;</div>
             <blockquote className="text-xl font-medium leading-relaxed text-gray-900 relative z-10">
               <p>{memoizedFeaturedTestimonial.body}</p>
             </blockquote>

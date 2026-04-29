@@ -159,7 +159,7 @@ export const PuppyCard: React.FC<{
 
         {/* Raza */}
         {showBreed && breedName && (
-          <span className="block text-[10px] font-medium uppercase tracking-[0.2em] text-[#a58a1b] mb-2">
+          <span className="block text-[10px] font-medium uppercase tracking-[0.2em] text-[#7a6210] mb-2">
             {breedName}
           </span>
         )}
@@ -179,19 +179,19 @@ export const PuppyCard: React.FC<{
 
         {/* Precio elegante */}
         <div className="flex items-baseline gap-1">
-          <span className="text-2xl font-heading font-semibold text-[#a58a1b]">
+          <span className="text-2xl font-heading font-semibold text-[#7a6210]">
             {price.toLocaleString('es-ES')}
           </span>
-          <span className="text-sm text-[#a58a1b]/70">€</span>
+          <span className="text-sm text-[#7a6210]/70">€</span>
         </div>
 
         {/* Flecha decorativa */}
         <div className="mt-5 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-x-[-8px] group-hover:translate-x-0">
-          <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-[#a58a1b]">
+          <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-[#7a6210]">
             Conocer
           </span>
           <svg
-            className="w-4 h-4 text-[#a58a1b] transition-transform duration-300 group-hover:translate-x-1"
+            className="w-4 h-4 text-[#7a6210] transition-transform duration-300 group-hover:translate-x-1"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

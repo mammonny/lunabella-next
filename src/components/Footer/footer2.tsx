@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { showCookiePreferences } from '@/components/CookieConsent/CookieConsent'
+import KitDigitalBanner from '@/components/KitDigitalBanner'
 
 const footerLinks = [
   {
@@ -139,31 +140,38 @@ export default function Footer2() {
         <div
           className="mt-8 pt-4 flex flex-col items-center gap-y-4 sm:flex-row sm:justify-between sm:items-center sm:gap-y-0"
         >
-          <span className="text-xs leading-5 text-center sm:text-left" style={{ color: '#a58a1b' }}>
+          <span className="text-xs leading-5 text-center sm:text-left" style={{ color: '#7a6210' }}>
             &copy; {new Date().getFullYear()}{' '}
-            <Link href="/" className="hover:opacity-80" style={{ color: '#a58a1b' }}>
+            <Link href="/" className="hover:opacity-80" style={{ color: '#7a6210' }}>
               LunaBella Golden Retriever
             </Link>
             . Todos los derechos reservados.
           </span>
 
           <div>
-            <div className="flex justify-center sm:justify-start gap-x-4">
+            <div className="flex justify-center sm:justify-start gap-x-2 sm:gap-x-3 flex-wrap -mx-2">
               <Link
-                href="/politica-privacidad"
-                className="text-xs leading-5 text-gray-600 hover:text-gray-900 transition-colors duration-200"
+                href="/aviso-legal"
+                className="inline-flex items-center min-h-[24px] px-2 py-2 text-xs leading-5 text-gray-600 hover:text-gray-900 transition-colors duration-200"
               >
                 Aviso Legal
               </Link>
               <Link
+                href="/politica-privacidad"
+                className="inline-flex items-center min-h-[24px] px-2 py-2 text-xs leading-5 text-gray-600 hover:text-gray-900 transition-colors duration-200"
+              >
+                Política de Privacidad
+              </Link>
+              <Link
                 href="/cookies"
-                className="text-xs leading-5 text-gray-600 hover:text-gray-900 transition-colors duration-200"
+                className="inline-flex items-center min-h-[24px] px-2 py-2 text-xs leading-5 text-gray-600 hover:text-gray-900 transition-colors duration-200"
               >
                 Cookies
               </Link>
               <button
                 onClick={showCookiePreferences}
-                className="text-xs leading-5 text-gray-600 hover:text-gray-900 cursor-pointer transition-colors duration-200"
+                aria-label="Abrir configuración de cookies"
+                className="inline-flex items-center min-h-[24px] px-2 py-2 text-xs leading-5 text-gray-600 hover:text-gray-900 cursor-pointer transition-colors duration-200"
               >
                 Configuración de cookies
               </button>
@@ -171,6 +179,7 @@ export default function Footer2() {
           </div>
         </div>
       </div>
+      <KitDigitalBanner />
     </footer>
   )
 }

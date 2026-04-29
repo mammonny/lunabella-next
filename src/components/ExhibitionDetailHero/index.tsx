@@ -64,7 +64,7 @@ export const ExhibitionDetailHero: React.FC<ExhibitionDetailHeroProps> = ({
             {/* Ornamental line + category */}
             <div className="flex items-center gap-4 mb-6 animate-fade-in-up">
               <span className="w-12 h-[2px] bg-gradient-to-r from-[#a58a1b] to-[#c9a93d]" />
-              <span className="text-[#a58a1b] text-[11px] font-medium tracking-[0.35em] uppercase">
+              <span className="text-[#7a6210] text-[11px] font-medium tracking-[0.35em] uppercase">
                 Exposición Canina
               </span>
             </div>
@@ -86,7 +86,7 @@ export const ExhibitionDetailHero: React.FC<ExhibitionDetailHeroProps> = ({
                 <div className="flex items-center gap-3 text-gray-600">
                   <div className="w-10 h-10 bg-[#a58a1b]/10 flex items-center justify-center flex-shrink-0">
                     <svg
-                      className="w-5 h-5 text-[#a58a1b]"
+                      className="w-5 h-5 text-[#7a6210]"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -107,7 +107,7 @@ export const ExhibitionDetailHero: React.FC<ExhibitionDetailHeroProps> = ({
                 <div className="flex items-center gap-3 text-gray-600">
                   <div className="w-10 h-10 bg-[#a58a1b]/10 flex items-center justify-center flex-shrink-0">
                     <svg
-                      className="w-5 h-5 text-[#a58a1b]"
+                      className="w-5 h-5 text-[#7a6210]"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"

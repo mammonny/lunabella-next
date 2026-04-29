@@ -175,7 +175,7 @@ export const PuppyCard: React.FC<PuppyCardProps> = ({
           {/* Price - only for puppies, highlighted with gold */}
           {collectionType === 'cachorros' && typeof price === 'number' && (
             <div className="mt-3.5">
-              <span className="text-[15px] font-medium text-[#a58a1b]">
+              <span className="text-[15px] font-medium text-[#7a6210]">
                 {price.toLocaleString('es-ES')} €
               </span>
             </div>

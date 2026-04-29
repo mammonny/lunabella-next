@@ -36,7 +36,7 @@ function NavLink({ href, children, isActive }: { href: string; children: React.R
     >
       <span
         className={`relative z-10 text-[14px] font-medium capitalize tracking-[0.06em] transition-colors duration-300 ${
-          isActive ? '' : 'group-hover:text-[#a58a1b]'
+          isActive ? '' : 'group-hover:text-[#7a6210]'
         }`}
         style={{ color: isActive ? COLORS.gold : COLORS.charcoal }}
       >

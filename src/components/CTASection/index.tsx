@@ -26,7 +26,7 @@ export default function CTASection({
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center gap-4 mb-8">
             <span className="w-16 h-px bg-[#a58a1b]" />
-            <span className="text-[#a58a1b] text-sm font-medium tracking-[0.25em] uppercase">
+            <span className="text-[#7a6210] text-sm font-medium tracking-[0.25em] uppercase">
               {label}
             </span>
             <span className="w-16 h-px bg-[#a58a1b]" />

@@ -166,7 +166,7 @@ export default async function Page({ params }: Args) {
                     <>
                       <span className="text-gray-300">|</span>
                       <span className="inline-flex items-center gap-1">
-                        <svg className="w-3.5 h-3.5 text-[#a58a1b]" fill="currentColor" viewBox="0 0 20 20">
+                        <svg className="w-3.5 h-3.5 text-[#7a6210]" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                         Pedigree
@@ -200,7 +200,7 @@ export default async function Page({ params }: Args) {
                       key={idx}
                       className="py-3 border-b border-gray-100 group"
                     >
-                      <dt className="text-[10px] text-gray-400 uppercase tracking-[0.15em] mb-1 transition-colors duration-300 group-hover:text-[#a58a1b]">
+                      <dt className="text-[10px] text-gray-400 uppercase tracking-[0.15em] mb-1 transition-colors duration-300 group-hover:text-[#7a6210]">
                         {spec.label}
                       </dt>
                       <dd className="text-gray-900 font-medium text-sm">
@@ -256,7 +256,7 @@ export default async function Page({ params }: Args) {
                         </p>
                         <Link
                           href="/nuestros-goldens"
-                          className="text-[#a58a1b] text-sm hover:underline underline-offset-4"
+                          className="text-[#7a6210] text-sm hover:underline underline-offset-4"
                         >
                           Conoce a nuestros ejemplares
                         </Link>
@@ -271,7 +271,7 @@ export default async function Page({ params }: Args) {
                       {breedingStatus === 'retired' ? (
                         <>
                           <h3 className="font-heading text-xl md:text-2xl text-gray-900 mb-3">
-                            Conoce a nuestros <span className="text-[#a58a1b]">ejemplares</span>
+                            Conoce a nuestros <span className="text-[#7a6210]">ejemplares</span>
                           </h3>
                           <p className="text-gray-600 text-[15px] mb-5 leading-relaxed">
                             {name} está retirado de la cría. Descubre nuestros ejemplares activos o contáctanos para más información.
@@ -280,7 +280,7 @@ export default async function Page({ params }: Args) {
                       ) : (
                         <>
                           <h3 className="font-heading text-xl md:text-2xl text-gray-900 mb-3">
-                            ¿Quieres un cachorro de <span className="text-[#a58a1b]">{name}</span>?
+                            ¿Quieres un cachorro de <span className="text-[#7a6210]">{name}</span>?
                           </h3>
                           <p className="text-gray-600 text-[15px] mb-5 leading-relaxed">
                             Consulta la disponibilidad de cachorros de esta línea o contáctanos para más información.
@@ -321,7 +321,7 @@ export default async function Page({ params }: Args) {
             <div className="container mx-auto px-6 lg:px-12">
               <div className="flex items-center justify-center gap-4 mb-12">
                 <span className="w-12 h-px bg-[#a58a1b]" />
-                <span className="text-[#a58a1b] text-xs font-medium tracking-[0.2em] uppercase">
+                <span className="text-[#7a6210] text-xs font-medium tracking-[0.2em] uppercase">
                   Línea de sangre
                 </span>
                 <span className="w-12 h-px bg-[#a58a1b]" />
@@ -348,7 +348,7 @@ export default async function Page({ params }: Args) {
                       <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#5b8fc9] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                     </div>
                     <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">Padre</p>
-                    <h3 className="font-heading text-xl text-gray-900 group-hover:text-[#a58a1b] transition-colors">
+                    <h3 className="font-heading text-xl text-gray-900 group-hover:text-[#7a6210] transition-colors">
                       {parents.father.name}
                     </h3>
                   </Link>
@@ -370,7 +370,7 @@ export default async function Page({ params }: Args) {
                       <div className="absolute bottom-0 left-0 right-0 h-1 bg-[#d4a5a0] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                     </div>
                     <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">Madre</p>
-                    <h3 className="font-heading text-xl text-gray-900 group-hover:text-[#a58a1b] transition-colors">
+                    <h3 className="font-heading text-xl text-gray-900 group-hover:text-[#7a6210] transition-colors">
                       {parents.mother.name}
                     </h3>
                   </Link>
@@ -385,7 +385,7 @@ export default async function Page({ params }: Args) {
           <div className="container mx-auto px-6 lg:px-12">
             <div className="flex items-center justify-center gap-4 mb-12">
               <span className="w-12 h-px bg-[#a58a1b]" />
-              <span className="text-[#a58a1b] text-xs font-medium tracking-[0.2em] uppercase">
+              <span className="text-[#7a6210] text-xs font-medium tracking-[0.2em] uppercase">
                 Descubre más
               </span>
               <span className="w-12 h-px bg-[#a58a1b]" />

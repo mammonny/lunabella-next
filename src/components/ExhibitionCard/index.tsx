@@ -89,7 +89,7 @@ export const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
             )}
 
             {/* Exhibition Name */}
-            <h3 className="font-heading text-xl lg:text-2xl font-medium text-gray-900 group-hover:text-[#a58a1b] transition-colors duration-500 mb-4 leading-tight line-clamp-2">
+            <h3 className="font-heading text-xl lg:text-2xl font-medium text-gray-900 group-hover:text-[#7a6210] transition-colors duration-500 mb-4 leading-tight line-clamp-2">
               {name}
             </h3>
 
@@ -132,7 +132,7 @@ export const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
                   )
                 })}
                 {awardsCount > 2 && (
-                  <span className="inline-flex items-center gap-1 text-xs text-[#a58a1b] font-medium pt-1">
+                  <span className="inline-flex items-center gap-1 text-xs text-[#7a6210] font-medium pt-1">
                     <span>+{awardsCount - 2} más</span>
                     <svg className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
@@ -143,7 +143,7 @@ export const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
             )}
 
             {/* Hover CTA */}
-            <div className="mt-5 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.2em] text-[#a58a1b] opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-2 group-hover:translate-y-0">
+            <div className="mt-5 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.2em] text-[#7a6210] opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-2 group-hover:translate-y-0">
               <span>Ver detalles</span>
               <svg className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
@@ -181,11 +181,11 @@ export const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
           {/* Content */}
           <div className="flex-1 min-w-0 flex flex-col justify-center">
             <span className="text-[10px] text-gray-400 uppercase tracking-wider mb-1">{formattedDate}</span>
-            <h3 className="font-heading text-base font-medium text-gray-900 group-hover:text-[#a58a1b] transition-colors truncate">
+            <h3 className="font-heading text-base font-medium text-gray-900 group-hover:text-[#7a6210] transition-colors truncate">
               {name}
             </h3>
             {awardsCount > 0 && (
-              <span className="text-xs text-[#a58a1b] mt-1">
+              <span className="text-xs text-[#7a6210] mt-1">
                 {awardsCount} {awardsCount === 1 ? 'premio' : 'premios'}
               </span>
             )}
@@ -233,7 +233,7 @@ export const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
           </span>
 
           {/* Name */}
-          <h3 className="font-heading text-lg md:text-xl font-medium text-gray-900 group-hover:text-[#a58a1b] transition-colors duration-300 mb-2 leading-tight">
+          <h3 className="font-heading text-lg md:text-xl font-medium text-gray-900 group-hover:text-[#7a6210] transition-colors duration-300 mb-2 leading-tight">
             {name}
           </h3>
 
@@ -248,7 +248,7 @@ export const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
                 return (
                   <div key={idx} className="flex items-center gap-2 text-sm text-gray-500">
                     <svg
-                      className="w-3.5 h-3.5 text-[#a58a1b] flex-shrink-0"
+                      className="w-3.5 h-3.5 text-[#7a6210] flex-shrink-0"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2"
@@ -265,7 +265,7 @@ export const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
                 )
               })}
               {awardsCount > 2 && (
-                <span className="text-xs text-[#a58a1b]">+{awardsCount - 2} más...</span>
+                <span className="text-xs text-[#7a6210]">+{awardsCount - 2} más...</span>
               )}
             </div>
           )}

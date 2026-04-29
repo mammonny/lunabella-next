@@ -114,7 +114,7 @@ export default async function Page() {
           {/* Decorative medal icon - floating */}
           <div className="absolute top-1/4 right-[15%] opacity-15 hidden xl:block animate-float">
             <svg
-              className="w-32 h-32 text-[#a58a1b]"
+              className="w-32 h-32 text-[#7a6210]"
               fill="none"
               stroke="currentColor"
               strokeWidth="0.5"
@@ -274,7 +274,7 @@ export default async function Page() {
               <div className="lg:col-span-7">
                 <div className="flex items-center gap-4 mb-6">
                   <span className="w-12 h-px bg-[#a58a1b]" />
-                  <span className="text-[#a58a1b] text-[11px] font-medium tracking-[0.3em] uppercase">
+                  <span className="text-[#7a6210] text-[11px] font-medium tracking-[0.3em] uppercase">
                     Nuestra filosofía
                   </span>
                 </div>
@@ -305,7 +305,7 @@ export default async function Page() {
                   <div className="group p-5 bg-[#faf8f5] hover:bg-[#a58a1b]/5 transition-colors duration-500">
                     <div className="flex items-center gap-3 mb-2">
                       <svg
-                        className="w-5 h-5 text-[#a58a1b]"
+                        className="w-5 h-5 text-[#7a6210]"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="1.5"
@@ -317,7 +317,7 @@ export default async function Page() {
                           d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                         />
                       </svg>
-                      <span className="text-[10px] text-[#a58a1b] uppercase tracking-[0.2em]">
+                      <span className="text-[10px] text-[#7a6210] uppercase tracking-[0.2em]">
                         Estándar FCI
                       </span>
                     </div>
@@ -326,7 +326,7 @@ export default async function Page() {
                   <div className="group p-5 bg-[#faf8f5] hover:bg-[#a58a1b]/5 transition-colors duration-500">
                     <div className="flex items-center gap-3 mb-2">
                       <svg
-                        className="w-5 h-5 text-[#a58a1b]"
+                        className="w-5 h-5 text-[#7a6210]"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="1.5"
@@ -338,7 +338,7 @@ export default async function Page() {
                           d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
                         />
                       </svg>
-                      <span className="text-[10px] text-[#a58a1b] uppercase tracking-[0.2em]">
+                      <span className="text-[10px] text-[#7a6210] uppercase tracking-[0.2em]">
                         Jueces Internacionales
                       </span>
                     </div>
@@ -371,7 +371,7 @@ export default async function Page() {
                 <div className="max-w-md mx-auto">
                   <div className="w-24 h-24 mx-auto mb-8 rounded-full bg-[#a58a1b]/10 flex items-center justify-center">
                     <svg
-                      className="w-12 h-12 text-[#a58a1b]/50"
+                      className="w-12 h-12 text-[#7a6210]/50"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -530,7 +530,7 @@ function ExhibitionsSection({ year, exhibitions, index, isFirst }: ExhibitionsSe
           <div className={cn('lg:col-span-5', !isEven && 'lg:order-2 lg:col-start-8')}>
             <div className="flex items-center gap-4 mb-5">
               <span className="w-14 h-[2px] bg-gradient-to-r from-[#a58a1b] to-[#c9a93d]" />
-              <span className="text-[#a58a1b] text-[11px] font-medium tracking-[0.35em] uppercase">
+              <span className="text-[#7a6210] text-[11px] font-medium tracking-[0.35em] uppercase">
                 Temporada {year}
               </span>
             </div>
