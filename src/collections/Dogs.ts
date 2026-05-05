@@ -2,6 +2,7 @@ import type {
   CollectionAfterChangeHook,
   CollectionAfterDeleteHook,
   CollectionConfig,
+  Where,
 } from 'payload'
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { slugField } from '@/fields/slug'
@@ -11,6 +12,78 @@ import { editorAccess, showForEditors } from '../access/editorAccess'
 import { isAdminOrEditor } from '../access/isAdminOrEditor'
 import { collectionAccess } from '../access/hideFromEditor'
 import type { Ejemplare } from '../payload-types'
+
+const autolinkOrphanAwards: CollectionAfterChangeHook<Ejemplare> = async ({
+  doc,
+  req: { payload, context },
+}) => {
+  if (context.disableRevalidate) return doc
+  if (doc._status !== 'published') return doc
+
+  const candidateNames = [doc.name, doc.apodo].filter(
+    (n): n is string => typeof n === 'string' && n.trim().length > 0,
+  )
+  if (candidateNames.length === 0) return doc
+
+  const where: Where = {
+    or: candidateNames.flatMap((n) => [
+      { 'awards.dogName': { equals: n } },
+      { 'awards.dogName': { like: n } },
+    ]),
+  }
+
+  const orphanExhibitions = await payload.find({
+    collection: 'exposiciones',
+    where,
+    depth: 0,
+    limit: 100,
+  })
+
+  for (const exh of orphanExhibitions.docs) {
+    let mutated = false
+    const newAwards = (exh.awards ?? []).map((award) => {
+      if (award.dog) return award
+      const free = (award.dogName ?? '').trim().toLowerCase()
+      if (!free) return award
+      const matches = candidateNames.some((n) => n.trim().toLowerCase() === free)
+      if (!matches) return award
+      mutated = true
+      return { ...award, dog: doc.id }
+    })
+
+    if (!mutated) continue
+
+    const ambiguousNames = await payload.find({
+      collection: 'ejemplares',
+      where: {
+        and: [
+          { _status: { equals: 'published' } },
+          { name: { in: candidateNames } },
+        ],
+      },
+      depth: 0,
+      limit: 5,
+    })
+    if (ambiguousNames.totalDocs > 1) {
+      payload.logger.warn(
+        `[autolinkOrphanAwards] Multiple Ejemplares match "${candidateNames.join(', ')}", skipping autolink for exhibition "${exh.slug}"`,
+      )
+      continue
+    }
+
+    await payload.update({
+      collection: 'exposiciones',
+      id: exh.id,
+      data: { awards: newAwards },
+      context: { disableRevalidate: true },
+    })
+    payload.logger.info(
+      `[autolinkOrphanAwards] Linked ${candidateNames[0]} into exhibition "${exh.slug}"`,
+    )
+  }
+
+  return doc
+}
 
 const revalidateDog: CollectionAfterChangeHook<Ejemplare> = ({
   doc,
@@ -273,7 +346,7 @@ export const Dogs: CollectionConfig = {
         return data
       },
     ],
-    afterChange: [revalidateDog],
+    afterChange: [revalidateDog, autolinkOrphanAwards],
     afterDelete: [revalidateDogDelete],
   },
   versions: {
