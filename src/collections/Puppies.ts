@@ -1,8 +1,53 @@
-import type { CollectionConfig } from 'payload'
+import type {
+  CollectionAfterChangeHook,
+  CollectionAfterDeleteHook,
+  CollectionConfig,
+} from 'payload'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { slugField } from '@/fields/slug'
 import { authenticatedOrPublished } from '../access/authenticatedOrPublished'
 import { isAdminOrEditor } from '../access/isAdminOrEditor'
 import { collectionAccess } from '../access/hideFromEditor'
+import type { Cachorro } from '../payload-types'
+
+const revalidatePuppy: CollectionAfterChangeHook<Cachorro> = ({
+  doc,
+  previousDoc,
+  req: { payload, context },
+}) => {
+  if (!context.disableRevalidate) {
+    const indexPath = '/cachorros'
+
+    if (doc._status === 'published') {
+      const path = `/cachorros/${doc.slug}`
+      payload.logger.info(`Revalidating puppy at path: ${path}`)
+      revalidatePath(path)
+      revalidatePath(indexPath)
+      revalidateTag('puppies-sitemap')
+    }
+
+    if (previousDoc?._status === 'published' && doc._status !== 'published') {
+      const oldPath = `/cachorros/${previousDoc.slug}`
+      payload.logger.info(`Revalidating old puppy at path: ${oldPath}`)
+      revalidatePath(oldPath)
+      revalidatePath(indexPath)
+      revalidateTag('puppies-sitemap')
+    }
+  }
+  return doc
+}
+
+const revalidatePuppyDelete: CollectionAfterDeleteHook<Cachorro> = ({
+  doc,
+  req: { context },
+}) => {
+  if (!context.disableRevalidate) {
+    revalidatePath(`/cachorros/${doc?.slug}`)
+    revalidatePath('/cachorros')
+    revalidateTag('puppies-sitemap')
+  }
+  return doc
+}
 
 export const Puppies: CollectionConfig = {
   slug: 'cachorros',
@@ -242,6 +287,8 @@ export const Puppies: CollectionConfig = {
         return data
       },
     ],
+    afterChange: [revalidatePuppy],
+    afterDelete: [revalidatePuppyDelete],
   },
   versions: {
     drafts: {

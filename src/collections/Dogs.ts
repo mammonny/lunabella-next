@@ -1,10 +1,55 @@
-import type { CollectionConfig } from 'payload'
+import type {
+  CollectionAfterChangeHook,
+  CollectionAfterDeleteHook,
+  CollectionConfig,
+} from 'payload'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { slugField } from '@/fields/slug'
 import { anyone } from '../access/anyone'
 import { authenticatedOrPublished } from '../access/authenticatedOrPublished'
 import { editorAccess, showForEditors } from '../access/editorAccess'
 import { isAdminOrEditor } from '../access/isAdminOrEditor'
 import { collectionAccess } from '../access/hideFromEditor'
+import type { Ejemplare } from '../payload-types'
+
+const revalidateDog: CollectionAfterChangeHook<Ejemplare> = ({
+  doc,
+  previousDoc,
+  req: { payload, context },
+}) => {
+  if (!context.disableRevalidate) {
+    const indexPath = '/nuestros-goldens'
+
+    if (doc._status === 'published') {
+      const path = `/nuestros-goldens/${doc.slug}`
+      payload.logger.info(`Revalidating dog at path: ${path}`)
+      revalidatePath(path)
+      revalidatePath(indexPath)
+      revalidateTag('dogs-sitemap')
+    }
+
+    if (previousDoc?._status === 'published' && doc._status !== 'published') {
+      const oldPath = `/nuestros-goldens/${previousDoc.slug}`
+      payload.logger.info(`Revalidating old dog at path: ${oldPath}`)
+      revalidatePath(oldPath)
+      revalidatePath(indexPath)
+      revalidateTag('dogs-sitemap')
+    }
+  }
+  return doc
+}
+
+const revalidateDogDelete: CollectionAfterDeleteHook<Ejemplare> = ({
+  doc,
+  req: { context },
+}) => {
+  if (!context.disableRevalidate) {
+    revalidatePath(`/nuestros-goldens/${doc?.slug}`)
+    revalidatePath('/nuestros-goldens')
+    revalidateTag('dogs-sitemap')
+  }
+  return doc
+}
 
 export const Dogs: CollectionConfig = {
   slug: 'ejemplares',
@@ -229,6 +274,8 @@ export const Dogs: CollectionConfig = {
         return data
       },
     ],
+    afterChange: [revalidateDog],
+    afterDelete: [revalidateDogDelete],
   },
   versions: {
     drafts: {

@@ -1,8 +1,53 @@
-import type { CollectionConfig } from 'payload'
+import type {
+  CollectionAfterChangeHook,
+  CollectionAfterDeleteHook,
+  CollectionConfig,
+} from 'payload'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { slugField } from '@/fields/slug'
 import { authenticatedOrPublished } from '../access/authenticatedOrPublished'
 import { isAdminOrEditor } from '../access/isAdminOrEditor'
 import { collectionAccess } from '../access/hideFromEditor'
+import type { Exposicione } from '../payload-types'
+
+const revalidateExhibition: CollectionAfterChangeHook<Exposicione> = ({
+  doc,
+  previousDoc,
+  req: { payload, context },
+}) => {
+  if (!context.disableRevalidate) {
+    const indexPath = '/exposiciones'
+
+    if (doc._status === 'published') {
+      const path = `/exposiciones/${doc.slug}`
+      payload.logger.info(`Revalidating exhibition at path: ${path}`)
+      revalidatePath(path)
+      revalidatePath(indexPath)
+      revalidateTag('exhibitions-sitemap')
+    }
+
+    if (previousDoc?._status === 'published' && doc._status !== 'published') {
+      const oldPath = `/exposiciones/${previousDoc.slug}`
+      payload.logger.info(`Revalidating old exhibition at path: ${oldPath}`)
+      revalidatePath(oldPath)
+      revalidatePath(indexPath)
+      revalidateTag('exhibitions-sitemap')
+    }
+  }
+  return doc
+}
+
+const revalidateExhibitionDelete: CollectionAfterDeleteHook<Exposicione> = ({
+  doc,
+  req: { context },
+}) => {
+  if (!context.disableRevalidate) {
+    revalidatePath(`/exposiciones/${doc?.slug}`)
+    revalidatePath('/exposiciones')
+    revalidateTag('exhibitions-sitemap')
+  }
+  return doc
+}
 
 export const Exhibitions: CollectionConfig = {
   slug: 'exposiciones',
@@ -146,6 +191,8 @@ export const Exhibitions: CollectionConfig = {
         return data
       },
     ],
+    afterChange: [revalidateExhibition],
+    afterDelete: [revalidateExhibitionDelete],
   },
   versions: {
     drafts: {
