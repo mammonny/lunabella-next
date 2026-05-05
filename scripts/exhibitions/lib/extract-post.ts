@@ -41,7 +41,7 @@ function slugify(s: string): string {
 function parseSpanishOrEnglishDate(text: string): string | null {
   const cleaned = text.replace(/\s+/g, ' ').trim()
   const m = cleaned.match(/([A-Za-zÁ-ý]{3,})\s+(\d{1,2}),?\s+(\d{4})/)
-  if (m) {
+  if (m && m[1] && m[2] && m[3]) {
     const monthKey = m[1].toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '')
     const month = MONTHS_ES[monthKey] ?? new Date(`${m[1]} 1, 2000`).getMonth()
     const day = parseInt(m[2], 10)
@@ -51,7 +51,7 @@ function parseSpanishOrEnglishDate(text: string): string | null {
     }
   }
   const numeric = cleaned.match(/(\d{1,2})[/-](\d{1,2})[/-](\d{2,4})/)
-  if (numeric) {
+  if (numeric && numeric[1] && numeric[2] && numeric[3]) {
     const day = parseInt(numeric[1], 10)
     const month = parseInt(numeric[2], 10) - 1
     let year = parseInt(numeric[3], 10)
@@ -79,7 +79,7 @@ export function extractPost(html: string, sourceUrl: string): ExtractedPost {
   if (!title) {
     const titleTag = $('title').text().trim()
     const parts = titleTag.split(/[»>|]/).map((p) => p.trim()).filter(Boolean)
-    title = parts[parts.length - 1] ?? titleTag
+    title = (parts.length > 0 ? parts[parts.length - 1] : undefined) ?? titleTag
   }
 
   const $content = $post.find('.entry-content').first().length
@@ -113,7 +113,7 @@ export function extractPost(html: string, sourceUrl: string): ExtractedPost {
     null
 
   const judgeMatch = contentHtml.match(/juez[:\s]+([^\n.<]{2,80})/i)
-  const juez = judgeMatch ? judgeMatch[1].trim() : null
+  const juez = judgeMatch && judgeMatch[1] ? judgeMatch[1].trim() : null
 
   const galleryUrls: string[] = []
   const seen = new Set<string>()

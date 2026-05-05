@@ -25,6 +25,7 @@
     "resolveJsonModule": true,
     "sourceMap": true,
     "isolatedModules": true,
+    "allowImportingTsExtensions": true,
     "plugins": [
       {
         "name": "next"
