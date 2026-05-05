@@ -97,10 +97,11 @@ export const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
             {awardsCount > 0 && awards && (
               <div className="pt-4 border-t border-[#ece8e1] space-y-2.5">
                 {awards.slice(0, 2).map((award, idx) => {
+                  const fallbackName = (award as { dogName?: string }).dogName?.trim()
                   const dogName =
                     typeof award.dog === 'object' && award.dog !== null
                       ? award.dog.name
-                      : (award as { dogName?: string }).dogName?.trim() || 'Ejemplar'
+                      : (fallbackName || 'Ejemplar')
 
                   // Get position color
                   const positionColors: Record<string, string> = {
@@ -241,10 +242,11 @@ export const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
           {awardsCount > 0 && awards && (
             <div className="mt-3 space-y-1">
               {awards.slice(0, 2).map((award, idx) => {
+                const fallbackName = (award as { dogName?: string }).dogName?.trim()
                 const dogName =
                   typeof award.dog === 'object' && award.dog !== null
                     ? award.dog.name
-                    : (award as { dogName?: string }).dogName?.trim() || 'Ejemplar'
+                    : (fallbackName || 'Ejemplar')
                 return (
                   <div key={idx} className="flex items-center gap-2 text-sm text-gray-500">
                     <svg
