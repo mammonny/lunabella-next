@@ -64,6 +64,7 @@ export type SupportedTimezones =
 export interface Config {
   auth: {
     usuarios: UsuarioAuthOperations;
+    'payload-mcp-api-keys': PayloadMcpApiKeyAuthOperations;
   };
   blocks: {};
   collections: {
@@ -81,6 +82,8 @@ export interface Config {
     forms: Form;
     'form-submissions': FormSubmission;
     search: Search;
+    'payload-mcp-api-keys': PayloadMcpApiKey;
+    'payload-kv': PayloadKv;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -102,6 +105,8 @@ export interface Config {
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     search: SearchSelect<false> | SearchSelect<true>;
+    'payload-mcp-api-keys': PayloadMcpApiKeysSelect<false> | PayloadMcpApiKeysSelect<true>;
+    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -110,6 +115,7 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
+  fallbackLocale: null;
   globals: {
     header: Header;
     footer: Footer;
@@ -121,9 +127,10 @@ export interface Config {
     'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
   };
   locale: null;
-  user: Usuario & {
-    collection: 'usuarios';
+  widgets: {
+    collections: CollectionsWidget;
   };
+  user: Usuario | PayloadMcpApiKey;
   jobs: {
     tasks: {
       schedulePublish: TaskSchedulePublish;
@@ -136,6 +143,24 @@ export interface Config {
   };
 }
 export interface UsuarioAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
+}
+export interface PayloadMcpApiKeyAuthOperations {
   forgotPassword: {
     email: string;
     password: string;
@@ -166,7 +191,7 @@ export interface Pagina {
       root: {
         type: string;
         children: {
-          type: string;
+          type: any;
           version: number;
           [k: string]: unknown;
         }[];
@@ -231,7 +256,7 @@ export interface Publicacione {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -277,7 +302,7 @@ export interface Media {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -399,7 +424,15 @@ export interface Usuario {
   hash?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
   password?: string | null;
+  collection: 'usuarios';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -410,7 +443,7 @@ export interface CallToActionBlock {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -461,7 +494,7 @@ export interface ContentBlock {
           root: {
             type: string;
             children: {
-              type: string;
+              type: any;
               version: number;
               [k: string]: unknown;
             }[];
@@ -518,7 +551,7 @@ export interface ArchiveBlock {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -554,7 +587,7 @@ export interface FormBlock {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -611,7 +644,7 @@ export interface Form {
               root: {
                 type: string;
                 children: {
-                  type: string;
+                  type: any;
                   version: number;
                   [k: string]: unknown;
                 }[];
@@ -694,7 +727,7 @@ export interface Form {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -726,7 +759,7 @@ export interface Form {
           root: {
             type: string;
             children: {
-              type: string;
+              type: any;
               version: number;
               [k: string]: unknown;
             }[];
@@ -754,7 +787,7 @@ export interface Raza {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -800,7 +833,7 @@ export interface Raza {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -817,7 +850,7 @@ export interface Raza {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -859,7 +892,7 @@ export interface Ejemplare {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -927,7 +960,7 @@ export interface Cachorro {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -987,7 +1020,7 @@ export interface Camada {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -1016,7 +1049,7 @@ export interface Exposicione {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];
@@ -1126,6 +1159,260 @@ export interface Search {
     | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * API keys control which collections, resources, tools, and prompts MCP clients can access
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-mcp-api-keys".
+ */
+export interface PayloadMcpApiKey {
+  id: number;
+  /**
+   * The user that the API key is associated with.
+   */
+  user: number | Usuario;
+  /**
+   * A useful label for the API key.
+   */
+  label?: string | null;
+  /**
+   * The purpose of the API key.
+   */
+  description?: string | null;
+  paginas?: {
+    /**
+     * Allow clients to find paginas.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create paginas.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update paginas.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete paginas.
+     */
+    delete?: boolean | null;
+  };
+  publicaciones?: {
+    /**
+     * Allow clients to find publicaciones.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create publicaciones.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update publicaciones.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete publicaciones.
+     */
+    delete?: boolean | null;
+  };
+  razas?: {
+    /**
+     * Allow clients to find razas.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create razas.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update razas.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete razas.
+     */
+    delete?: boolean | null;
+  };
+  ejemplares?: {
+    /**
+     * Allow clients to find ejemplares.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create ejemplares.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update ejemplares.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete ejemplares.
+     */
+    delete?: boolean | null;
+  };
+  cachorros?: {
+    /**
+     * Allow clients to find cachorros.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create cachorros.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update cachorros.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete cachorros.
+     */
+    delete?: boolean | null;
+  };
+  camadas?: {
+    /**
+     * Allow clients to find camadas.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create camadas.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update camadas.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete camadas.
+     */
+    delete?: boolean | null;
+  };
+  exposiciones?: {
+    /**
+     * Allow clients to find exposiciones.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create exposiciones.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update exposiciones.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete exposiciones.
+     */
+    delete?: boolean | null;
+  };
+  media?: {
+    /**
+     * Allow clients to find media.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create media.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update media.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete media.
+     */
+    delete?: boolean | null;
+  };
+  categorias?: {
+    /**
+     * Allow clients to find categorias.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create categorias.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update categorias.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete categorias.
+     */
+    delete?: boolean | null;
+  };
+  usuarios?: {
+    /**
+     * Allow clients to find usuarios.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to create usuarios.
+     */
+    create?: boolean | null;
+    /**
+     * Allow clients to update usuarios.
+     */
+    update?: boolean | null;
+    /**
+     * Allow clients to delete usuarios.
+     */
+    delete?: boolean | null;
+  };
+  header?: {
+    /**
+     * Allow clients to find header global.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to update header global.
+     */
+    update?: boolean | null;
+  };
+  footer?: {
+    /**
+     * Allow clients to find footer global.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to update footer global.
+     */
+    update?: boolean | null;
+  };
+  siteSettings?: {
+    /**
+     * Allow clients to find site-settings global.
+     */
+    find?: boolean | null;
+    /**
+     * Allow clients to update site-settings global.
+     */
+    update?: boolean | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  enableAPIKey?: boolean | null;
+  apiKey?: string | null;
+  apiKeyIndex?: string | null;
+  collection: 'payload-mcp-api-keys';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-kv".
+ */
+export interface PayloadKv {
+  id: number;
+  key: string;
+  data:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1283,14 +1570,19 @@ export interface PayloadLockedDocument {
         value: number | Search;
       } | null)
     | ({
-        relationTo: 'payload-jobs';
-        value: number | PayloadJob;
+        relationTo: 'payload-mcp-api-keys';
+        value: number | PayloadMcpApiKey;
       } | null);
   globalSlug?: string | null;
-  user: {
-    relationTo: 'usuarios';
-    value: number | Usuario;
-  };
+  user:
+    | {
+        relationTo: 'usuarios';
+        value: number | Usuario;
+      }
+    | {
+        relationTo: 'payload-mcp-api-keys';
+        value: number | PayloadMcpApiKey;
+      };
   updatedAt: string;
   createdAt: string;
 }
@@ -1300,10 +1592,15 @@ export interface PayloadLockedDocument {
  */
 export interface PayloadPreference {
   id: number;
-  user: {
-    relationTo: 'usuarios';
-    value: number | Usuario;
-  };
+  user:
+    | {
+        relationTo: 'usuarios';
+        value: number | Usuario;
+      }
+    | {
+        relationTo: 'payload-mcp-api-keys';
+        value: number | PayloadMcpApiKey;
+      };
   key?: string | null;
   value?:
     | {
@@ -1821,6 +2118,13 @@ export interface UsuariosSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2012,6 +2316,126 @@ export interface SearchSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-mcp-api-keys_select".
+ */
+export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
+  user?: T;
+  label?: T;
+  description?: T;
+  paginas?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  publicaciones?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  razas?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  ejemplares?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  cachorros?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  camadas?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  exposiciones?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  media?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  categorias?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  usuarios?:
+    | T
+    | {
+        find?: T;
+        create?: T;
+        update?: T;
+        delete?: T;
+      };
+  header?:
+    | T
+    | {
+        find?: T;
+        update?: T;
+      };
+  footer?:
+    | T
+    | {
+        find?: T;
+        update?: T;
+      };
+  siteSettings?:
+    | T
+    | {
+        find?: T;
+        update?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  enableAPIKey?: T;
+  apiKey?: T;
+  apiKeyIndex?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-kv_select".
+ */
+export interface PayloadKvSelect<T extends boolean = true> {
+  key?: T;
+  data?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2210,6 +2634,16 @@ export interface SiteSettingsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "collections_widget".
+ */
+export interface CollectionsWidget {
+  data?: {
+    [k: string]: unknown;
+  };
+  width: 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TaskSchedulePublish".
  */
 export interface TaskSchedulePublish {
@@ -2240,7 +2674,7 @@ export interface BannerBlock {
     root: {
       type: string;
       children: {
-        type: string;
+        type: any;
         version: number;
         [k: string]: unknown;
       }[];

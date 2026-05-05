@@ -1,5 +1,6 @@
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
+import { mcpPlugin } from '@payloadcms/plugin-mcp'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
@@ -132,4 +133,23 @@ export const plugins: Plugin[] = [
     },
   }),
   payloadCloudPlugin(),
+  mcpPlugin({
+    collections: {
+      paginas: { description: 'Páginas del sitio (layout builder).', enabled: true },
+      publicaciones: { description: 'Entradas del blog.', enabled: true },
+      razas: { description: 'Razas caninas.', enabled: true },
+      ejemplares: { description: 'Ejemplares adultos reproductores.', enabled: true },
+      cachorros: { description: 'Cachorros disponibles.', enabled: true },
+      camadas: { description: 'Camadas que agrupan cachorros.', enabled: true },
+      exposiciones: { description: 'Exposiciones caninas.', enabled: true },
+      media: { description: 'Archivos e imágenes subidos.', enabled: true },
+      categorias: { description: 'Categorías de blog (anidadas).', enabled: true },
+      usuarios: { description: 'Usuarios admin.', enabled: true },
+    },
+    globals: {
+      header: { description: 'Configuración de cabecera del sitio.', enabled: true },
+      footer: { description: 'Configuración del pie del sitio.', enabled: true },
+      'site-settings': { description: 'Ajustes generales del sitio.', enabled: true },
+    },
+  }),
 ]
