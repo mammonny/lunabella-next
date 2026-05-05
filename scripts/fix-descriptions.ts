@@ -8,13 +8,21 @@ import { htmlToLexical } from './exhibitions/lib/html-to-lexical.ts'
 const EXHIBITIONS_JSON = 'tmp/exhibitions-import.json'
 const DOGS_JSON = 'tmp/dogs-import.json'
 
+function stripImagesAndEmptyAnchors($: ReturnType<typeof loadCheerio>) {
+  $('img').remove()
+  $('a').each((_, el) => {
+    const $el = $(el)
+    if ($el.find('img').length === 0 && $el.text().trim().length === 0) {
+      $el.remove()
+    }
+  })
+}
+
 function cleanDogContent(contentHtml: string, name: string, apodo: string | null): string {
   const $ = loadCheerio(contentHtml)
-  const target$ = $.root().children().length ? $.root() : $('body')
-  void target$
+  stripImagesAndEmptyAnchors($)
   $('h1').each((_, el) => {
     const $el = $(el)
-    if ($el.find('img').length > 0) return
     const text = $el.text().trim().replace(/\s+/g, ' ')
     if (!text) {
       $el.remove()
@@ -32,14 +40,21 @@ function cleanDogContent(contentHtml: string, name: string, apodo: string | null
       $el.remove()
     }
   })
+  // Remove now-empty paragraphs and headings left behind by the image strip
+  $('p, h1, h2, h3, h4, h5, h6').each((_, el) => {
+    const $el = $(el)
+    if ($el.text().trim().length === 0 && $el.find('br').length === 0) {
+      $el.remove()
+    }
+  })
   return $.root().html() ?? contentHtml
 }
 
 function cleanExhibitionContent(contentHtml: string): string {
   const $ = loadCheerio(contentHtml)
+  stripImagesAndEmptyAnchors($)
   $('h3').each((_, el) => {
     const $el = $(el)
-    if ($el.find('img').length > 0) return
     const text = $el.text().trim().replace(/\s+/g, ' ')
     if (!text) {
       $el.remove()
@@ -54,6 +69,12 @@ function cleanExhibitionContent(contentHtml: string): string {
       return
     }
     if (/^Exposici[oó]n\s+(Nacional|Internacional)/i.test(text)) {
+      $el.remove()
+    }
+  })
+  $('p, h1, h2, h3, h4, h5, h6').each((_, el) => {
+    const $el = $(el)
+    if ($el.text().trim().length === 0 && $el.find('br').length === 0) {
       $el.remove()
     }
   })
