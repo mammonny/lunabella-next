@@ -140,13 +140,38 @@ export const Exhibitions: CollectionConfig = {
               name: 'awards',
               type: 'array',
               label: 'Premios Obtenidos',
+              validate: ((value: unknown) => {
+                if (!Array.isArray(value)) return true
+                for (let i = 0; i < value.length; i++) {
+                  const row = value[i] as { dog?: unknown; dogName?: string } | undefined
+                  const hasDog = !!row?.dog
+                  const hasDogName = typeof row?.dogName === 'string' && row.dogName.trim().length > 0
+                  if (!hasDog && !hasDogName) {
+                    return `Fila ${i + 1}: indica un Ejemplar o un Nombre del perro (texto libre).`
+                  }
+                }
+                return true
+              }) as any,
               fields: [
                 {
                   name: 'dog',
                   type: 'relationship',
                   relationTo: 'ejemplares',
-                  required: true,
                   label: 'Ejemplar',
+                  admin: {
+                    description:
+                      'Selecciona el Ejemplar premiado. Déjalo vacío si el perro no está en el sistema y usa el campo de texto.',
+                  },
+                },
+                {
+                  name: 'dogName',
+                  type: 'text',
+                  label: 'Nombre del perro (texto libre)',
+                  admin: {
+                    description:
+                      'Usar cuando el Ejemplar no esté creado en el sistema. Si más adelante se crea un Ejemplar con este nombre, se enlazará automáticamente.',
+                    condition: (_data, siblingData) => !siblingData?.dog,
+                  },
                 },
                 {
                   name: 'title',
