@@ -130,7 +130,6 @@ export const Dogs: CollectionConfig = {
             {
               name: 'birthDate',
               type: 'date',
-              required: true,
               label: 'Fecha de Nacimiento',
             },
             {

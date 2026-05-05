@@ -110,6 +110,11 @@ export const Exhibitions: CollectionConfig = {
               label: 'Ubicacion',
             },
             {
+              name: 'juez',
+              type: 'text',
+              label: 'Juez',
+            },
+            {
               name: 'gallery',
               type: 'array',
               label: 'Galeria de Imagenes',

@@ -854,7 +854,7 @@ export interface Ejemplare {
   breed: number | Raza;
   breedingStatus: 'active' | 'retired' | 'deceased';
   gender: 'male' | 'female';
-  birthDate: string;
+  birthDate?: string | null;
   description?: {
     root: {
       type: string;
@@ -1028,6 +1028,7 @@ export interface Exposicione {
     [k: string]: unknown;
   };
   location?: string | null;
+  juez?: string | null;
   gallery?:
     | {
         image: number | Media;
@@ -1668,6 +1669,7 @@ export interface ExposicionesSelect<T extends boolean = true> {
   mainImage?: T;
   description?: T;
   location?: T;
+  juez?: T;
   gallery?:
     | T
     | {

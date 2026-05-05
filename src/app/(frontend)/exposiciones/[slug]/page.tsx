@@ -56,7 +56,7 @@ export default async function Page({ params }: Args) {
       return notFound()
     }
 
-    const { name, date, description, mainImage, gallery, awards, location } = exhibition
+    const { name, date, description, mainImage, gallery, awards, location, juez } = exhibition
 
     const formattedDate = date
       ? new Date(date).toLocaleDateString('es-ES', {
@@ -175,6 +175,20 @@ export default async function Page({ params }: Args) {
                           <div>
                             <dt className="text-[10px] text-gray-400 uppercase tracking-[0.2em] mb-1">Ubicación</dt>
                             <dd className="text-gray-900 font-medium">{location}</dd>
+                          </div>
+                        </div>
+                      )}
+
+                      {juez && (
+                        <div className="flex items-start gap-4">
+                          <div className="w-12 h-12 bg-[#a58a1b]/10 flex items-center justify-center flex-shrink-0">
+                            <svg className="w-5 h-5 text-[#7a6210]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                          </div>
+                          <div>
+                            <dt className="text-[10px] text-gray-400 uppercase tracking-[0.2em] mb-1">Juez</dt>
+                            <dd className="text-gray-900 font-medium">{juez}</dd>
                           </div>
                         </div>
                       )}
