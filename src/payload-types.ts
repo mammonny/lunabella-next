@@ -1071,7 +1071,14 @@ export interface Exposicione {
     | null;
   awards?:
     | {
-        dog: number | Ejemplare;
+        /**
+         * Selecciona el Ejemplar premiado. Déjalo vacío si el perro no está en el sistema y usa el campo de texto.
+         */
+        dog?: (number | null) | Ejemplare;
+        /**
+         * Usar cuando el Ejemplar no esté creado en el sistema. Si más adelante se crea un Ejemplar con este nombre, se enlazará automáticamente.
+         */
+        dogName?: string | null;
         /**
          * Ej: Mejor de Raza, CAC, CACIB, etc.
          */
@@ -1978,6 +1985,7 @@ export interface ExposicionesSelect<T extends boolean = true> {
     | T
     | {
         dog?: T;
+        dogName?: T;
         title?: T;
         position?: T;
         id?: T;
