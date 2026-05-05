@@ -100,7 +100,7 @@ export const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
                   const dogName =
                     typeof award.dog === 'object' && award.dog !== null
                       ? award.dog.name
-                      : 'Ejemplar'
+                      : (award as { dogName?: string }).dogName?.trim() || 'Ejemplar'
 
                   // Get position color
                   const positionColors: Record<string, string> = {
@@ -244,7 +244,7 @@ export const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
                 const dogName =
                   typeof award.dog === 'object' && award.dog !== null
                     ? award.dog.name
-                    : 'Ejemplar'
+                    : (award as { dogName?: string }).dogName?.trim() || 'Ejemplar'
                 return (
                   <div key={idx} className="flex items-center gap-2 text-sm text-gray-500">
                     <svg

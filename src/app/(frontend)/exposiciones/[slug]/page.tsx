@@ -429,8 +429,9 @@ export default async function Page({ params }: Args) {
 // Podium Card - Dark theme for awards section
 function PodiumCard({ award, position }: { award: any; position: 'first' | 'second' | 'third' }) {
   const dog = award.dog as Ejemplare | null
+  const fallbackName = (award as { dogName?: string }).dogName?.trim()
   const dogSlug = dog && typeof dog === 'object' ? dog.slug : null
-  const dogName = dog && typeof dog === 'object' ? dog.name : 'Ejemplar'
+  const dogName = dog && typeof dog === 'object' ? dog.name : (fallbackName || 'Ejemplar')
   const dogImage = dog && typeof dog === 'object' ? dog.mainImage : null
 
   const positionConfig = {
@@ -537,8 +538,9 @@ function PodiumCard({ award, position }: { award: any; position: 'first' | 'seco
 // Compact Award Card - Dark theme
 function AwardCardCompact({ award }: { award: any }) {
   const dog = award.dog as Ejemplare | null
+  const fallbackName = (award as { dogName?: string }).dogName?.trim()
   const dogSlug = dog && typeof dog === 'object' ? dog.slug : null
-  const dogName = dog && typeof dog === 'object' ? dog.name : 'Ejemplar'
+  const dogName = dog && typeof dog === 'object' ? dog.name : (fallbackName || 'Ejemplar')
   const dogImage = dog && typeof dog === 'object' ? dog.mainImage : null
 
   const CardContent = () => (
