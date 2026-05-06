@@ -32,6 +32,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'lh3.googleusercontent.com',
       },
+      // Vercel Blob storage (public bucket)
+      {
+        protocol: 'https',
+        hostname: '**.public.blob.vercel-storage.com',
+      },
     ],
   },
   reactStrictMode: true,
