@@ -12,6 +12,9 @@ import ScrollProgress from '@/components/ScrollProgress'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import React, { cache } from 'react'
+import { parseAward, shortAccolade, type ParsedAward } from '@/utilities/parseAward'
+
+type ParsedEntry = { award: any; parsed: ParsedAward }
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -66,12 +69,42 @@ export default async function Page({ params }: Args) {
         })
       : null
 
-    // Separate awards by position
-    const firstPlaceAwards = awards?.filter((a: any) => a.position === 'first') || []
-    const secondPlaceAwards = awards?.filter((a: any) => a.position === 'second') || []
-    const thirdPlaceAwards = awards?.filter((a: any) => a.position === 'third') || []
-    const specialAwards = awards?.filter((a: any) => a.position === 'special') || []
-    const otherAwards = awards?.filter((a: any) => a.position === 'other' || !a.position) || []
+    // Parse and bucket awards by quality grade (EXC/MB/...) using award.title
+    const parsedEntries: ParsedEntry[] = (awards ?? []).map((award: any) => ({
+      award,
+      parsed: parseAward(award?.title),
+    }))
+
+    const excAwards = parsedEntries.filter((e) => e.parsed.grade === 'EXC')
+    const puppyAwards = parsedEntries.filter((e) => e.parsed.grade === 'MB')
+
+    const byPos = (n: 1 | 2 | 3) => (e: ParsedEntry) => e.parsed.position === n
+    const excGold = excAwards.filter(byPos(1))
+    const excSilver = excAwards.filter(byPos(2))
+    const excBronze = excAwards.filter(byPos(3))
+    const excOthers = excAwards.filter(
+      (e) => e.parsed.position == null || e.parsed.position === 4,
+    )
+
+    const puppyGold = puppyAwards.filter(byPos(1))
+    const puppyOthers = puppyAwards.filter((e) => e.parsed.position !== 1)
+
+    // Aggregate special accolades across all awards (BIS, BOB, BOG, ...)
+    const specialBadges: { accolade: string; dogName: string; dogSlug: string | null }[] = []
+    const seenBadge = new Set<string>()
+    for (const { award, parsed } of parsedEntries) {
+      const dog = award?.dog as Ejemplare | null
+      const fallbackName = (award as { dogName?: string })?.dogName?.trim()
+      const dogName =
+        dog && typeof dog === 'object' ? dog.name ?? 'Ejemplar' : fallbackName || 'Ejemplar'
+      const dogSlug = dog && typeof dog === 'object' ? dog.slug ?? null : null
+      for (const acc of parsed.accolades) {
+        const key = `${dogName}|${acc.toLowerCase()}`
+        if (seenBadge.has(key)) continue
+        seenBadge.add(key)
+        specialBadges.push({ accolade: acc, dogName, dogSlug })
+      }
+    }
 
     return (
       <>
@@ -271,89 +304,145 @@ export default async function Page({ params }: Args) {
                 <div className="flex flex-wrap justify-center gap-8 md:gap-12 mb-16">
                   <div className="flex items-center gap-4 group">
                     <div className="w-14 h-14 bg-gradient-to-br from-[#ffd700] to-[#daa520] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-white font-heading font-bold text-2xl">{firstPlaceAwards.length}</span>
+                      <span className="text-white font-heading font-bold text-2xl">{excGold.length}</span>
                     </div>
                     <span className="text-white/70 text-sm uppercase tracking-wide">Oro</span>
                   </div>
                   <div className="flex items-center gap-4 group">
                     <div className="w-14 h-14 bg-gradient-to-br from-[#e8e8e8] to-[#a8a8a8] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-white font-heading font-bold text-2xl">{secondPlaceAwards.length}</span>
+                      <span className="text-white font-heading font-bold text-2xl">{excSilver.length}</span>
                     </div>
                     <span className="text-white/70 text-sm uppercase tracking-wide">Plata</span>
                   </div>
                   <div className="flex items-center gap-4 group">
                     <div className="w-14 h-14 bg-gradient-to-br from-[#cd7f32] to-[#a0522d] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-white font-heading font-bold text-2xl">{thirdPlaceAwards.length}</span>
+                      <span className="text-white font-heading font-bold text-2xl">{excBronze.length}</span>
                     </div>
                     <span className="text-white/70 text-sm uppercase tracking-wide">Bronce</span>
                   </div>
-                  {(specialAwards.length + otherAwards.length) > 0 && (
+                  {puppyAwards.length > 0 && (
+                    <div className="flex items-center gap-4 group">
+                      <div className="w-14 h-14 bg-gradient-to-br from-[#f3d6b3] to-[#c9a07a] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <span className="text-white font-heading font-bold text-2xl">{puppyAwards.length}</span>
+                      </div>
+                      <span className="text-white/70 text-sm uppercase tracking-wide">Cachorros</span>
+                    </div>
+                  )}
+                  {specialBadges.length > 0 && (
                     <div className="flex items-center gap-4 group">
                       <div className="w-14 h-14 bg-gradient-to-br from-[#a58a1b] to-[#8a7316] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <span className="text-white font-heading font-bold text-2xl">{specialAwards.length + otherAwards.length}</span>
+                        <span className="text-white font-heading font-bold text-2xl">{specialBadges.length}</span>
                       </div>
-                      <span className="text-white/70 text-sm uppercase tracking-wide">Otros</span>
+                      <span className="text-white/70 text-sm uppercase tracking-wide">Insignias</span>
                     </div>
                   )}
                 </div>
 
-                {/* Podium Grid */}
-                {(firstPlaceAwards.length > 0 || secondPlaceAwards.length > 0 || thirdPlaceAwards.length > 0) && (
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-12">
-                    {/* Second Place - Left */}
-                    <div className="md:order-1 md:mt-8">
-                      {secondPlaceAwards.map((award: any, idx: number) => (
-                        <div key={idx} className={idx > 0 ? 'mt-4' : ''}>
-                          {idx === 0 ? (
-                            <PodiumCard award={award} position="second" />
-                          ) : (
-                            <AwardCardCompact award={award} />
-                          )}
-                        </div>
-                      ))}
+                {/* Podio EXC */}
+                {(excGold.length > 0 || excSilver.length > 0 || excBronze.length > 0) && (
+                  <div className="mb-16">
+                    <div className="flex items-center gap-4 mb-8">
+                      <span className="w-10 h-[1px] bg-[#a58a1b]/50" />
+                      <span className="text-[#c9a93d] text-[11px] font-medium tracking-[0.3em] uppercase">
+                        Medallas · Calificación Excelente
+                      </span>
+                      <span className="flex-1 h-[1px] bg-white/5" />
                     </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                      {/* Plata - Left */}
+                      <div className="md:order-1 md:mt-8">
+                        {excSilver.map((entry, idx) => (
+                          <div key={idx} className={idx > 0 ? 'mt-4' : ''}>
+                            {idx === 0 ? (
+                              <PodiumCard entry={entry} position="second" tier="exc" />
+                            ) : (
+                              <AwardCardCompact entry={entry} />
+                            )}
+                          </div>
+                        ))}
+                      </div>
 
-                    {/* First Place - Center */}
-                    <div className="md:order-2">
-                      {firstPlaceAwards.map((award: any, idx: number) => (
-                        <div key={idx} className={idx > 0 ? 'mt-4' : ''}>
-                          {idx === 0 ? (
-                            <PodiumCard award={award} position="first" />
-                          ) : (
-                            <AwardCardCompact award={award} />
-                          )}
-                        </div>
-                      ))}
+                      {/* Oro - Center */}
+                      <div className="md:order-2">
+                        {excGold.map((entry, idx) => (
+                          <div key={idx} className={idx > 0 ? 'mt-4' : ''}>
+                            {idx === 0 ? (
+                              <PodiumCard entry={entry} position="first" tier="exc" />
+                            ) : (
+                              <AwardCardCompact entry={entry} />
+                            )}
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Bronce - Right */}
+                      <div className="md:order-3 md:mt-12">
+                        {excBronze.map((entry, idx) => (
+                          <div key={idx} className={idx > 0 ? 'mt-4' : ''}>
+                            {idx === 0 ? (
+                              <PodiumCard entry={entry} position="third" tier="exc" />
+                            ) : (
+                              <AwardCardCompact entry={entry} />
+                            )}
+                          </div>
+                        ))}
+                      </div>
                     </div>
+                  </div>
+                )}
 
-                    {/* Third Place - Right */}
-                    <div className="md:order-3 md:mt-12">
-                      {thirdPlaceAwards.map((award: any, idx: number) => (
-                        <div key={idx} className={idx > 0 ? 'mt-4' : ''}>
-                          {idx === 0 ? (
-                            <PodiumCard award={award} position="third" />
-                          ) : (
-                            <AwardCardCompact award={award} />
-                          )}
-                        </div>
+                {/* Otros EXC sin posición / 4º */}
+                {excOthers.length > 0 && (
+                  <div className="border-t border-white/10 pt-10 mb-16">
+                    <div className="flex items-center gap-4 mb-6">
+                      <span className="w-10 h-[1px] bg-[#a58a1b]/40" />
+                      <span className="text-[#c9a93d]/80 text-[11px] font-medium tracking-[0.3em] uppercase">
+                        Otros Excelentes
+                      </span>
+                      <span className="flex-1 h-[1px] bg-white/5" />
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {excOthers.map((entry, idx) => (
+                        <AwardCardCompact key={idx} entry={entry} />
                       ))}
                     </div>
                   </div>
                 )}
 
-                {/* Special & Other Awards */}
-                {(specialAwards.length > 0 || otherAwards.length > 0) && (
-                  <div className="border-t border-white/10 pt-12 mt-8">
+                {/* Premios Cachorros (MB) */}
+                {puppyAwards.length > 0 && (
+                  <div className="border-t border-white/10 pt-10 mb-16">
                     <div className="flex items-center gap-4 mb-8">
-                      <span className="w-10 h-[1px] bg-[#a58a1b]/50" />
-                      <span className="text-[#c9a93d] text-[11px] font-medium tracking-[0.3em] uppercase">
-                        Otros Reconocimientos
+                      <span className="w-10 h-[1px] bg-[#c9a07a]/60" />
+                      <span className="text-[#f3d6b3] text-[11px] font-medium tracking-[0.3em] uppercase">
+                        Premios Cachorros · Muy Bueno
                       </span>
                       <span className="flex-1 h-[1px] bg-white/5" />
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {[...specialAwards, ...otherAwards].map((award: any, idx: number) => (
-                        <AwardCardCompact key={idx} award={award} />
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                      {puppyGold.map((entry, idx) => (
+                        <PodiumCard key={`pg-${idx}`} entry={entry} position="first" tier="puppy" />
+                      ))}
+                      {puppyOthers.map((entry, idx) => (
+                        <AwardCardCompact key={`po-${idx}`} entry={entry} />
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Insignias destacadas (BIS, BOB, BOG, ...) */}
+                {specialBadges.length > 0 && (
+                  <div className="border-t border-white/10 pt-10">
+                    <div className="flex items-center gap-4 mb-8">
+                      <span className="w-10 h-[1px] bg-[#a58a1b]/50" />
+                      <span className="text-[#c9a93d] text-[11px] font-medium tracking-[0.3em] uppercase">
+                        Insignias Destacadas
+                      </span>
+                      <span className="flex-1 h-[1px] bg-white/5" />
+                    </div>
+                    <div className="flex flex-wrap gap-3">
+                      {specialBadges.map((b, idx) => (
+                        <SpecialBadgeChip key={idx} badge={b} />
                       ))}
                     </div>
                   </div>
@@ -427,14 +516,23 @@ export default async function Page({ params }: Args) {
 }
 
 // Podium Card - Dark theme for awards section
-function PodiumCard({ award, position }: { award: any; position: 'first' | 'second' | 'third' }) {
+function PodiumCard({
+  entry,
+  position,
+  tier = 'exc',
+}: {
+  entry: ParsedEntry
+  position: 'first' | 'second' | 'third'
+  tier?: 'exc' | 'puppy'
+}) {
+  const { award, parsed } = entry
   const dog = award.dog as Ejemplare | null
   const fallbackName = (award as { dogName?: string }).dogName?.trim()
   const dogSlug = dog && typeof dog === 'object' ? dog.slug : null
   const dogName = dog && typeof dog === 'object' ? dog.name : (fallbackName || 'Ejemplar')
   const dogImage = dog && typeof dog === 'object' ? dog.mainImage : null
 
-  const positionConfig = {
+  const excPalette = {
     first: {
       label: '1º',
       name: 'Primer Lugar',
@@ -460,8 +558,36 @@ function PodiumCard({ award, position }: { award: any; position: 'first' | 'seco
       textColor: '#cd7f32',
     },
   }
-
-  const config = positionConfig[position]
+  const puppyPalette = {
+    first: {
+      label: '1º',
+      name: 'Primer Lugar Cachorros',
+      gradient: 'from-[#f7e0c2] via-[#e8c39a] to-[#c9a07a]',
+      borderColor: '#e8c39a',
+      bgGlow: 'rgba(232, 195, 154, 0.15)',
+      textColor: '#f3d6b3',
+    },
+    second: {
+      label: '2º',
+      name: 'Segundo Lugar Cachorros',
+      gradient: 'from-[#f7e0c2] via-[#e8c39a] to-[#c9a07a]',
+      borderColor: '#e8c39a',
+      bgGlow: 'rgba(232, 195, 154, 0.12)',
+      textColor: '#f3d6b3',
+    },
+    third: {
+      label: '3º',
+      name: 'Tercer Lugar Cachorros',
+      gradient: 'from-[#f7e0c2] via-[#e8c39a] to-[#c9a07a]',
+      borderColor: '#e8c39a',
+      bgGlow: 'rgba(232, 195, 154, 0.1)',
+      textColor: '#f3d6b3',
+    },
+  }
+  const config = (tier === 'puppy' ? puppyPalette : excPalette)[position]
+  const gradeLabel = parsed.grade
+    ? `${parsed.grade}${parsed.position ? ` ${parsed.position}º` : ''}`
+    : award.title
 
   const CardContent = () => (
     <div
@@ -508,7 +634,7 @@ function PodiumCard({ award, position }: { award: any; position: 'first' | 'seco
             <path d="M8 12.5V20l4-2 4 2v-7.5" />
           </svg>
           <span className="text-[10px] uppercase tracking-[0.2em] font-medium" style={{ color: config.textColor }}>
-            {award.title}
+            {gradeLabel}
           </span>
         </div>
 
@@ -517,6 +643,19 @@ function PodiumCard({ award, position }: { award: any; position: 'first' | 'seco
         </h3>
 
         <p className="text-white/50 text-sm">{config.name}</p>
+
+        {parsed.accolades.length > 0 && (
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {parsed.accolades.map((acc, i) => (
+              <span
+                key={i}
+                className="text-[9px] uppercase tracking-[0.15em] px-2 py-1 border border-white/15 text-white/70"
+              >
+                {shortAccolade(acc)}
+              </span>
+            ))}
+          </div>
+        )}
 
         {/* Bottom accent */}
         <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${config.gradient} transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500`} />
@@ -536,12 +675,16 @@ function PodiumCard({ award, position }: { award: any; position: 'first' | 'seco
 }
 
 // Compact Award Card - Dark theme
-function AwardCardCompact({ award }: { award: any }) {
+function AwardCardCompact({ entry }: { entry: ParsedEntry }) {
+  const { award, parsed } = entry
   const dog = award.dog as Ejemplare | null
   const fallbackName = (award as { dogName?: string }).dogName?.trim()
   const dogSlug = dog && typeof dog === 'object' ? dog.slug : null
   const dogName = dog && typeof dog === 'object' ? dog.name : (fallbackName || 'Ejemplar')
   const dogImage = dog && typeof dog === 'object' ? dog.mainImage : null
+  const gradeLabel = parsed.grade
+    ? `${parsed.grade}${parsed.position ? ` ${parsed.position}º` : ''}`
+    : award.title
 
   const CardContent = () => (
     <div className="flex gap-4 p-4 bg-white/5 border border-white/10 relative overflow-hidden group hover:bg-white/10 hover:border-[#a58a1b]/30 transition-all duration-300">
@@ -561,12 +704,24 @@ function AwardCardCompact({ award }: { award: any }) {
             <path d="M8 12.5V20l4-2 4 2v-7.5" />
           </svg>
           <span className="text-[10px] text-[#c9a93d] uppercase tracking-wider font-medium truncate">
-            {award.title}
+            {gradeLabel}
           </span>
         </div>
         <h3 className="font-heading text-lg text-white group-hover:text-[#c9a93d] transition-colors truncate">
           {dogName}
         </h3>
+        {parsed.accolades.length > 0 && (
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {parsed.accolades.map((acc, i) => (
+              <span
+                key={i}
+                className="text-[9px] uppercase tracking-[0.15em] px-1.5 py-0.5 border border-white/15 text-white/60"
+              >
+                {shortAccolade(acc)}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
       {/* Hover accent */}
       <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#a58a1b] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
@@ -582,6 +737,31 @@ function AwardCardCompact({ award }: { award: any }) {
   }
 
   return <CardContent />
+}
+
+function SpecialBadgeChip({
+  badge,
+}: {
+  badge: { accolade: string; dogName: string; dogSlug: string | null }
+}) {
+  const label = shortAccolade(badge.accolade)
+  const inner = (
+    <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-[#a58a1b]/15 to-[#c9a93d]/10 border border-[#c9a93d]/30 text-[#f3d6b3] text-xs">
+      <span className="font-heading uppercase tracking-[0.18em] text-[10px]">{label}</span>
+      <span className="text-white/70 truncate max-w-[180px]">{badge.dogName}</span>
+    </span>
+  )
+  if (badge.dogSlug) {
+    return (
+      <Link
+        href={`/nuestros-goldens/${badge.dogSlug}`}
+        className="hover:opacity-90 transition-opacity"
+      >
+        {inner}
+      </Link>
+    )
+  }
+  return inner
 }
 
 export async function generateMetadata({ params }: Args): Promise<Metadata> {

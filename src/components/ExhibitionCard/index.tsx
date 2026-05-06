@@ -5,11 +5,23 @@ import Link from 'next/link'
 import type { Exposicione, Media as MediaType } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { cn } from '@/utilities/ui'
+import { parseAward } from '@/utilities/parseAward'
 
 interface ExhibitionCardProps {
   exhibition: Exposicione | null | undefined
   className?: string
   variant?: 'default' | 'premium' | 'compact'
+}
+
+function getAwardDotColor(grade: string | null, position: number | null): string {
+  if (grade === 'EXC') {
+    if (position === 1) return '#ffd700'
+    if (position === 2) return '#c0c0c0'
+    if (position === 3) return '#cd7f32'
+    return '#a58a1b'
+  }
+  if (grade === 'MB') return '#e8c39a'
+  return '#6b6560'
 }
 
 export const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
@@ -102,30 +114,25 @@ export const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
                     typeof award.dog === 'object' && award.dog !== null
                       ? award.dog.name
                       : (fallbackName || 'Ejemplar')
-
-                  // Get position color
-                  const positionColors: Record<string, string> = {
-                    first: '#ffd700',
-                    second: '#c0c0c0',
-                    third: '#cd7f32',
-                    special: '#a58a1b',
-                    other: '#6b6560'
-                  }
-                  const positionColor = positionColors[award.position || 'other'] || '#a58a1b'
+                  const parsed = parseAward(award.title)
+                  const gradeLabel = parsed.grade
+                    ? `${parsed.grade}${parsed.position ? ` ${parsed.position}º` : ''}`
+                    : award.title
+                  const dotColor = getAwardDotColor(parsed.grade, parsed.position)
 
                   return (
                     <div key={idx} className="flex items-center gap-3">
                       <div
                         className="w-2 h-2 rounded-full flex-shrink-0"
-                        style={{ backgroundColor: positionColor }}
+                        style={{ backgroundColor: dotColor }}
                       />
                       <div className="flex-1 min-w-0">
                         <span className="text-sm text-gray-800 font-medium truncate block">
                           {dogName}
                         </span>
-                        {award.title && (
+                        {gradeLabel && (
                           <span className="text-xs text-gray-400 truncate block">
-                            {award.title}
+                            {gradeLabel}
                           </span>
                         )}
                       </div>
@@ -247,6 +254,10 @@ export const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
                   typeof award.dog === 'object' && award.dog !== null
                     ? award.dog.name
                     : (fallbackName || 'Ejemplar')
+                const parsed = parseAward(award.title)
+                const gradeLabel = parsed.grade
+                  ? `${parsed.grade}${parsed.position ? ` ${parsed.position}º` : ''}`
+                  : award.title
                 return (
                   <div key={idx} className="flex items-center gap-2 text-sm text-gray-500">
                     <svg
@@ -261,7 +272,7 @@ export const ExhibitionCard: React.FC<ExhibitionCardProps> = ({
                     </svg>
                     <span className="truncate">
                       <span className="font-medium text-gray-700">{dogName}</span>
-                      {award.title && <span className="text-gray-400"> - {award.title}</span>}
+                      {gradeLabel && <span className="text-gray-400"> - {gradeLabel}</span>}
                     </span>
                   </div>
                 )
