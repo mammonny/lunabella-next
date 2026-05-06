@@ -44,19 +44,22 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
 
     const cacheTag = resource.updatedAt
 
+    const resolveSrc = (u?: string | null): string => {
+      if (!u) return ''
+      const base = /^https?:\/\//i.test(u) ? u : `${getClientSideURL()}${u}`
+      return `${base}?${cacheTag}`
+    }
+
     // Si se proporciona un size y existe en sizes, usar esa versión
     if (sizeFromProps && sizes) {
-      // Verificar si el tamaño solicitado existe en sizes
       const sizeKey = sizeFromProps as keyof typeof sizes
       if (sizes[sizeKey] && sizes[sizeKey]?.url) {
-        src = `${getClientSideURL()}${sizes[sizeKey]?.url}?${cacheTag}`
+        src = resolveSrc(sizes[sizeKey]?.url)
       } else {
-        // Si el tamaño solicitado no existe en sizes, usar la URL original
-        src = `${getClientSideURL()}${url}?${cacheTag}`
+        src = resolveSrc(url)
       }
     } else {
-      // Si no se proporciona un size o no existe en sizes, usar la URL original
-      src = `${getClientSideURL()}${url}?${cacheTag}`
+      src = resolveSrc(url)
     }
   }
 
