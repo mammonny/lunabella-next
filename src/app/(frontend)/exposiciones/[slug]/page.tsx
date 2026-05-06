@@ -302,24 +302,36 @@ export default async function Page({ params }: Args) {
 
                 {/* Quick Stats */}
                 <div className="flex flex-wrap justify-center gap-8 md:gap-12 mb-16">
-                  <div className="flex items-center gap-4 group">
-                    <div className="w-14 h-14 bg-gradient-to-br from-[#ffd700] to-[#daa520] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-white font-heading font-bold text-2xl">{excGold.length}</span>
+                  {(excGold.length > 0 || excSilver.length > 0 || excBronze.length > 0) && (
+                    <>
+                      <div className="flex items-center gap-4 group">
+                        <div className="w-14 h-14 bg-gradient-to-br from-[#ffd700] to-[#daa520] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                          <span className="text-white font-heading font-bold text-2xl">{excGold.length}</span>
+                        </div>
+                        <span className="text-white/70 text-sm uppercase tracking-wide">Oro</span>
+                      </div>
+                      <div className="flex items-center gap-4 group">
+                        <div className="w-14 h-14 bg-gradient-to-br from-[#e8e8e8] to-[#a8a8a8] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                          <span className="text-white font-heading font-bold text-2xl">{excSilver.length}</span>
+                        </div>
+                        <span className="text-white/70 text-sm uppercase tracking-wide">Plata</span>
+                      </div>
+                      <div className="flex items-center gap-4 group">
+                        <div className="w-14 h-14 bg-gradient-to-br from-[#cd7f32] to-[#a0522d] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                          <span className="text-white font-heading font-bold text-2xl">{excBronze.length}</span>
+                        </div>
+                        <span className="text-white/70 text-sm uppercase tracking-wide">Bronce</span>
+                      </div>
+                    </>
+                  )}
+                  {excOthers.length > 0 && (
+                    <div className="flex items-center gap-4 group">
+                      <div className="w-14 h-14 bg-gradient-to-br from-[#a58a1b] to-[#8a7316] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <span className="text-white font-heading font-bold text-2xl">{excOthers.length}</span>
+                      </div>
+                      <span className="text-white/70 text-sm uppercase tracking-wide">Excelentes</span>
                     </div>
-                    <span className="text-white/70 text-sm uppercase tracking-wide">Oro</span>
-                  </div>
-                  <div className="flex items-center gap-4 group">
-                    <div className="w-14 h-14 bg-gradient-to-br from-[#e8e8e8] to-[#a8a8a8] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-white font-heading font-bold text-2xl">{excSilver.length}</span>
-                    </div>
-                    <span className="text-white/70 text-sm uppercase tracking-wide">Plata</span>
-                  </div>
-                  <div className="flex items-center gap-4 group">
-                    <div className="w-14 h-14 bg-gradient-to-br from-[#cd7f32] to-[#a0522d] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-white font-heading font-bold text-2xl">{excBronze.length}</span>
-                    </div>
-                    <span className="text-white/70 text-sm uppercase tracking-wide">Bronce</span>
-                  </div>
+                  )}
                   {puppyAwards.length > 0 && (
                     <div className="flex items-center gap-4 group">
                       <div className="w-14 h-14 bg-gradient-to-br from-[#f3d6b3] to-[#c9a07a] flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
