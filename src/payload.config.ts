@@ -93,11 +93,7 @@ export default buildConfig({
     ...plugins,
     vercelBlobStorage({
       collections: {
-        media: {
-          // Sirve URLs directas de Blob en lugar de proxiar por /api/media/file/.
-          // El proxy fallaba (404) en producción y rompía todas las imágenes.
-          disablePayloadAccessControl: true,
-        },
+        media: true,
       },
       token: process.env.BLOB_READ_WRITE_TOKEN || '',
     }),
