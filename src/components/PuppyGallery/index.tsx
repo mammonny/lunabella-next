@@ -91,7 +91,7 @@ export function PuppyGallery({
     <div className="w-full">
       {/* Imagen Principal */}
       <div
-        className="relative aspect-[4/5] mb-4 bg-muted overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
+        className="relative aspect-[4/3] mb-4 bg-muted overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
         onClick={() => {
           setInitialImageIndex(0)
           setLightboxOpen(true)
