@@ -117,6 +117,21 @@ html[data-theme='dark'] {
   color: var(--theme-elevation-600);
 }
 
+// List view: table column headers in dark gold (legible + brand)
+// Was #a19480 (~2.8:1, fails AA) → gold-dark #7a6513 (~6.5:1, AA strong)
+.collection-list table th,
+.table table th {
+  color: var(--theme-success-650);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+// Search input placeholder also gold-toned
+.search-filter input::placeholder {
+  color: var(--theme-success-600);
+  opacity: 1;
+}
+
 // Fix: date picker month/year select text not visible
 .date-time-picker .react-datepicker {
   .react-datepicker__month-select,

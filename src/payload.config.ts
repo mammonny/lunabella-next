@@ -45,10 +45,14 @@ export default buildConfig({
     },
     components: {
       beforeLogin: ['@/components/BeforeLogin'],
-      beforeDashboard: ['@/components/BeforeDashboard'],
       graphics: {
         Logo: '@/components/AdminLogo',
         Icon: '@/components/AdminIcon',
+      },
+      views: {
+        dashboard: {
+          Component: '@/components/Dashboard',
+        },
       },
     },
     importMap: {

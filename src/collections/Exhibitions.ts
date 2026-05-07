@@ -10,6 +10,64 @@ import { isAdminOrEditor } from '../access/isAdminOrEditor'
 import { collectionAccess } from '../access/hideFromEditor'
 import type { Exposicione } from '../payload-types'
 
+const linkAwardsByName: CollectionAfterChangeHook<Exposicione> = async ({
+  doc,
+  req: { payload, context },
+}) => {
+  if (context.disableRevalidate) return doc
+  const awards = doc.awards ?? []
+  const orphanNames = Array.from(
+    new Set(
+      awards
+        .filter((a) => !a.dog && typeof a.dogName === 'string' && a.dogName.trim().length > 0)
+        .map((a) => (a.dogName as string).trim()),
+    ),
+  )
+  if (orphanNames.length === 0) return doc
+
+  const lookups = await Promise.all(
+    orphanNames.map(async (n) => {
+      const r = await payload.find({
+        collection: 'ejemplares',
+        where: {
+          and: [
+            { _status: { equals: 'published' } },
+            { or: [{ name: { equals: n } }, { apodo: { equals: n } }] },
+          ],
+        },
+        depth: 0,
+        limit: 2,
+      })
+      return [n.toLowerCase(), r] as const
+    }),
+  )
+  const matchById = new Map<string, number>()
+  for (const [key, r] of lookups) {
+    if (r.totalDocs === 1 && r.docs[0]) matchById.set(key, r.docs[0].id as number)
+  }
+  if (matchById.size === 0) return doc
+
+  let mutated = false
+  const newAwards = awards.map((a) => {
+    if (a.dog) return a
+    const key = (a.dogName ?? '').trim().toLowerCase()
+    const id = matchById.get(key)
+    if (!id) return a
+    mutated = true
+    return { ...a, dog: id }
+  })
+  if (!mutated) return doc
+
+  await payload.update({
+    collection: 'exposiciones',
+    id: doc.id,
+    data: { awards: newAwards } as never,
+    context: { disableRevalidate: true },
+  })
+  payload.logger.info(`[linkAwardsByName] Linked ${matchById.size} award(s) in "${doc.slug}"`)
+  return doc
+}
+
 const revalidateExhibition: CollectionAfterChangeHook<Exposicione> = ({
   doc,
   previousDoc,
@@ -203,6 +261,7 @@ export const Exhibitions: CollectionConfig = {
     {
       name: 'publishedAt',
       type: 'date',
+      label: 'Publicado el',
       admin: {
         position: 'sidebar',
       },
@@ -221,7 +280,7 @@ export const Exhibitions: CollectionConfig = {
         return data
       },
     ],
-    afterChange: [revalidateExhibition],
+    afterChange: [revalidateExhibition, linkAwardsByName],
     afterDelete: [revalidateExhibitionDelete],
   },
   versions: {

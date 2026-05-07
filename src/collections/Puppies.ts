@@ -256,6 +256,7 @@ export const Puppies: CollectionConfig = {
     {
       name: 'publishedAt',
       type: 'date',
+      label: 'Publicado el',
       admin: {
         position: 'sidebar',
       },

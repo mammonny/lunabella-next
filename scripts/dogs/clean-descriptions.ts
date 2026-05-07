@@ -88,10 +88,13 @@ async function main() {
     const removed = children.length - kept.length
     if (removed === 0) continue
 
-    const cleaned = {
-      ...description,
-      root: { ...description.root, children: kept },
-    }
+    const cleaned =
+      kept.length === 0
+        ? null
+        : {
+            ...description,
+            root: { ...description.root, children: kept },
+          }
     if (!dry) {
       await payload.update({
         collection: 'ejemplares',

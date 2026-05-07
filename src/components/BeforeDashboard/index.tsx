@@ -17,8 +17,8 @@ const BeforeDashboard: React.FC = () => {
       </Banner>
       <p>
         {isAdmin
-          ? 'Gestiona tus perros, camadas, cachorros y contenido del sitio web desde aqui.'
-          : 'Gestiona los ejemplares y exposiciones desde aqui.'}
+          ? 'Gestiona tus ejemplares, camadas, cachorros, páginas, publicaciones, exposiciones y formularios desde aquí.'
+          : 'Gestiona los ejemplares y exposiciones desde aquí.'}
       </p>
     </div>
   )

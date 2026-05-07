@@ -73,6 +73,10 @@ export const plugins: Plugin[] = [
       payment: false,
     },
     formOverrides: {
+      labels: {
+        singular: 'Formulario',
+        plural: 'Formularios',
+      },
       access: {
         create: isAdmin,
         delete: isAdmin,
@@ -103,6 +107,10 @@ export const plugins: Plugin[] = [
       },
     },
     formSubmissionOverrides: {
+      labels: {
+        singular: 'Envío de Formulario',
+        plural: 'Envíos de Formularios',
+      },
       access: {
         create: () => true,
         delete: isAdmin,
@@ -118,6 +126,10 @@ export const plugins: Plugin[] = [
     collections: ['publicaciones'],
     beforeSync: beforeSyncWithSearch,
     searchOverrides: {
+      labels: {
+        singular: 'Resultado de Búsqueda',
+        plural: 'Resultados de Búsqueda',
+      },
       access: {
         create: isAdmin,
         delete: isAdmin,

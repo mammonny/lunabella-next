@@ -172,6 +172,7 @@ export const Posts: CollectionConfig<'publicaciones'> = {
     {
       name: 'publishedAt',
       type: 'date',
+      label: 'Publicado el',
       admin: {
         date: {
           pickerAppearance: 'dayAndTime',

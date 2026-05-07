@@ -88,7 +88,7 @@ export const Pages: CollectionConfig<'paginas'> = {
               },
             },
           ],
-          label: 'Content',
+          label: 'Contenido',
         },
         {
           name: 'meta',
@@ -122,6 +122,7 @@ export const Pages: CollectionConfig<'paginas'> = {
     {
       name: 'publishedAt',
       type: 'date',
+      label: 'Publicado el',
       admin: {
         position: 'sidebar',
       },
