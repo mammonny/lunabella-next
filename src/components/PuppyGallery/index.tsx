@@ -91,14 +91,14 @@ export function PuppyGallery({
     <div className="w-full">
       {/* Imagen Principal */}
       <div
-        className="relative aspect-square mb-4 bg-muted overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
+        className="relative aspect-[4/5] mb-4 bg-muted overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
         onClick={() => {
           setInitialImageIndex(0)
           setLightboxOpen(true)
         }}
       >
         {mainImage ? (
-          <Media resource={mainImage} fill size="square" className="object-contain" priority />
+          <Media resource={mainImage} fill size="large" imgClassName="object-cover" priority />
         ) : (
           <Image
             src="/placeholder.svg?height=600&width=600"
@@ -122,7 +122,7 @@ export function PuppyGallery({
                 setLightboxOpen(true)
               }}
             >
-              <Media resource={item.image} fill size="square" className="object-cover" />
+              <Media resource={item.image} fill size="square" imgClassName="object-cover" />
             </div>
           ))}
         </div>
