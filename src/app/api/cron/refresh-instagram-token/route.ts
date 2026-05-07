@@ -26,7 +26,7 @@ export async function GET(request: Request) {
 
     if (expiresAt) {
       const daysUntilExpiry = (expiresAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24)
-      if (daysUntilExpiry > 14) {
+      if (daysUntilExpiry > 30) {
         return NextResponse.json({
           message: 'Token still valid',
           expiresAt: expiresAt.toISOString(),
