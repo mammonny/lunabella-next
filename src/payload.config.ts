@@ -40,11 +40,17 @@ export default buildConfig({
   },
   admin: {
     meta: {
-      titleSuffix: ' - LunaBella',
+      titleSuffix: ' - Admin LunaBella',
+      description: 'Panel de administración LunaBella',
+      openGraph: {
+        siteName: 'LunaBella',
+        description: 'Panel de administración LunaBella',
+      },
       icons: [{ url: '/favicon.ico' }, { url: '/favicon.svg', type: 'image/svg+xml' }],
     },
     components: {
       beforeLogin: ['@/components/BeforeLogin'],
+      afterNavLinks: ['@/components/TranslateNavLink'],
       graphics: {
         Logo: '@/components/AdminLogo',
         Icon: '@/components/AdminIcon',
@@ -52,6 +58,14 @@ export default buildConfig({
       views: {
         dashboard: {
           Component: '@/components/Dashboard',
+        },
+        translate: {
+          Component: '@/components/TranslateView',
+          path: '/translate',
+          meta: {
+            title: 'Traducciones',
+            openGraph: { title: 'Traducciones' },
+          },
         },
       },
     },
