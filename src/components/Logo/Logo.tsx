@@ -17,7 +17,7 @@ export const Logo = (props: Props) => {
       width={562}
       height={152}
       sizes="160px"
-      className={clsx('h-10 w-auto shrink-0', className)}
+      className={clsx('h-9 w-auto shrink-0 md:h-10', className)}
       loading={loading}
       priority={priority === 'high'}
     />
