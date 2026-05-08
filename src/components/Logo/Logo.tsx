@@ -12,10 +12,11 @@ export const Logo = (props: Props) => {
 
   return (
     <Image
-      src="/logo-lunabella-s.png"
+      src="/logo-lunabella.png"
       alt="LunaBella - Criadores de Golden Retriever"
-      width={180}
-      height={60}
+      width={562}
+      height={152}
+      sizes="160px"
       className={clsx('h-10 w-auto shrink-0', className)}
       loading={loading}
       priority={priority === 'high'}
