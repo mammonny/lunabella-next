@@ -52,6 +52,7 @@ export const AdminBar: React.FC<{
       <div className="container">
         <PayloadAdminBar
           {...adminBarProps}
+          authCollectionSlug="usuarios"
           className="py-2 text-white"
           classNames={{
             controls: 'font-medium text-white',
