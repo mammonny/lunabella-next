@@ -67,8 +67,8 @@ export default function AvisoLegalPage() {
                   </li>
                   <li>
                     <strong>Telefono:</strong>{' '}
-                    <a href="tel:+34670004089" className="text-[#7a6210] hover:underline">
-                      670 004 089
+                    <a href="tel:+34670004080" className="text-[#7a6210] hover:underline">
+                      670 004 080
                     </a>
                   </li>
                   <li><strong>Actividad:</strong> Crianza y comercializacion de perros Golden Retriever</li>

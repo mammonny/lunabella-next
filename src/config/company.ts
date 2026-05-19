@@ -6,7 +6,7 @@
 export const companyInfo = {
   name: 'Criadero de Golden Retriever LunaBella', // Nombre de la empresa
   address: 'Barrio Elbarrena 31, 20247 Zaldibia (Gipuzkoa), Espana', // Dirección de la empresa
-  phone: '+34670004089', // Número de teléfono
+  phone: '+34670004080', // Número de teléfono
   email: 'maria@lunabella.es', // Email de contacto
   metro: '-', // Estaciones de metro cercanas
   razonSocial: 'GAMA KALITATE SL', // Razón social
@@ -19,7 +19,7 @@ export const companyInfo = {
  * Configuración de WhatsApp con ofuscación para prevenir spam
  * El número se construye dinámicamente para dificultar el scraping automático
  */
-const whatsappParts = ['3', '4', '6', '7', '0', '0', '0', '4', '0', '8', '9']
+const whatsappParts = ['3', '4', '6', '7', '0', '0', '0', '4', '0', '8', '0']
 
 /**
  * Obtiene el número de WhatsApp construyéndolo dinámicamente

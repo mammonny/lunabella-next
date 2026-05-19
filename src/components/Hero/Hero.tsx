@@ -128,11 +128,11 @@ export function Hero({
                   </Button>
                   <Button size="lg" variant="outline" className="gap-4">
                     <Link
-                      href="tel:+34670004089"
+                      href="tel:+34670004080"
                       className="flex items-center gap-2 whitespace-nowrap"
                       aria-label="Contactar con LunaBella Golden Retriever"
                     >
-                      670 004 089 <PhoneOutgoing className="w-4 h-4" strokeWidth={2} />
+                      670 004 080 <PhoneOutgoing className="w-4 h-4" strokeWidth={2} />
                     </Link>
                   </Button>
                 </div>
