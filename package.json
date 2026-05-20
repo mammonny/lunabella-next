@@ -23,6 +23,7 @@
     "@ai-sdk/gateway": "^3.0.110",
     "@payloadcms/admin-bar": "3.84.1",
     "@payloadcms/db-vercel-postgres": "3.84.1",
+    "@payloadcms/email-resend": "^3.84.1",
     "@payloadcms/live-preview-react": "3.84.1",
     "@payloadcms/next": "3.84.1",
     "@payloadcms/payload-cloud": "3.84.1",
@@ -61,6 +62,7 @@
     "react": "19.2.5",
     "react-dom": "19.2.5",
     "react-hook-form": "7.45.4",
+    "resend": "^6.12.3",
     "sharp": "0.32.6",
     "sonner": "^2.0.3",
     "tailwind-merge": "^2.3.0",
@@ -85,7 +87,8 @@
     "prettier": "^3.4.2",
     "tailwindcss": "^3.4.3",
     "tsx": "^4.21.0",
-    "typescript": "5.7.3"
+    "typescript": "5.7.3",
+    "xlsx": "^0.18.5"
   },
   "packageManager": "pnpm@10.3.0",
   "engines": {

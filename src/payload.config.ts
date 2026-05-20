@@ -1,5 +1,6 @@
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
+import { resendAdapter } from '@payloadcms/email-resend'
 import { es } from '@payloadcms/translations/languages/es'
 
 import sharp from 'sharp' // sharp-import
@@ -103,6 +104,11 @@ export default buildConfig({
       connectionString: process.env.POSTGRES_URL || '',
     },
     push: process.env.NODE_ENV !== 'production',
+  }),
+  email: resendAdapter({
+    defaultFromAddress: 'noreply@lunabella.es',
+    defaultFromName: 'LunaBella',
+    apiKey: process.env.RESEND_API_KEY || '',
   }),
   collections: [Pages, Posts, Breeds, Dogs, Puppies, Litters, Exhibitions, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
