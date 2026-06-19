@@ -31,6 +31,7 @@ import { draftMode } from 'next/headers'
 import { NavbarCombined } from '@/components/Header/navbar-combined'
 import { Container } from '@/components/Container/container'
 import { CookieConsentBanner } from '@/components/CookieConsent/CookieConsent'
+import { Analytics } from '@vercel/analytics/next'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -73,6 +74,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Toaster richColors position="bottom-right" />
         </Providers>
         <CookieConsentBanner />
+        <Analytics />
       </body>
     </html>
   )
