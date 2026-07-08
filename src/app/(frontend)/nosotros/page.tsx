@@ -5,6 +5,7 @@ import { PageBreadcrumbs } from '@/components/Breadcrumbs'
 import SectionDivider from '@/components/SectionDivider'
 import ScrollProgress from '@/components/ScrollProgress'
 import TestimonialsGrid from '@/components/Testimonials/testimonialsgrid'
+import { PageHero } from '@/components/PageHero'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -47,54 +48,12 @@ export default function NosotrosPage() {
 
       <main className="isolate">
         {/* Hero Section - Compact Editorial Style (same as nuestros-perros) */}
-        <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 min-h-[18rem] md:min-h-[28rem] overflow-hidden">
-          {/* Background Image */}
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url('/images/nosotros/cria-etica-golden.jpg')`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center 40%',
-            }}
-          />
-          {/* Strong gradient overlay for readability */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background: `linear-gradient(
-                100deg,
-                rgba(0, 0, 0, 0.9) 0%,
-                rgba(0, 0, 0, 0.75) 40%,
-                rgba(0, 0, 0, 0.5) 70%,
-                rgba(0, 0, 0, 0.3) 100%
-              )`,
-            }}
-          />
-
-          <div className="relative z-10 container mx-auto px-6 lg:px-12">
-            <div className="max-w-2xl">
-              {/* Ornamental detail */}
-              <div className="flex items-center gap-3 mb-5 w-[15rem] animate-fade-in-up">
-                <span className="flex-1 h-[1px] bg-gradient-to-r from-[#c9a93d] to-transparent" />
-                <span className="text-[#c9a93d] text-xs font-medium tracking-[0.3em] uppercase">
-                  Nuestra historia
-                </span>
-              </div>
-
-              {/* Título principal */}
-              <h1 className="mb-5 text-display text-3xl md:text-4xl lg:text-5xl text-white leading-[1.15] animate-fade-in-up delay-100">
-                Nuestra{' '}
-                <span className="text-gradient-gold">filosofía</span>
-              </h1>
-
-              {/* Descripción */}
-              <p className="text-white/70 text-base md:text-lg leading-relaxed max-w-xl animate-fade-in-up delay-200">
-                Para nosotros ningún perro es &laquo;solo una mascota&raquo;, es el mejor amigo de
-                la familia. Por ello críamos Golden Retriever con pasión y un trato familiar.
-              </p>
-            </div>
-          </div>
-        </section>
+        <PageHero
+          kicker="Nuestra historia"
+          imageSrc="/images/nosotros/cria-etica-golden.jpg"
+          title={<>Nuestra <span className="text-gradient-gold">filosofía</span></>}
+          description="Para nosotros ningún perro es «solo una mascota», es el mejor amigo de la familia. Por ello críamos Golden Retriever con pasión y un trato familiar."
+        />
 
         <PageBreadcrumbs items={[
           { label: 'Inicio', href: '/' },

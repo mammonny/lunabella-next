@@ -311,6 +311,9 @@ html[data-theme='light'] {
   .delay-500 { animation-delay: 500ms; }
   .delay-600 { animation-delay: 600ms; }
   .delay-700 { animation-delay: 700ms; }
+  .delay-800 { animation-delay: 800ms; }
+  .delay-1000 { animation-delay: 1000ms; }
+  .delay-1200 { animation-delay: 1200ms; }
 
   /* Smooth image reveal */
   .animate-image-reveal {
@@ -355,6 +358,89 @@ html[data-theme='light'] {
 
   @keyframes lineDraw {
     to { transform: scaleX(1); }
+  }
+
+  /* ===== HERO CINEMATIC (variante lunabella) ===== */
+
+  /* Ken Burns: la imagen se asienta lentamente al cargar */
+  .hero-kenburns {
+    transform: scale(1.05);
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-kenburns {
+      animation: heroKenBurns 14s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+  }
+
+  @keyframes heroKenBurns {
+    from { transform: scale(1.18); }
+    to { transform: scale(1.05); }
+  }
+
+  /* Reveal del título palabra a palabra */
+  .hero-word-mask {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: bottom;
+    padding-bottom: 0.12em;
+    margin-bottom: -0.12em;
+  }
+
+  .hero-word {
+    display: inline-block;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-word {
+      transform: translateY(140%);
+      animation: heroWordRise 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: calc(150ms + var(--wr-i, 0) * 70ms);
+    }
+  }
+
+  @keyframes heroWordRise {
+    to { transform: translateY(0); }
+  }
+
+  /* Línea dorada fina que se dibuja (kicker y cita) */
+  .hero-line-draw {
+    transform-origin: left;
+    transform: scaleX(0);
+    animation: lineDraw 1.2s cubic-bezier(0.22, 1, 0.36, 1) 400ms forwards;
+  }
+
+  /* Parallax al hacer scroll — CSS scroll-driven, con fallback silencioso */
+  .hero-cinematic {
+    view-timeline: --hero-view block;
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-parallax-media {
+        animation: heroMediaDrift linear both;
+        animation-timeline: --hero-view;
+        animation-range: exit 0% exit 100%;
+      }
+
+      .hero-parallax-content {
+        animation: heroContentDrift linear both;
+        animation-timeline: --hero-view;
+        animation-range: exit 0% exit 70%;
+      }
+    }
+  }
+
+  @keyframes heroMediaDrift {
+    to { transform: translateY(18%); }
+  }
+
+  @keyframes heroContentDrift {
+    to {
+      opacity: 0;
+      transform: translateY(-8%);
+    }
   }
 
   /* ===== GRAIN TEXTURE OVERLAY ===== */

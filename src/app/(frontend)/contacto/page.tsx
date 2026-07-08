@@ -6,6 +6,7 @@ import { getPayload } from 'payload'
 import React from 'react'
 import Image from 'next/image'
 import CTASection from '@/components/CTASection'
+import { renderHeroWords } from '@/components/Hero/heroWords'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -38,18 +39,24 @@ export default async function ContactPage() {
       {/* ═══════════════════════════════════════════════════════════════
           HERO SECTION - Dramatic Split Composition
           ═══════════════════════════════════════════════════════════════ */}
-      <section className="relative min-h-[85vh] lg:min-h-screen overflow-hidden">
+      <section className="hero-cinematic relative min-h-[85vh] lg:min-h-screen overflow-hidden">
         {/* Background layers */}
         <div className="absolute inset-0">
-          {/* Main image - dramatic crop */}
-          <div className="absolute inset-0 lg:right-[45%]">
-            <Image
-              src="/images/landscape.jpg"
-              alt="Golden Retriever en paisaje"
-              fill
-              className="object-cover object-[center_30%]"
-              priority
-            />
+          {/* Main image - dramatic crop, con Ken Burns y parallax al scroll */}
+          <div className="absolute inset-0 lg:right-[45%] overflow-hidden">
+            <div className="hero-parallax-media absolute inset-0">
+              <div className="hero-kenburns absolute inset-0">
+                <Image
+                  src="/images/landscape.jpg"
+                  alt="Golden Retriever en paisaje"
+                  fill
+                  sizes="(min-width: 1024px) 55vw, 100vw"
+                  quality={80}
+                  className="object-cover object-[center_30%]"
+                  priority
+                />
+              </div>
+            </div>
             {/* Gradient overlay */}
             <div
               className="absolute inset-0"
@@ -61,6 +68,13 @@ export default async function ContactPage() {
                   rgba(0,0,0,0.3) 60%,
                   transparent 100%
                 )`
+              }}
+            />
+            {/* Acento dorado cálido, coherente con el resto de heros */}
+            <div
+              className="absolute inset-0 mix-blend-soft-light"
+              style={{
+                background: 'linear-gradient(180deg, transparent 55%, rgba(165, 138, 27, 0.22) 100%)',
               }}
             />
           </div>
@@ -99,30 +113,36 @@ export default async function ContactPage() {
                 className="flex items-center gap-4 mb-8 animate-fade-in-up"
                 style={{ animationDelay: '100ms' }}
               >
-                <span className="w-12 h-px bg-gradient-to-r from-[#a58a1b] via-[#c9a93d] to-transparent" />
+                <span className="hero-line-draw w-12 h-px bg-gradient-to-r from-[#a58a1b] via-[#c9a93d] to-transparent" />
+                <span className="golden-silhouette-sm opacity-80" />
                 <span className="text-[#a58a1b] text-xs font-medium tracking-[0.35em] uppercase">
                   Contacto
                 </span>
               </div>
 
-              {/* Main heading - large editorial */}
+              {/* Main heading: reveal palabra a palabra */}
               <h1
-                className="text-display text-white text-4xl sm:text-5xl lg:text-6xl xl:text-7xl mb-8 animate-fade-in-up"
-                style={{ animationDelay: '200ms' }}
+                className="text-display text-white text-4xl sm:text-5xl lg:text-6xl xl:text-7xl mb-8"
+                style={{
+                  filter: 'drop-shadow(0 4px 30px rgba(0,0,0,0.5)) drop-shadow(0 2px 10px rgba(0,0,0,0.3))',
+                }}
               >
-                Hablemos de
-                <br />
-                tu futuro
-                <br />
-                <span className="text-gradient-gold text-[0.65em] font-heading italic">
-                  compañero
-                </span>
+                {renderHeroWords(
+                  <>
+                    Hablemos de
+                    <br />
+                    tu futuro
+                    <br />
+                    <span className="text-gradient-gold text-[0.65em] font-heading italic">
+                      compañero
+                    </span>
+                  </>,
+                )}
               </h1>
 
               {/* Subtitle */}
               <p
-                className="text-white/75 text-lg lg:text-xl leading-relaxed max-w-md mb-12 animate-fade-in-up"
-                style={{ animationDelay: '300ms' }}
+                className="text-white/75 text-lg lg:text-xl leading-relaxed max-w-md mb-12 animate-fade-in-up delay-800"
               >
                 Cada Golden Retriever que criamos merece una familia especial.
                 Cuéntanos sobre ti.
@@ -130,8 +150,7 @@ export default async function ContactPage() {
 
               {/* Contact info cards - stacked elegantly */}
               <div
-                className="space-y-4 animate-fade-in-up"
-                style={{ animationDelay: '400ms' }}
+                className="space-y-4 animate-fade-in-up delay-1000"
               >
                 <div className="flex items-center gap-4 group">
                   <div className="w-12 h-12 flex items-center justify-center border border-white/20 group-hover:border-[#a58a1b] group-hover:bg-[#a58a1b]/10 transition-all duration-500">
@@ -257,7 +276,7 @@ export default async function ContactPage() {
 
         {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 lg:left-12 lg:translate-x-0 z-20">
-          <div className="flex flex-col items-center gap-3 animate-fade-in-up" style={{ animationDelay: '800ms' }}>
+          <div className="flex flex-col items-center gap-3 animate-fade-in-up delay-1200">
             <span className="text-white/60 text-[10px] tracking-[0.3em] uppercase rotate-0 lg:-rotate-90 lg:translate-y-8">
               Scroll
             </span>

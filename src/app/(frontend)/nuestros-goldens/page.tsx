@@ -1,5 +1,4 @@
 import type { Metadata } from 'next/types'
-import Image from 'next/image'
 import CTASection from '@/components/CTASection'
 import { PageBreadcrumbs } from '@/components/Breadcrumbs'
 
@@ -9,6 +8,7 @@ import { getPayload } from 'payload'
 import React from 'react'
 import { cn } from '@/utilities/ui'
 import ScrollProgress from '@/components/ScrollProgress'
+import { PageHero } from '@/components/PageHero'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -49,54 +49,11 @@ export default async function Page() {
       <ScrollProgress />
       <main className="isolate">
         {/* Hero Section - Compact Editorial Style */}
-        <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 min-h-[18rem] md:min-h-[28rem] overflow-hidden">
-          {/* Background Image - Decorative */}
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url('/images/landscape.jpg')`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center 40%',
-            }}
-          />
-          {/* Strong gradient overlay for readability */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background: `linear-gradient(
-                100deg,
-                rgba(0, 0, 0, 0.9) 0%,
-                rgba(0, 0, 0, 0.75) 40%,
-                rgba(0, 0, 0, 0.5) 70%,
-                rgba(0, 0, 0, 0.3) 100%
-              )`,
-            }}
-          />
-
-          <div className="relative z-10 container mx-auto px-6 lg:px-12">
-            <div className="max-w-2xl">
-              {/* Ornamental detail */}
-              <div className="flex items-center gap-3 mb-5 w-[15rem] animate-fade-in-up">
-                <span className="flex-1 h-[1px] bg-gradient-to-r from-[#c9a93d] to-transparent" />
-                <span className="text-[#c9a93d] text-xs font-medium tracking-[0.3em] uppercase">
-                  Te presentamos
-                </span>
-              </div>
-
-              {/* Título principal */}
-              <h1 className="mb-5 text-display text-3xl md:text-4xl lg:text-5xl text-white leading-[1.15] animate-fade-in-up delay-100">
-                Nuestros{' '}
-                <span className="text-gradient-gold">Golden Retriever</span>
-              </h1>
-
-              {/* Descripción */}
-              <p className="text-white/70 text-base md:text-lg leading-relaxed max-w-xl animate-fade-in-up delay-200">
-                Seleccionamos los mejores ejemplares para ofrecer cachorros sanos,
-                con excelente morfología y carácter equilibrado.
-              </p>
-            </div>
-          </div>
-        </section>
+        <PageHero
+          kicker="Te presentamos"
+          title={<>Nuestros <span className="text-gradient-gold">Golden Retriever</span></>}
+          description="Seleccionamos los mejores ejemplares para ofrecer cachorros sanos, con excelente morfología y carácter equilibrado."
+        />
 
         <PageBreadcrumbs items={[
           { label: 'Inicio', href: '/' },

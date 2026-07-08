@@ -8,6 +8,7 @@ import { getPayload } from 'payload'
 import React from 'react'
 import { cn } from '@/utilities/ui'
 import ScrollProgress from '@/components/ScrollProgress'
+import { PageHero } from '@/components/PageHero'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -64,109 +65,35 @@ export default async function Page() {
         {/* ═══════════════════════════════════════════════════════════════════
             HERO - Cinematográfico Premium con imagen de fondo
         ═══════════════════════════════════════════════════════════════════ */}
-        <section className="relative pt-32 pb-20 md:pt-40 md:pb-24 overflow-hidden">
-          {/* Background Image with cinematic treatment */}
-          <div
-            className="absolute inset-0 animate-image-reveal"
-            style={{
-              backgroundImage: `url('/images/landscape.jpg')`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center 35%',
-            }}
-          />
-
-          {/* Primary gradient - strong from bottom */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background: `linear-gradient(
-                180deg,
-                rgba(0, 0, 0, 0.4) 0%,
-                rgba(0, 0, 0, 0.3) 30%,
-                rgba(0, 0, 0, 0.6) 60%,
-                rgba(0, 0, 0, 0.92) 100%
-              )`,
-            }}
-          />
-
-          {/* Left side gradient for text readability */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background: `linear-gradient(
-                90deg,
-                rgba(0, 0, 0, 0.7) 0%,
-                rgba(0, 0, 0, 0.5) 35%,
-                rgba(0, 0, 0, 0.2) 60%,
-                transparent 80%
-              )`,
-            }}
-          />
-
-          {/* Golden accent gradient at bottom */}
-          <div
-            className="absolute inset-0 mix-blend-soft-light"
-            style={{
-              background: 'linear-gradient(180deg, transparent 60%, rgba(165, 138, 27, 0.2) 100%)',
-            }}
-          />
-
-          {/* Decorative medal icon - floating */}
-          <div className="absolute top-1/4 right-[15%] opacity-15 hidden xl:block animate-float">
-            <svg
-              className="w-32 h-32 text-[#7a6210]"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="0.5"
-              viewBox="0 0 24 24"
-            >
-              <circle cx="12" cy="8" r="6" />
-              <path d="M8 13V22l4-2.5 4 2.5V13" />
-            </svg>
-          </div>
-
-          {/* Content Container */}
-          <div className="relative z-10 container mx-auto px-6 lg:px-12">
-            <div className="max-w-4xl">
-              {/* Small ornamental detail */}
-              <div className="animate-fade-in-up mb-8">
-                <div className="flex items-center gap-4">
-                  <span className="w-16 h-[2px] bg-gradient-to-r from-[#a58a1b] to-[#c9a93d]" />
-                  <span className="golden-silhouette-sm opacity-70" />
-                  <span
-                    className="text-[#c9a93d] text-[11px] font-medium tracking-[0.4em] uppercase"
-                    style={{ textShadow: '0 2px 10px rgba(0,0,0,0.5)' }}
-                  >
-                    Palmarés Oficial
-                  </span>
-                </div>
-              </div>
-
-              {/* Título principal - Tipografía dramática con text-shadow para legibilidad */}
-              <h1
-                className="animate-fade-in-up delay-100 mb-8 text-display text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white leading-[1.05]"
-                style={{ textShadow: '0 4px 30px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.3)' }}
+        <PageHero
+          size="large"
+          kicker="Palmarés Oficial"
+          imagePosition="center 35%"
+          title={
+            <>
+              Exposiciones
+              <br />
+              <span className="text-gradient-gold">&amp; Premios</span>
+            </>
+          }
+          description="Celebramos la excelencia de nuestros Golden Retrievers en los rings de exposición más prestigiosos. Cada reconocimiento refleja años de dedicación a la preservación del estándar de la raza."
+          decoration={
+            <div className="absolute top-1/4 right-[15%] opacity-15 hidden xl:block animate-float">
+              <svg
+                className="w-32 h-32 text-[#7a6210]"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="0.5"
+                viewBox="0 0 24 24"
               >
-                Exposiciones
-                <br />
-                <span className="text-gradient-gold">&amp; Premios</span>
-              </h1>
-
-              {/* Línea decorativa animada */}
-              <div className="animate-line-draw delay-300 w-32 mb-10" />
-
-              {/* Descripción con estilo editorial */}
-              <p
-                className="animate-fade-in-up delay-400 text-white text-lg md:text-xl leading-relaxed max-w-2xl mb-12"
-                style={{ textShadow: '0 2px 15px rgba(0,0,0,0.6)' }}
-              >
-                Celebramos la excelencia de nuestros Golden Retrievers en los rings de exposición
-                más prestigiosos. Cada reconocimiento refleja años de dedicación a la preservación
-                del estándar de la raza.
-              </p>
-
-              {/* Stats Row - Premium design */}
-              <div className="animate-fade-in-up delay-500 flex flex-wrap gap-8 md:gap-12">
+                <circle cx="12" cy="8" r="6" />
+                <path d="M8 13V22l4-2.5 4 2.5V13" />
+              </svg>
+            </div>
+          }
+        >
+          {/* Stats Row - Premium design */}
+          <div className="flex flex-wrap gap-8 md:gap-12">
                 <div className="group">
                   <div className="flex items-baseline gap-2">
                     <span
@@ -220,9 +147,7 @@ export default async function Page() {
                   </span>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
+        </PageHero>
 
         {/* ═══════════════════════════════════════════════════════════════════
             INTRO SECTION - Filosofía de competición

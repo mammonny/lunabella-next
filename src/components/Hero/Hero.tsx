@@ -7,6 +7,7 @@ import { Button } from 'src/components/ui/button'
 import { CalendarArrowUp, ArrowRight, Calendar, PhoneOutgoing } from 'lucide-react'
 import { Heading, Lead, Subheading } from '@/components/Text/text'
 import { Badge } from 'src/components/ui/badge'
+import { renderHeroWords } from '@/components/Hero/heroWords'
 
 interface HeroProps {
   variant?: 'default' | 'home' | 'lunabella'
@@ -194,14 +195,22 @@ export function Hero({
   // Variante LunaBella: Diseño editorial luxury con elementos premium
   if (variant === 'lunabella') {
     return (
-      <section className="relative min-h-[85vh] flex flex-col justify-center py-24 overflow-hidden">
-        {/* Background Image with cinematic gradient */}
-        <div
-          className="absolute inset-0 animate-image-reveal [background-size:auto_115%] [background-position:85%_-30%] md:bg-cover md:[background-position:center_top]"
-          style={{
-            backgroundImage: `url(${imageSrc})`,
-          }}
-        />
+      <section className="hero-cinematic relative min-h-[85vh] flex flex-col justify-center py-24 overflow-hidden">
+        {/* Imagen de fondo optimizada (LCP) con Ken Burns y parallax al scroll */}
+        <div className="hero-parallax-media absolute inset-0">
+          <div className="hero-kenburns absolute inset-0">
+            <Image
+              src={imageSrc}
+              alt={imageAlt}
+              fill
+              priority
+              sizes="100vw"
+              quality={80}
+              className="object-cover object-[85%_25%] md:object-[center_top]"
+              {...(blurDataURL && { placeholder: 'blur' as const, blurDataURL })}
+            />
+          </div>
+        </div>
 
         {/* Primary gradient - strong from bottom */}
         <div
@@ -243,12 +252,12 @@ export function Hero({
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none grain-overlay" />
 
         {/* Main Content */}
-        <div className="relative z-10 container mx-auto px-6 lg:px-12">
+        <div className="hero-parallax-content relative z-10 container mx-auto px-6 lg:px-12">
           <div className="max-w-3xl">
             {/* Encabezado sutil */}
             <div className="animate-fade-in-up mb-6">
               <div className="flex items-center gap-3">
-                <span className="w-12 h-[1px] bg-gradient-to-r from-[#c9a93d] to-transparent" />
+                <span className="hero-line-draw w-12 h-[1px] bg-gradient-to-r from-[#c9a93d] to-transparent" />
                 <span className="golden-silhouette-sm opacity-80" />
                 <span
                   className="text-[#c9a93d] text-[11px] font-medium tracking-[0.35em] uppercase"
@@ -259,17 +268,17 @@ export function Hero({
               </div>
             </div>
 
-            {/* Título principal */}
+            {/* Título principal: reveal palabra a palabra */}
             <h1
-              className="animate-fade-in-up delay-100 mb-10 text-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white leading-[1.08]"
-              style={{ textShadow: '0 4px 30px rgba(0,0,0,0.5), 0 2px 10px rgba(0,0,0,0.3)' }}
+              className="mb-10 text-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-white leading-[1.08]"
+              style={{ filter: 'drop-shadow(0 4px 30px rgba(0,0,0,0.5)) drop-shadow(0 2px 10px rgba(0,0,0,0.3))' }}
             >
-              {title}
+              {renderHeroWords(title)}
             </h1>
 
             {/* Cita */}
             {quote && (
-              <blockquote className="animate-fade-in-up delay-200 mb-12 max-w-xl">
+              <blockquote className="animate-fade-in-up delay-800 mb-12 max-w-xl">
                 <p
                   className="text-editorial text-white/90 text-lg md:text-xl leading-relaxed"
                   style={{ textShadow: '0 2px 15px rgba(0,0,0,0.6)' }}
@@ -277,7 +286,7 @@ export function Hero({
                   &ldquo;{quote.text}&rdquo;
                 </p>
                 <footer className="mt-5 flex items-center gap-3">
-                  <span className="w-10 h-[1px] bg-gradient-to-r from-[#c9a93d] to-transparent" />
+                  <span className="hero-line-draw w-10 h-[1px] bg-gradient-to-r from-[#c9a93d] to-transparent" style={{ animationDelay: '1400ms' }} />
                   <span
                     className="text-white/70 text-sm tracking-wide"
                     style={{ textShadow: '0 1px 8px rgba(0,0,0,0.5)' }}
@@ -290,7 +299,7 @@ export function Hero({
 
             {/* Botones */}
             {ctaButtons && (
-              <div className="animate-fade-in-up delay-300 flex flex-col sm:flex-row gap-4">
+              <div className="animate-fade-in-up delay-1000 flex flex-col sm:flex-row gap-4">
                 <Link
                   href={ctaButtons.primary.href}
                   className="group inline-flex items-center justify-center gap-3 px-10 py-4 text-[13px] font-medium uppercase tracking-[0.2em] bg-[#ece8e1] text-black transition-all duration-300 ease-out hover:bg-white"
@@ -320,7 +329,7 @@ export function Hero({
         {/* Scroll indicator - clickeable, mismo destino que Conócenos */}
         <Link
           href={ctaButtons?.secondary?.href || '#quiensomos'}
-          className="absolute bottom-8 inset-x-0 mx-auto w-fit flex flex-col items-center gap-2 animate-fade-in-up delay-500 cursor-pointer group"
+          className="absolute bottom-8 inset-x-0 mx-auto w-fit flex flex-col items-center gap-2 animate-fade-in-up delay-1200 cursor-pointer group"
         >
           <span className="text-white/50 text-[10px] uppercase tracking-[0.3em] group-hover:text-white/70 transition-colors">Scroll</span>
           <div className="w-[1px] h-8 bg-gradient-to-b from-white/50 to-transparent animate-pulse group-hover:from-white/70" />

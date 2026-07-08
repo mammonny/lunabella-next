@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { PageBreadcrumbs } from '@/components/Breadcrumbs'
 import InstagramFeed from '@/components/InstagramFeed'
 import CTASection from '@/components/CTASection'
+import { PageHero } from '@/components/PageHero'
 
 export const dynamic = 'force-static'
 export const revalidate = 600
@@ -23,53 +24,11 @@ export default function GaleriaPage() {
   return (
     <main className="isolate">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-16 md:pt-40 md:pb-20 min-h-[18rem] md:min-h-[28rem] overflow-hidden">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url('/images/landscape.jpg')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center 40%',
-          }}
-        />
-        {/* Strong gradient overlay for readability */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `linear-gradient(
-              100deg,
-              rgba(0, 0, 0, 0.9) 0%,
-              rgba(0, 0, 0, 0.75) 40%,
-              rgba(0, 0, 0, 0.5) 70%,
-              rgba(0, 0, 0, 0.3) 100%
-            )`,
-          }}
-        />
-
-        <div className="relative z-10 container mx-auto px-6 lg:px-12">
-          <div className="max-w-2xl">
-            {/* Ornamental detail */}
-            <div className="flex items-center gap-3 mb-5 w-[15rem] animate-fade-in-up">
-              <span className="flex-1 h-[1px] bg-gradient-to-r from-[#c9a93d] to-transparent" />
-              <span className="text-[#c9a93d] text-xs font-medium tracking-[0.3em] uppercase">
-                Echa un vistazo
-              </span>
-            </div>
-
-            {/* Título principal */}
-            <h1 className="mb-5 text-display text-3xl md:text-4xl lg:text-5xl text-white leading-[1.15] animate-fade-in-up delay-100">
-              Momentos <span className="text-gradient-gold">LunaBella</span>
-            </h1>
-
-            {/* Descripción */}
-            <p className="text-white/70 text-base md:text-lg leading-relaxed max-w-xl animate-fade-in-up delay-200">
-              Últimas actualizaciones de nuestras redes sociales. Descubre el día a día de nuestros
-              Golden Retrievers.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        kicker="Echa un vistazo"
+        title={<>Momentos <span className="text-gradient-gold">LunaBella</span></>}
+        description="Últimas actualizaciones de nuestras redes sociales. Descubre el día a día de nuestros Golden Retrievers."
+      />
 
       <PageBreadcrumbs items={[
         { label: 'Inicio', href: '/' },
