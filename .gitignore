@@ -22,3 +22,4 @@ nul
 # Import scripts intermediate output
 tmp/
 .env*.local
+.env*

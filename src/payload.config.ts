@@ -103,7 +103,9 @@ export default buildConfig({
     pool: {
       connectionString: process.env.POSTGRES_URL || '',
     },
-    push: process.env.NODE_ENV !== 'production',
+    // PAYLOAD_DB_PUSH=false permite desarrollar contra una BD remota sin
+    // arriesgar cambios de esquema automáticos (p. ej. la BD de producción)
+    push: process.env.NODE_ENV !== 'production' && process.env.PAYLOAD_DB_PUSH !== 'false',
   }),
   email: resendAdapter({
     defaultFromAddress: 'noreply@lunabella.es',
