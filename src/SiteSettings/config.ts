@@ -4,7 +4,9 @@ export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
   label: 'Configuración del Sitio',
   access: {
-    read: () => true,
+    // Contiene el token de Instagram: nunca debe ser legible por la API pública.
+    // Las rutas internas (feed y cron) usan la API local, que ignora este control.
+    read: ({ req: { user } }) => (user as any)?.roles === 'admin',
     update: ({ req: { user } }) => (user as any)?.roles === 'admin',
   },
   admin: {
@@ -15,6 +17,9 @@ export const SiteSettings: GlobalConfig = {
       name: 'instagramAccessToken',
       type: 'text',
       label: 'Instagram Access Token',
+      access: {
+        read: ({ req: { user } }) => (user as any)?.roles === 'admin',
+      },
       admin: {
         description: 'Se renueva automáticamente via cron. No editar manualmente.',
         readOnly: true,
