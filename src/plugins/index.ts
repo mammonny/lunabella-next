@@ -163,5 +163,19 @@ export const plugins: Plugin[] = [
       footer: { description: 'Configuración del pie del sitio.', enabled: true },
       'site-settings': { description: 'Ajustes generales del sitio.', enabled: true },
     },
+    overrideApiKeyCollection: (collection) => ({
+      ...collection,
+      access: {
+        ...collection.access,
+        create: isAdmin,
+        delete: isAdmin,
+        read: isAdmin,
+        update: isAdmin,
+      },
+      admin: {
+        ...collection.admin,
+        hidden: hideFromEditor,
+      },
+    }),
   }),
 ]
