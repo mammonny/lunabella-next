@@ -76,6 +76,35 @@ html[data-theme='dark'] {
   --theme-success-950: #fdf9ef;
 }
 
+// Scrollbars: mismo estilo que el frontend (pill dorada, fondo transparente)
+// success-500 = --lb-gold (#a58a1b) y success-600 = --lb-gold-dark en modo claro
+html {
+  // Firefox y Chromium modernos (las propiedades estándar mandan sobre ::-webkit-*)
+  scrollbar-width: thin;
+  scrollbar-color: var(--theme-success-500) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+  height: 20px; // barras horizontales (p. ej. tablas del list view)
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--theme-success-500);
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+  transition: background-color 0.2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--theme-success-600);
+}
+
 // Nav sidebar branding
 .nav {
   .nav__brand {
