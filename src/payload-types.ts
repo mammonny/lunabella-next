@@ -2573,11 +2573,11 @@ export interface Footer {
 export interface SiteSetting {
   id: number;
   /**
-   * Se renueva automáticamente via cron. No editar manualmente.
+   * Un cron diario lo verifica y avisa por email a los admins si deja de funcionar o está a punto de caducar.
    */
   instagramAccessToken?: string | null;
   /**
-   * Fecha de expiración del token de Instagram.
+   * Fecha en la que el token dejará de funcionar (vacío = nunca).
    */
   instagramTokenExpiresAt?: string | null;
   updatedAt?: string | null;
