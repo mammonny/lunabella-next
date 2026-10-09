@@ -2,6 +2,25 @@ import { NextResponse } from 'next/server'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 
+// Start alerting this many days before the token (or its data access) expires
+const ALERT_THRESHOLD_DAYS = 14
+
+type DebugTokenData = {
+  is_valid: boolean
+  type?: string
+  expires_at?: number // unix seconds, 0 = never
+  data_access_expires_at?: number // unix seconds, 0 = never
+  error?: { message: string }
+}
+
+/**
+ * Daily health check for the Instagram token.
+ *
+ * Long-lived user tokens cannot be extended: exchanging one again via fb_exchange_token
+ * returns a new token with the SAME expiry date, so the old "auto-renew" silently did
+ * nothing. The stored token is now a Page access token (no expiry); this cron only checks
+ * it with debug_token and emails the admins if it is invalid or about to expire.
+ */
 export async function GET(request: Request) {
   const authHeader = request.headers.get('authorization')
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
@@ -11,74 +30,99 @@ export async function GET(request: Request) {
   try {
     const payload = await getPayload({ config })
 
-    // Read current token from DB
     const settings = await payload.findGlobal({ slug: 'site-settings' })
-    const currentToken = settings.instagramAccessToken || process.env.INSTAGRAM_ACCESS_TOKEN
+    const token = settings.instagramAccessToken || process.env.INSTAGRAM_ACCESS_TOKEN
 
-    if (!currentToken) {
-      return NextResponse.json({ error: 'No Instagram token found in DB or env' }, { status: 500 })
+    const problems: string[] = []
+    let info: DebugTokenData | null = null
+
+    if (!token) {
+      problems.push('No hay token de Instagram ni en la base de datos ni en las variables de entorno.')
+    } else {
+      const debugUrl = new URL('https://graph.facebook.com/v24.0/debug_token')
+      debugUrl.searchParams.set('input_token', token)
+      debugUrl.searchParams.set(
+        'access_token',
+        `${process.env.FACEBOOK_APP_ID}|${process.env.FACEBOOK_APP_SECRET}`,
+      )
+
+      const response = await fetch(debugUrl.toString(), { cache: 'no-store' })
+      const json = await response.json()
+      info = json.data ?? null
+
+      if (!info) {
+        problems.push(`No se pudo verificar el token (debug_token): ${JSON.stringify(json.error ?? json)}`)
+      } else {
+        if (!info.is_valid) {
+          problems.push(`El token ya no es válido: ${info.error?.message ?? 'motivo desconocido'}`)
+        }
+
+        const deadlines: [string, number | undefined][] = [
+          ['El token caduca', info.expires_at],
+          ['El acceso a datos del token caduca', info.data_access_expires_at],
+        ]
+        for (const [label, ts] of deadlines) {
+          if (!ts) continue
+          const days = (ts * 1000 - Date.now()) / (1000 * 60 * 60 * 24)
+          if (days < ALERT_THRESHOLD_DAYS) {
+            problems.push(`${label} el ${new Date(ts * 1000).toISOString()} (en ${Math.round(days)} días).`)
+          }
+        }
+      }
     }
 
-    // Check if token needs renewal (expires in less than 14 days)
-    const expiresAt = settings.instagramTokenExpiresAt
-      ? new Date(settings.instagramTokenExpiresAt)
-      : null
-
-    if (expiresAt) {
-      const daysUntilExpiry = (expiresAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24)
-      if (daysUntilExpiry > 30) {
-        return NextResponse.json({
-          message: 'Token still valid',
-          expiresAt: expiresAt.toISOString(),
-          daysUntilExpiry: Math.round(daysUntilExpiry),
+    // Keep the date shown in the admin panel truthful: whichever deadline comes first
+    // (token expiry or data access expiry), null if neither applies
+    if (info?.is_valid) {
+      const deadlines = [info.expires_at, info.data_access_expires_at].filter((ts): ts is number => !!ts)
+      const expiresAt = deadlines.length
+        ? new Date(Math.min(...deadlines) * 1000).toISOString()
+        : null
+      if (expiresAt !== (settings.instagramTokenExpiresAt ?? null)) {
+        await payload.updateGlobal({
+          slug: 'site-settings',
+          data: { instagramTokenExpiresAt: expiresAt },
         })
       }
-      payload.logger.info(`Instagram token expires in ${Math.round(daysUntilExpiry)} days, renewing...`)
-    } else {
-      payload.logger.info('No expiration date found, renewing token...')
     }
 
-    // Exchange for a new long-lived token
-    const refreshUrl = new URL('https://graph.facebook.com/v24.0/oauth/access_token')
-    refreshUrl.searchParams.set('grant_type', 'fb_exchange_token')
-    refreshUrl.searchParams.set('client_id', process.env.FACEBOOK_APP_ID || '')
-    refreshUrl.searchParams.set('client_secret', process.env.FACEBOOK_APP_SECRET || '')
-    refreshUrl.searchParams.set('fb_exchange_token', currentToken)
+    if (problems.length > 0) {
+      payload.logger.error(`Instagram token check failed: ${problems.join(' | ')}`)
 
-    const response = await fetch(refreshUrl.toString())
+      const admins = await payload.find({
+        collection: 'usuarios',
+        where: { roles: { equals: 'admin' } },
+        depth: 0,
+        limit: 10,
+      })
+      const to = admins.docs.map((user) => user.email).filter(Boolean)
 
-    if (!response.ok) {
-      const errorData = await response.json()
-      payload.logger.error(`Instagram token refresh failed: ${JSON.stringify(errorData)}`)
-      return NextResponse.json(
-        { error: 'Failed to refresh token', details: errorData },
-        { status: 502 },
-      )
+      if (to.length > 0) {
+        await payload.sendEmail({
+          to,
+          subject: '⚠️ El feed de Instagram de lunabella.es necesita atención',
+          html: `
+            <p>La comprobación diaria del token de Instagram ha detectado un problema:</p>
+            <ul>${problems.map((p) => `<li>${p}</li>`).join('')}</ul>
+            <p>Hay que generar un token nuevo en el Graph API Explorer (app <strong>lunabellafeed</strong>)
+            y guardar el token de página resultante en <code>site_settings.instagram_access_token</code>.</p>
+          `,
+        })
+      }
+
+      return NextResponse.json({ ok: false, problems, notified: to.length }, { status: 500 })
     }
-
-    const data: { access_token: string; token_type: string; expires_in: number } =
-      await response.json()
-
-    const newExpiresAt = new Date(Date.now() + data.expires_in * 1000)
-
-    // Save new token to DB
-    await payload.updateGlobal({
-      slug: 'site-settings',
-      data: {
-        instagramAccessToken: data.access_token,
-        instagramTokenExpiresAt: newExpiresAt.toISOString(),
-      },
-    })
-
-    payload.logger.info(`Instagram token renewed, expires at ${newExpiresAt.toISOString()}`)
 
     return NextResponse.json({
-      message: 'Token refreshed successfully',
-      expiresAt: newExpiresAt.toISOString(),
-      daysUntilExpiry: Math.round(data.expires_in / 86400),
+      ok: true,
+      type: info?.type,
+      expiresAt: info?.expires_at ? new Date(info.expires_at * 1000).toISOString() : 'never',
+      dataAccessExpiresAt: info?.data_access_expires_at
+        ? new Date(info.data_access_expires_at * 1000).toISOString()
+        : 'never',
     })
   } catch (error) {
-    console.error('Instagram token refresh error:', error)
+    console.error('Instagram token check error:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

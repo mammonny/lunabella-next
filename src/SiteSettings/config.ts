@@ -21,7 +21,8 @@ export const SiteSettings: GlobalConfig = {
         read: ({ req: { user } }) => (user as any)?.roles === 'admin',
       },
       admin: {
-        description: 'Se renueva automáticamente via cron. No editar manualmente.',
+        description:
+          'Un cron diario lo verifica y avisa por email a los admins si deja de funcionar o está a punto de caducar.',
         readOnly: true,
       },
     },
@@ -30,7 +31,7 @@ export const SiteSettings: GlobalConfig = {
       type: 'date',
       label: 'Instagram Token Expires At',
       admin: {
-        description: 'Fecha de expiración del token de Instagram.',
+        description: 'Fecha en la que el token dejará de funcionar (vacío = nunca).',
         readOnly: true,
         date: {
           pickerAppearance: 'dayAndTime',
