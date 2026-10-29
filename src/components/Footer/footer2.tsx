@@ -35,7 +35,7 @@ const navigation = {
   social: [
     {
       name: 'Facebook',
-      href: 'https://www.facebook.com/lunabellagolden',
+      href: 'https://www.facebook.com/p/LunaBella-Golden-Retriever-61587039142657/',
       icon: (props: React.SVGProps<SVGSVGElement>) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
@@ -48,7 +48,7 @@ const navigation = {
     },
     {
       name: 'Instagram',
-      href: 'https://www.instagram.com/lunabellagolden',
+      href: 'https://www.instagram.com/lunabella_goldenretriever/',
       icon: (props: React.SVGProps<SVGSVGElement>) => (
         <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
           <path
