@@ -25,7 +25,7 @@ const NAV_ITEMS = [
   { label: 'Cachorros', href: '/cachorros' },
   { label: 'Exposiciones', href: '/exposiciones' },
   { label: 'Galería', href: '/galeria' },
-  { label: 'Tienda', href: 'https://shop.lunabella.es' },
+  { label: 'Shop', href: 'https://shop.lunabella.es' },
 ]
 
 // Elegant NavLink with animated underline
@@ -246,7 +246,7 @@ export function NavbarCombined({ banner }: { banner?: React.ReactNode }) {
                   className="block text-base leading-7 tracking-tight text-gray-800 hover:text-gray-600"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Tienda
+                  Shop
                 </Link>
               </div>
               <div className="mt-8 flex flex-col gap-4 border-t border-gray-200 pt-6">
