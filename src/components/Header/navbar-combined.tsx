@@ -25,6 +25,7 @@ const NAV_ITEMS = [
   { label: 'Cachorros', href: '/cachorros' },
   { label: 'Exposiciones', href: '/exposiciones' },
   { label: 'Galería', href: '/galeria' },
+  { label: 'Tienda', href: 'https://shop.lunabella.es' },
 ]
 
 // Elegant NavLink with animated underline
@@ -32,10 +33,10 @@ function NavLink({ href, children, isActive }: { href: string; children: React.R
   return (
     <Link
       href={href}
-      className="group relative px-5 py-2"
+      className="group relative px-3 py-2 xl:px-5"
     >
       <span
-        className={`relative z-10 text-[14px] font-medium capitalize tracking-[0.06em] transition-colors duration-300 ${
+        className={`relative z-10 text-[13px] xl:text-[14px] font-medium capitalize tracking-[0.06em] transition-colors duration-300 ${
           isActive ? '' : 'group-hover:text-[#7a6210]'
         }`}
         style={{ color: isActive ? COLORS.gold : COLORS.charcoal }}
@@ -44,7 +45,7 @@ function NavLink({ href, children, isActive }: { href: string; children: React.R
       </span>
       {/* Underline - full width, revealed via clip-path from left */}
       <span
-        className={`absolute bottom-1 left-5 right-5 h-px transition-[clip-path] duration-300 ease-out ${
+        className={`absolute bottom-1 left-3 right-3 xl:left-5 xl:right-5 h-px transition-[clip-path] duration-300 ease-out ${
           isActive
             ? '[clip-path:inset(0_0_0_0)]'
             : '[clip-path:inset(0_100%_0_0)] group-hover:[clip-path:inset(0_0_0_0)]'
@@ -60,7 +61,7 @@ function ContactButton() {
   return (
     <Link
       href="/contacto"
-      className="group ml-6 inline-flex items-center gap-2 px-7 py-2.5 bg-black text-[#ece8e1] transition-all duration-300 ease-out hover:bg-[#1a1a1a]"
+      className="group ml-3 xl:ml-6 inline-flex shrink-0 items-center gap-2 px-7 py-2.5 bg-black text-[#ece8e1] transition-all duration-300 ease-out hover:bg-[#1a1a1a]"
     >
       <span className="text-[12px] font-medium uppercase tracking-[0.15em]">
         Contacto
@@ -110,7 +111,7 @@ export function NavbarCombined({ banner }: { banner?: React.ReactNode }) {
           paddingRight: 'var(--removed-body-scroll-bar-size, 0px)',
         }}
       >
-        <div className="px-6 lg:px-12">
+        <div className="px-6 lg:px-8 xl:px-12">
           <div className="mx-auto max-w-7xl">
             <div
               className="flex items-center justify-between"
@@ -121,6 +122,7 @@ export function NavbarCombined({ banner }: { banner?: React.ReactNode }) {
                 <Link
                   href="/"
                   title="Home"
+                  className="shrink-0"
                 >
                   <Logo />
                 </Link>
@@ -137,7 +139,7 @@ export function NavbarCombined({ banner }: { banner?: React.ReactNode }) {
                 <div className="hidden lg:flex items-center">
                   {/* Separator */}
                   <div
-                    className="mx-4 h-5 w-px"
+                    className="mx-3 xl:mx-4 h-5 w-px"
                     style={{ backgroundColor: COLORS.creamDark }}
                   />
                   <ContactButton />
@@ -238,6 +240,13 @@ export function NavbarCombined({ banner }: { banner?: React.ReactNode }) {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Galería
+                </Link>
+                <Link
+                  href="https://shop.lunabella.es"
+                  className="block text-base leading-7 tracking-tight text-gray-800 hover:text-gray-600"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Tienda
                 </Link>
               </div>
               <div className="mt-8 flex flex-col gap-4 border-t border-gray-200 pt-6">

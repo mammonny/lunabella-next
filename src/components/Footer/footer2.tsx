@@ -26,6 +26,10 @@ const footerLinks = [
     href: '/galeria',
   },
   {
+    title: 'Tienda',
+    href: 'https://shop.lunabella.es',
+  },
+  {
     title: 'Contacto',
     href: '/contacto',
   },
