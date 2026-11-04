@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Menu, X, ArrowRight } from 'lucide-react'
+import { Menu, X, ArrowRight, ShoppingBag } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from '@/Footer/link'
 import { Logo } from '../Logo/Logo'
@@ -25,7 +25,7 @@ const NAV_ITEMS = [
   { label: 'Cachorros', href: '/cachorros' },
   { label: 'Exposiciones', href: '/exposiciones' },
   { label: 'Galería', href: '/galeria' },
-  { label: 'Shop', href: 'https://shop.lunabella.es' },
+  { label: 'Tienda', href: 'https://shop.lunabella.es' },
 ]
 
 // Elegant NavLink with animated underline
@@ -145,6 +145,24 @@ export function NavbarCombined({ banner }: { banner?: React.ReactNode }) {
                   <ContactButton />
                 </div>
 
+                {/* Mobile Shop link */}
+                <Link
+                  href="https://shop.lunabella.es"
+                  className="mr-2 inline-flex items-center gap-1.5 px-2 py-2 lg:hidden"
+                >
+                  <ShoppingBag
+                    className="h-4 w-4"
+                    style={{ color: COLORS.gold }}
+                    strokeWidth={1.75}
+                  />
+                  <span
+                    className="text-[13px] font-medium tracking-[0.06em]"
+                    style={{ color: COLORS.charcoal }}
+                  >
+                    Tienda
+                  </span>
+                </Link>
+
                 {/* Mobile Menu Button */}
                 {isClient && (
                   <div className="flex items-center lg:hidden">
@@ -246,7 +264,7 @@ export function NavbarCombined({ banner }: { banner?: React.ReactNode }) {
                   className="block text-base leading-7 tracking-tight text-gray-800 hover:text-gray-600"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Shop
+                  Tienda
                 </Link>
               </div>
               <div className="mt-8 flex flex-col gap-4 border-t border-gray-200 pt-6">
