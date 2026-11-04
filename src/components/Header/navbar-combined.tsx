@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Menu, X, ArrowRight, ShoppingBag } from 'lucide-react'
+import { Menu, X, ArrowRight, ShoppingBag, type LucideIcon } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from '@/Footer/link'
 import { Logo } from '../Logo/Logo'
@@ -19,17 +19,27 @@ const COLORS = {
 }
 
 // Navigation items
-const NAV_ITEMS = [
+const NAV_ITEMS: { label: string; href: string; icon?: LucideIcon }[] = [
   { label: 'Nosotros', href: '/nosotros' },
   { label: 'Nuestros Goldens', href: '/nuestros-goldens' },
   { label: 'Cachorros', href: '/cachorros' },
   { label: 'Exposiciones', href: '/exposiciones' },
   { label: 'Galería', href: '/galeria' },
-  { label: 'Tienda', href: 'https://shop.lunabella.es' },
+  { label: 'Tienda', href: 'https://shop.lunabella.es', icon: ShoppingBag },
 ]
 
 // Elegant NavLink with animated underline
-function NavLink({ href, children, isActive }: { href: string; children: React.ReactNode; isActive: boolean }) {
+function NavLink({
+  href,
+  children,
+  isActive,
+  icon: Icon,
+}: {
+  href: string
+  children: React.ReactNode
+  isActive: boolean
+  icon?: LucideIcon
+}) {
   return (
     <Link
       href={href}
@@ -41,6 +51,13 @@ function NavLink({ href, children, isActive }: { href: string; children: React.R
         }`}
         style={{ color: isActive ? COLORS.gold : COLORS.charcoal }}
       >
+        {Icon && (
+          <Icon
+            className="mr-1.5 inline-block h-4 w-4 align-[-0.2em]"
+            style={{ color: COLORS.gold }}
+            strokeWidth={1.75}
+          />
+        )}
         {children}
       </span>
       {/* Underline - full width, revealed via clip-path from left */}
@@ -85,6 +102,7 @@ function DesktopNavLinks() {
           key={item.href}
           href={item.href}
           isActive={pathname === item.href}
+          icon={item.icon}
         >
           {item.label}
         </NavLink>
@@ -144,24 +162,6 @@ export function NavbarCombined({ banner }: { banner?: React.ReactNode }) {
                   />
                   <ContactButton />
                 </div>
-
-                {/* Mobile Shop link */}
-                <Link
-                  href="https://shop.lunabella.es"
-                  className="mr-2 inline-flex items-center gap-1.5 px-2 py-2 lg:hidden"
-                >
-                  <ShoppingBag
-                    className="h-4 w-4"
-                    style={{ color: COLORS.gold }}
-                    strokeWidth={1.75}
-                  />
-                  <span
-                    className="text-[13px] font-medium tracking-[0.06em]"
-                    style={{ color: COLORS.charcoal }}
-                  >
-                    Tienda
-                  </span>
-                </Link>
 
                 {/* Mobile Menu Button */}
                 {isClient && (
@@ -261,9 +261,14 @@ export function NavbarCombined({ banner }: { banner?: React.ReactNode }) {
                 </Link>
                 <Link
                   href="https://shop.lunabella.es"
-                  className="block text-base leading-7 tracking-tight text-gray-800 hover:text-gray-600"
+                  className="flex items-center gap-2 text-base leading-7 tracking-tight text-gray-800 hover:text-gray-600"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
+                  <ShoppingBag
+                    className="h-4 w-4"
+                    style={{ color: COLORS.gold }}
+                    strokeWidth={1.75}
+                  />
                   Tienda
                 </Link>
               </div>
